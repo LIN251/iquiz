@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.5
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+     <!--
+    *********************************************
+    * Footer Component of Template siteTemplate *
+    *********************************************
+    This page's content is displayed on the bottom of each page created based on the siteTemplate.
+    Changes made in this file will show up automatically with all pages created based on the
+    siteTemplate for the entire site, achieving great maintainability.
+    -->
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+    <ui:composition>
+        <table width="80%" border="0" align="center" cellpadding="5" cellspacing="0">
+            <tr>
+                <!--
+                **************************************************
+                Row 1 Column 1 (Left): Animated Social Media Icons
+                **************************************************
+                -->
+                <td align="left" valign="middle">
+                    <a class="social-roll" href="https://www.facebook.com/virginiatech" target="_blank">
+                        <img src="#{resource['images:socialMediaIcons/facebook.png']}" alt="Facebook"/></a>
+                    <a class="social-roll" href="https://twitter.com/virginia_tech" target="_blank">
+                        <img src="#{resource['images:socialMediaIcons/twitter.png']}" alt="Twitter"/></a>
+                    <a class="social-roll" href="https://www.linkedin.com/school/virginia-tech" target="_blank">
+                        <img src="#{resource['images:socialMediaIcons/linkedIn.png']}" alt="LinkedIn"/></a>
+                    <a class="social-roll" href="https://www.instagram.com/virginia.tech" target="_blank">
+                        <img src="#{resource['images:socialMediaIcons/instagram.png']}" alt="Instgram"/></a>
+                </td>
+                <!--
+                *****************************************
+                Row 1 Column 2 (Right): Links of Interest
+                *****************************************
+                -->
+                <td align="right" valign="middle">
+                    <a href="https://www.edamam.com"  target="_blank">
+                        <i class="fas fa-thumbs-up" />&nbsp;Edamam</a>&nbsp;&nbsp;
+                    <a href="https://www.marthastewart.com/"  target="_blank">
+                        <i class="fas fa-birthday-cake" />&nbsp;Martha Stewart</a>&nbsp;&nbsp;
+                    <a href="https://www.seriouseats.com/recipes" target="_blank">
+                        <i class="fas fa-utensils" />&nbsp;Serious Eats</a>
+                </td>
+            </tr>
+            <!--
+            **************************************************
+            Row 2 Columns 1 & 2 Merged: Attribution Statements
+            **************************************************
+            -->
+            <tr>
+                <td colspan="2" align="center" valign="middle">
+                    <a href="https://manta.cs.vt.edu/cs5704/" target="_blank">
+                        CS5705 Software Engineering</a> Assignment 1 app developed by
+                    <a href="https://www.linkedin.com/in/calvin-huang-cx/" target="_blank">
+                        Calvin Huang</a> only for educational purposes.<br /><br />
+                        <a href="https://developer.edamam.com/" target="_blank">
+                            <img src="#{resource['images:EdamamAttribution.png']}" alt="EdamanImage"/></a>
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

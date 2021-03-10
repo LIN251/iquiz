@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.5
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!--
+    **********************************************************************
+    This template page defines the page layout design for the entire site.
+    Any page created based on this template will have this layout design.
+    **********************************************************************
+    -->
+    <h:head>
+        <!-- 
+        The <title> element (a) defines a title in the browser's toolbar,
+        (b) provides a title for the page when it is added to favorites, and
+        (c) displays a title for the page in search-engine results.
+        -->
+        <title>
+            <ui:insert name="title">Recipes</ui:insert>
+        </title>
+
+        <!-- 
+        =============================
+        *   Mobile Device Support   *
+        =============================
+        Instruct the web browser on how to control the page's dimensions
+        and scaling on mobile devices. 
+        
+        The viewport meta tag is given within the <head> element for proper rendering and 
+        touch zooming on mobile devices. This tag must be used so that your pages are properly 
+        displayed on mobile devices. Initially, the XHTML page is displayed on a mobile device 
+        across its screen width at a 1:1 scale with no shrinking to fit to the screen size. 
+        The user is allowed to zoom in or zoom out by default. 
+        -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- 
+        ================================
+        *   Handling Session Timeout   *
+        ================================
+        Show the sessionTimeout.xhtml page when user's session expires. 
+        -->
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};
+              url=#{request.contextPath}/template/sessionTimeout.xhtml"/>
+
+        <!-- 
+        =============================
+        *   CSS for the Entire UI   *
+        =============================
+        The siteStyles CSS file is linked for styling and formatting the entire UI. 
+        -->
+        <h:outputStylesheet library="css" name="siteStyles.css" />
+
+        <!--
+        ========================================
+        *   Font Awesome "SVG with JS" Icons   *
+        ========================================
+        The following enables the use of more than 1,600 "Scalable Vector Graphics (SVG) with
+        JavaScript (JS)" free icons. For details, see:
+        https://fontawesome.com/icons?d=gallery&m=free
+        -->
+        <script defer='defer' src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+                integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS"
+                crossorigin="anonymous">
+        </script>
+
+        <!-- 
+        =====================
+        *   Favorite Icon   *
+        =====================
+        A favicon (short for favorite icon), also known as a shortcut icon, website icon, tab icon, 
+        URL icon or bookmark icon, is a file named favicon.ico See https://en.wikipedia.org/wiki/Favicon
+        The icon is displayed to the left of the page title on a tab in the Chrome web browser.
+        The link below enables all your UI pages to display the favorite icon.
+        
+        Use EL to get the image file since it will be referenced by all UI pages.
+        -->
+        <link rel="shortcut icon" href="#{resource['images:favicon.ico']}" type="image/x-icon" />
+
+        <!--
+        **********************************
+        *   Google Maps JavaScript API   * 
+        **********************************
+        STEP 1: Obtain your API key for Google Maps JavaScript API at
+                https://developers.google.com/maps/documentation/javascript/get-api-key
+
+        STEP 2: Create a project and set its properties
+        STEP 3: Sign in to the Google API Console at https://console.developers.google.com/
+        STEP 4: Click 'Credentials' in the left menu and then click your API key name.
+                You can restrict the use of your API key to certain domain names.
+        STEP 6: Click 'Library' in the left menu. Under the Google Maps APIs, click 
+                the following to enable these features:
+
+        <> Google Maps Embed API and then click Enable to enable it.
+        <> Google Static Maps API and then click Enable to enable it.
+        -->
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBztt9J2EE3Js0OKoeA6k8E8Zpj82CYV4"
+        type="text/javascript"></script>
+
+    </h:head>
+
+    <h:body>  
+        <div id="page">  
+            <!-- 
+            The Site Template file layout design consists of three components:
+                1. Header Component (Typically is the same for the entire UI)
+                2. Editable Content Component (each page creates its own content)
+                3. Footer Component (Typically is the same for the entire UI)
+
+            =====================================
+            * Header Component of this Template *
+            =====================================
+            The header component is displayed on the top of each page created based on this siteTemplate.
+            Changes made in the header component will show up automatically with all pages created 
+            based on this siteTemplate for the entire site, achieving great maintainability.
+            -->
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="headerTemplate.xhtml" />
+                </ui:insert>
+            </div>
+
+            <!--
+            The ui:insert tag is a templating tag that declares a named content element
+            to be defined by another Facelet. It can be used effectively with the
+            ui:define tag to pass values between Facelets (JSF pages).
+            
+            The ui:include tag is a server-side include tag for Facelets. It simply includes
+            the document pointed to by the "src" attribute as part of the current JSF page.
+            The included document should use a component or composition tag to trim unnecessary
+            markup, or it may simply contain a fragment of XHTML or XML to be included.
+
+            ===============================================
+            * Editable Content Component of this Template *
+            ===============================================
+            Any page created based on this template is expected to provide its own content
+            by using <ui:define name="editableContent">. If the page content is not defined,
+            contentTemplate's content will be used as default. 
+            
+            The Growl statements in the growlMessages.xhtml file are automatically included at the
+            top of the editableContent of every page created based on this template. This prevents 
+            manually including the Growl statements in every JSF page. 
+            
+            This approach also enables maintainability since you can modify how the Growl messages
+            are displayed only in one place for all of the UI pages of your software application.
+            -->
+            <div id="editableContent">
+                <ui:insert name="growlMessages" >
+                    <ui:include src="growlMessages.xhtml" />
+                </ui:insert>
+                <ui:insert name="editableContent" >
+                    <ui:include src="contentTemplate.xhtml" />
+                </ui:insert>
+            </div>
+
+            <!--
+            =====================================
+            * Footer Component of this Template *
+            =====================================
+            The footer component is displayed on the bottom of each page created based on this siteTemplate.
+            Changes made in the footer component will show up automatically with all pages created 
+            based on this siteTemplate for the entire site, achieving great maintainability.
+            -->
+            <div id="footer">
+                <ui:insert name="footer" >
+                    <ui:include src="footerTemplate.xhtml" />
+                </ui:insert>
+            </div>
+
+        </div>
+    </h:body>
+</html>

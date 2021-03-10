@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.5
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!--
+    *********************************************
+    * Header Component of Template siteTemplate *
+    *********************************************
+    This page's content is displayed on the top of each page created based on the siteTemplate.
+    Changes made in this file will show up automatically with all pages created based on the
+    siteTemplate for the entire site, achieving great maintainability.
+    -->
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+    <ui:composition>
+        <h:form>
+            <table border="0" cellspacing="0" cellpadding="10" width="100%">
+                <tr>
+                    <!--
+                    *************************************
+                    Column 1 (Left): Recipe Image
+                    *************************************
+                    -->
+                    <td align="left" valign="middle" style="width:111px;">
+                        <!-- 
+                        Use EL to reference the image file since it will be accessed from all UI pages.
+                        Column width = Logo Image Width
+                        -->
+                        <h:link outcome="/index">
+                            <img src="#{resource['images:recipesLogo.png']}"
+                                 style="max-width:100%; height:auto; float:left; padding-left:10px; border:none;"
+                                 alt="Recipes Logo" />
+                        </h:link>
+                    </td>
+                    <!--
+                    *************************
+                    Column 2 (Center): Unused
+                    *************************
+                    -->
+                    <td align="center" valign="middle">
+
+                    </td>
+                    <!--
+                    ***************************************
+                    Column 3 (Right): Hamburger Menu Button
+                    ***************************************
+                    -->
+                    <td align="right" valign="middle" style="width:100px;">
+
+                        <!--
+                        tabindex="0" enables the menu element to be focusable and to trigger interaction. 
+                        This HTML5 attribute makes the menu element act like a button.
+                        
+                        style="float:left;" and style="left:0;" place the drop-down menu on the left side.
+                        
+                        <h:link> renders into <a href> for which drop-down menu CSS style is defined.
+                        Therefore, the drop-down menu works either with <a href> or <h:link>.
+                        -->
+                        <div tabindex="0" class="menu" style="float:right;padding-right:20px;">
+                            <div class="menu-dropdown" style="right:0;">
+
+                                <!-- 
+                                =====================================
+                                Selecting "Home" displays index.xhtml
+                                =====================================
+                                -->
+                                <h:link outcome="/index" class="standardText">
+                                    <i class="fas fa-home" />&nbsp;Home
+                                </h:link>
+
+                                <!-- 
+                                ============================================
+                                Selecting "Recipes I Like" displays List.xhtml
+                                ============================================
+                                -->
+                                <h:link outcome="/recipe/RecipesILike" class="standardText">
+                                    <i class="fas fa-list" />&nbsp;Recipes I Like
+                                </h:link>
+
+
+
+                                <!--
+                                ================================================
+                                Selecting "Recipe Search" displays a Dialog Box
+                                ================================================
+                                -->
+                                <h:link onclick="PF('RecipeSearchDialog').show();return false;" class="standardText">
+                                    <i class="fas fa-search" />&nbsp;Recipe Search
+                                </h:link>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </h:form>
+
+        <!-- 
+        Selecting the 'Recipe Search' menu option displays the included
+        RecipeSearchDialog.xhtml file in a dialog box on top of the currently displayed page.
+        -->
+        <ui:include src="/search/RecipeSearchDialog.xhtml"/>
+
+    </ui:composition>
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+</html>

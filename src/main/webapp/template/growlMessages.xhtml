@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.5
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <!--
+        "Growl is a global notification system and pop-up notification implementation for the 
+        Mac OS X and Windows operating systems. Applications can use Growl to display small 
+        notifications about events which may be important to the user." [Wikipedia]
+
+        PrimeFaces Growl is based on the Mac’s growl notification widget and
+        is used to display FacesMessage messages in an overlay.
+        
+        See the section on 'Skinning PrimeFaces Growl Messages' in siteStyles.css for
+        how the messages are styled by way of overriding PrimeFaces default styles.
+        
+        A FacesMessage message consists of 3 parts: Severity, Summary, and Detail.
+            public FacesMessage(FacesMessage.Severity severity, String summary, String detail)
+        
+        You have no control of the Detail part of the system generated severity="error" messages.
+        They are displayed twice, one for Summary and one for Detail. Therefore, we specify 
+        showDetail="false" for the severity="error" messages to prevent such duplicate messages.
+        
+        We make Warning messages to be sticky, sticky="true", so that the user chooses when
+        to close the message box by clicking anywhere on it.
+        -->
+
+        <!-- Display informational messages for 5 seconds and fade away (1 second = 1000 milliseconds) -->
+        <p:growl id="growlInfoMessage" severity="info" showDetail="true" life="5000" />
+
+        <!-- Display warning messages with no time duration and let the user close it by clicking the message box -->
+        <p:growl id="growlWarningMessage" severity="warn" showDetail="true" sticky="true" />
+
+        <!-- Display error messages for 10 seconds and fade away -->
+        <p:growl id="growlErrorMessage" severity="error" showDetail="false" life="10000" />
+
+        <!-- Display fatal error messages for 10 seconds and fade away -->
+        <p:growl id="growlFatalMessage" severity="fatal" showDetail="true" life="10000" />
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,573 @@
+/*****************************************************
+*   Cascading Style Sheets (CSS) Style Definitions   *
+*   Composed by Osman Balci for the Recipes app.     *
+*****************************************************/
+
+/*
+==================================================
+|   Redefine Styles of Some Standard HTML Tags   |
+==================================================
+*/
+html, body {
+    /*
+    -----------------------------------------------------------------------
+    To use a background color for your UI pages, uncomment the one you like 
+    from examples below or select one from the list of HTML colors at 
+    https://www.w3schools.com/colors/colors_names.asp
+    -----------------------------------------------------------------------
+    */
+    /* background-color: aliceblue;     */
+    /* background-color: azure;         */
+    /* background-color: beige;         */
+    /* background-color: gainsboro;     */
+    /* background-color: ivory;         */
+    /* background-color: linen;         */
+    background-color: oldlace;
+    /* background-color: papayawhip;    */
+    /* background-color: wheat;         */
+    /* background-color: powderblue;    */
+
+    width: 100%;                    /* Set page width horizontally 100% */
+    height: 100%;                   /* Set page height vertically 100% */
+}
+
+/* Style standard HTML tags body and paragraph p */
+body, p {
+    font-family: "Times New Roman", Times, Serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: black;
+}
+
+/* Style standard HTML tag header 1 */
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: maroon;
+}
+
+/*
+=======================================
+|   Site Template Component Styling   |
+=======================================
+
+In XHTML code, we refer to a CSS style defined in a CSS file by using Selectors. 
+
+See CSS Selector Reference at https://www.w3schools.com/cssref/css_selectors.asp
+
+#id         defines the style of a page component whose unique identification is id.
+.stylename  defines the style of all elements marked as class="stylename".
+
+Since ids are unique, the #id styling is used only once.
+.stylename can be used many times to style a class of elements.
+ 
+Style the div component whose unique id is "page" per reference
+<div id="page"> in siteTemplate
+*/
+#page {
+    font-family: "Times New Roman", Times, Serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: black;
+}
+/* 
+Style the div component whose unique id is "header" per reference 
+<div id="header"> in siteTemplate
+*/
+#header {
+    background-color: azure;
+    width: 100%;
+    height: 84px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    margin-bottom: 16px;
+}
+/* 
+Style the div component whose unique id is "editableContent" per reference 
+<div id="editableContent"> in siteTemplate
+*/
+#editableContent {
+    /* height = 100% window height - (header height 84px + footer height 100px) */
+    height: calc(100% - 184px); 
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    margin-top: 100px;
+    margin-bottom: 16px;
+}
+/* 
+Style the div component whose unique id is "footer" per reference 
+<div id="footer"> in siteTemplate
+*/
+#footer {
+    height: 100px;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/*
+==========================
+|   Styling Hyperlinks   |
+==========================
+The <a> tag defines a hyperlink.
+Hyperlinks (or links) are styled differently depending on what state they are in:
+    a:link      - normal state (unvisited link)
+    a:visited   - visited state (link clicked on by user earlier)
+    a:hover     - mouse over state (link when the user hovers over it)
+    a:active    - active state (link currently clicked on by user)
+*/
+
+/* Set the font family for the standard HTML tag "a" for hyperlinks */
+a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+}
+
+a:link {
+    text-decoration: none; /* Do not underline the link in normal state */
+}
+
+a:visited {
+    text-decoration: none; /* Do not underline the link in visited state */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline the link in hover state */
+}
+
+a:active {
+    text-decoration: underline; /* Underline the link in active state */
+}
+
+/*
+==================================
+Social Media Buttons Spin Animated
+==================================
+Animate the social media icons in footerTemplate by spinning them
+360 degrees on mouseover (hovering over).
+
+CSS Transitions allow property changes in CSS values to occur smoothly over a
+specified duration. This smoothing animates the changing of a CSS value when
+triggered by a mouse click. The timing function value “all ease 0.3s” allows
+the speed of the transition to change over time. 
+*/
+.social-roll {
+    height: 36px;
+    width: 36px;
+    margin: 5px;
+    float: left;
+    border-radius: 50%;
+    -webkit-transition: all ease 0.3s;  /* For WebKit */
+    -moz-transition: all ease 0.3s;     /* For Mozilla */
+    -o-transition: all ease 0.3s;       /* For Opera */
+    -ms-transition: all ease 0.3s;      /* For IE10+ */
+    transition: all ease 0.3s;          /* Generic */
+}
+
+/* Mouseover (hovering over) the social media icon animates its 360-degree rotation */
+.social-roll:hover {
+    -webkit-transform:rotate(360deg);  /* For WebKit */
+    -moz-transform:rotate(360deg);     /* For Mozilla */
+    -o-transform:rotate(360deg);       /* For Opera */
+    -ms-transform:rotate(360deg);      /* For IE10+ */
+    transform:rotate(360deg);          /* Generic */
+}
+
+/*
+=============================================
+|   Drop-Down Menu in the Header on Right   |
+=============================================
+Used in headerTemplate
+*/
+
+.menu { 
+    position:relative; 
+    display:inline-block; 
+    z-index:2; 
+    padding:0; 
+    margin:0; 
+    outline:0; 
+    text-align:left; 
+}
+
+.menu:before { 
+    /*
+    UTF-8 Unicode character \2630 represents a hamburger icon
+    UTF-8 Unicode character \a0 represents a no-break space
+    */
+    content: "\2630 \a0 Menu"; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color:white;                /* Text color */
+    padding: 5px 10px;          /* Top Right Bottom Left */
+    border: 1px solid teal;
+    border-radius:6px;
+    background: teal;
+}
+.menu:focus { pointer-events:none; }
+.menu:focus .menu-dropdown { opacity:1; visibility:visible; }
+
+.menu-dropdown {
+    background: teal;
+    width: auto;
+    margin:6px 20px 0 0;        /* Top Right Bottom Left = 20px on right same as in headerTemplate */
+    padding: 10px;              /* Top Right Bottom Left */
+    border:1px teal solid;
+    border-radius:6px;
+    pointer-events: auto;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 1s;
+}
+
+.menu-dropdown a {
+    background:transparent;
+    border:none;
+    outline:0;
+    display:block;
+    color:white;
+    text-decoration:none;
+    width:160px;
+    padding:5px;
+}
+
+.menu-dropdown a:hover {
+    background-color: lightgreen;
+    color:black;
+}
+
+/*
+===============================
+|   Other Style Definitions   |
+===============================
+*/
+
+/* Style p:panelGrid Column 1 */
+.panelGridColumn1 {
+    text-align: right;
+    background-color: bisque; 
+    white-space: nowrap;        /* Disallow line break */
+}
+
+/* Style p:panelGrid Column 2 */
+.panelGridColumn2 {
+    text-align: left;
+    background-color: blanchedalmond; 
+    white-space: nowrap;        /* Disallow line break */
+}
+
+/* Style standard text and input text field text */
+.standardText, .inputTextField, .recipeDataFields {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Used in CreateAccount, EditAccount, SignIn, EnterUsername, and SecurityQuestion */
+.inputTextField {
+    width: 400px;
+}
+
+.recipeDataFields {
+    width: 600px;
+}
+
+.recipeImageCenter {
+    display: block;  /* Displays an element as a block element (like <p>) */
+    /*
+    top and bottom margins = 0
+    right and left margins = auto (The browser calculates a margin)
+    Since the default alignment is "center", the image is centered.
+    */
+    margin: 0 auto;
+}
+
+/* 
+Proportionately scale image to show on mobile devices and smaller browser windows.
+Scale the image downward, but do not enlarge it beyond its actual width size.
+*/
+.scalableImage {
+    max-width: 100%;
+    height: auto;
+    border: none;
+}
+
+/* Styles for h:panelGrid */
+.columnRecipeImage {
+    width: 100px;
+}
+.columnMiddlePart {
+    width: 75%;
+}
+.columnInfoButton {
+    width: 10%;
+}
+
+/* 
+Styles for the dialogs CurrentRecipeDetails.xhtml 
+and SearchedRecipeDetails.xhtml 
+*/
+.dialogPoster {
+    width: 50%;
+}
+.dialogText {
+    width: 50%;
+}
+.ratingColumn1 {
+    width: 45%;
+    height: 100%;
+    vertical-align: middle;
+}
+.ratingColumn2 {
+    width: 45%;
+}
+.ratingColumn3 {
+    width: 10%;
+}
+.selectedRecipeTitle {
+    font-size: 20px;
+}
+
+/*
+-----------------------------------------
+Skinning PrimeFaces Galleria Image Slider
+-----------------------------------------
+*/
+
+.ui-galleria-caption {
+    position: absolute;
+    left: 0px !important;
+    background-color: rgba(240, 255, 255, 0.8) !important;
+    padding: 0px !important;
+}
+
+/*
+=========================================
+|   Skinning PrimeFaces UI Components   |
+=========================================
+Check the documentation of a PrimeFaces UI element to identify
+which styles are used so that you can override them.
+
+You can also Inspect the UI element under your web browser
+to determine which CSS style is used so that you can override it. 
+
+Styles are applied in a cascading order. To make sure that a
+style is applied regardless of where the style is defined in the
+cascading hierarchy, use the !important attribute.
+*/
+
+/*
+----------------------------------
+Skinning PrimeFaces Growl Messages
+----------------------------------
+*/
+.ui-growl-item-container {
+    background: none !important;            /* Remove background gradient */
+    background-color: lightgray !important; /* Color background Light Gray */
+    opacity: 1.0  !important;               /* Remove background semi transparency */
+    box-shadow: none;                       /* Remove message box shadow */
+}
+.ui-shadow {
+    text-shadow: none;  /* Remove message text shadow */
+}
+.ui-growl-info {
+    font-size: 10pt !important;
+    color: darkgreen;   /* Color severity="info" message Summary text as Dark Green */
+}
+.ui-growl-warn {
+    font-size: 10pt !important;
+    color: darkblue;    /* Color severity="warn" (warning) message Summary text as Dark Blue */
+}
+.ui-growl-error {
+    font-size: 10pt !important;
+    color: purple;      /* Color severity="error" message Summary text as Purple */
+}
+.ui-growl-fatal {
+    font-size: 10pt !important;
+    color: darkred;     /* Color severity="fatal" message Summary text as Dark Red */
+}
+/* Close sticky="true" message box by clicking anywhere in the box */
+.ui-growl-icon-close {
+    width: 100%;
+    height: 100%;
+    background-image: none !important;
+}
+
+/*
+---------------------------
+Skinning PrimeFaces Buttons
+---------------------------
+*/
+
+/* 
+Style PrimeFaces ui-button, which is the base style for buttons such as
+p:commandButton, p:button, .ui-confirmdialog-yes, .ui-confirmdialog-no,
+.ui-fileupload-choose, .ui-fileupload-upload, .ui-fileupload-cancel
+*/
+.ui-button {
+    border-radius: 2em !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10pt !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    text-decoration: none;
+    color: black;
+    padding-top: 3px !important; 
+    padding-bottom: 2px !important;
+    padding-left: 3px !important;       /* Leave space before the icon */
+}
+
+/*
+We use Font Awesome "SVG with JS" icons within buttons of type ui-button.
+Therefore, remove the default ui-icon showing in the ui-button background.
+*/
+.ui-button .ui-icon {
+    margin-top: -0.65em !important; 
+    text-indent: 0px !important;
+    background-image: none !important;
+    margin-left: 0.52em;                /* Leave space before the icon */
+}
+
+/*
+We use Font Awesome "SVG with JS" icons within ui-confirm-dialog box.
+Therefore, remove the default ui-icon showing in the ui-confirm-dialog background.
+*/
+.ui-confirm-dialog .ui-icon {
+    text-indent: 0px !important;
+    background-image: none !important;
+}
+
+/* Remove icon from the Choose, Upload and Cancel p:fileUpload buttons */
+.ui-fileupload-choose .ui-icon {
+    visibility: hidden !important;
+}
+.ui-fileupload-upload .ui-icon {
+    visibility: hidden !important;
+}
+.ui-fileupload-cancel .ui-icon {
+    visibility: hidden !important;
+}
+
+/* Move title text to left for the Choose, Upload and Cancel p:fileUpload buttons */
+.ui-fileupload-choose .ui-button-text {
+    margin-left: -12px !important;
+}
+.ui-fileupload-upload .ui-button-text {
+    margin-left: -12px !important;
+}
+.ui-fileupload-cancel .ui-button-text {
+    margin-left: -12px !important;
+}
+
+/*
+---------------------------------------
+Skinning PrimeFaces Other UI Components
+---------------------------------------
+*/
+
+/*
+Position the confirmation dialog box on the center of the screen per
+<p:confirmDialog id="confirmDialogBox" ...> used in Profile and QuestionnairesTaken
+*/
+#confirmDialogBox {
+    top: 50%;
+    left: 50%;
+}
+
+/* Leave 5px padding to left and right of p:dataTable */
+.dataTable {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Override PrimeFaces style definitions for the Data Table component */
+.ui-datatable-data, .ui-column-title, .ui-panel-titlebar, .ui-paginator, 
+.ui-dialog-content, .ui-confirm-dialog-message, .ui-widget-content {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+/* Override PrimeFaces style definitions for the Data Grid component */
+.ui-datagrid, .ui-datagrid-content, .ui-datagrid-data, .ui-datagrid-row, 
+.ui-datagrid-column {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    background-color: oldlace;
+}
+
+/* Override PrimeFaces style definitions for the Panel component */
+.ui-panel, .ui-panel-content {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    background-color: oldlace;
+}
+
+/* Override PrimeFaces style definitions for the Dialog component */
+.ui-dialog, .ui-dialog-content, .ui-dialog-buttonpane {
+    color: maroon;
+    background-color: oldlace;
+}
+
+/*
+========================================================
+|   Delete auto generated jsfcrud.css file since its   |
+|   content is provided below with minor changes.      |
+========================================================
+*/
+
+/* 
+Set font size in ui-widget styled elements to 12px.
+
+The !important directive forces the style to be applied no matter
+where the style appears in the CSS document cascading hierarchy.
+*/
+
+.ui-widget {
+    font-size: 12px !important;
+}
+
+/* 
+The overflow property specifies what happens 
+if content overflows an element's box. 
+*/
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+
+/* This styles the <p:panel header="..."> */
+.ui-widget-header {
+    text-align: center;
+    /* text-transform: uppercase; we do not want this */
+}
+
+/* Leave 10px pading on top for the ui-button elements */
+.ui-button {
+    margin-top: 10px !important;
+}
