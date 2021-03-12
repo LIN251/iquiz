@@ -28,7 +28,7 @@ public class SliderController {
 
         sliderImages = new ArrayList<>();
 
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 1; i <= 9; i++) {
             sliderImages.add("photo" + i + ".png");
         }
     }
@@ -53,40 +53,31 @@ public class SliderController {
 
         switch (image) {
             case "photo1.png":
-                imageDescription = "Roasted Beet and Citrus Salad With Ricotta and Pistachio Vinaigrette";
+                imageDescription = "Sign up iQuiz";
                 break;
             case "photo2.png":
-                imageDescription = "Shrimp and Pasta Primavera";
+                imageDescription = "Login iQuiz";
                 break;
             case "photo3.png":
-                imageDescription = "Vanilla Cake";
+                imageDescription = "Quizzes bank";
                 break;
             case "photo4.png":
-                imageDescription = "Chicken with Sourdough-Mushroom Stuffing";
+                imageDescription = "Create quiz on iQuiz";
                 break;
             case "photo5.png":
-                imageDescription = "The Best Minestrone Soup Recipe";
+                imageDescription = "Access quiz by QR code";
                 break;
             case "photo6.png":
-                imageDescription = "Almond-Cardamom Baklava";
+                imageDescription = "Access quiz by Access code";
                 break;
             case "photo7.png":
-                imageDescription = "Lemon Pepper Dill Tilapia";
+                imageDescription = "Quiz view";
                 break;
             case "photo8.png":
-                imageDescription = "Pumpkin Pecan Cheesecake Cookie Bars";
+                imageDescription = "Publish your own quizzes";
                 break;
             case "photo9.png":
-                imageDescription = "Parmesan Crusted Chicken";
-                break;
-            case "photo10.png":
-                imageDescription = "Mint Chocolate Ice Cream Sandwich";
-                break;
-            case "photo11.png":
-                imageDescription = "Red Cabbage Salad with Roasted Cipollini Onions";
-                break;
-            case "photo12.png":
-                imageDescription = "Buffalo Chicken Drumsticks with Blue Cheese Dip";
+                imageDescription = "Show results";
                 break;
         }
 

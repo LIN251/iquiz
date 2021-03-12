@@ -33,19 +33,23 @@
                         Use EL to reference the image file since it will be accessed from all UI pages.
                         Column width = Logo Image Width
                         -->
-                        <h:link outcome="/index">
-                            <img src="#{resource['images:recipesLogo.png']}"
-                                 style="max-width:100%; height:auto; float:left; padding-left:10px; border:none;"
-                                 alt="Recipes Logo" />
-                        </h:link>
+<!--                        <h:link outcome="/index">-->
+<!--                            <img src="#{resource['images:iquiz_logo.png']}"-->
+<!--                                 style="max-width:130%; height:auto; float:left; padding-left:8px; border:none;"-->
+<!--                                 alt="iQuiz Logo" />-->
+<!--                        </h:link>-->
                     </td>
                     <!--
                     *************************
                     Column 2 (Center): Unused
                     *************************
                     -->
-                    <td align="center" valign="middle">
-
+                    <td align="center" valign="middle" >
+                        <h:link outcome="/index">
+                            <img src="#{resource['images:iquiz_logo.png']}"
+                                 style="max-width:120px; height:auto; "
+                                 alt="iQuiz Logo" />
+                        </h:link>
                     </td>
                     <!--
                     ***************************************
@@ -66,23 +70,23 @@
                         <div tabindex="0" class="menu" style="float:right;padding-right:20px;">
                             <div class="menu-dropdown" style="right:0;">
 
-                                <!-- 
+                                <!--
                                 =====================================
                                 Selecting "Home" displays index.xhtml
                                 =====================================
                                 -->
-                                <h:link outcome="/index" class="standardText">
-                                    <i class="fas fa-home" />&nbsp;Home
-                                </h:link>
+<!--                                <h:link outcome="/index" class="standardText">-->
+<!--                                    <i class="fas fa-home" />&nbsp;Home-->
+<!--                                </h:link>-->
 
-                                <!-- 
-                                ============================================
-                                Selecting "Recipes I Like" displays List.xhtml
-                                ============================================
-                                -->
-                                <h:link outcome="/recipe/RecipesILike" class="standardText">
-                                    <i class="fas fa-list" />&nbsp;Recipes I Like
-                                </h:link>
+<!--                                &lt;!&ndash;-->
+<!--                                ============================================-->
+<!--                                Selecting "Recipes I Like" displays List.xhtml-->
+<!--                                ============================================-->
+<!--                                &ndash;&gt;-->
+<!--                                <h:link outcome="/recipe/RecipesILike" class="standardText">-->
+<!--                                    <i class="fas fa-list" />&nbsp;Recipes I Like-->
+<!--                                </h:link>-->
 
 
 
@@ -91,8 +95,15 @@
                                 Selecting "Recipe Search" displays a Dialog Box
                                 ================================================
                                 -->
-                                <h:link onclick="PF('RecipeSearchDialog').show();return false;" class="standardText">
-                                    <i class="fas fa-search" />&nbsp;Recipe Search
+                                <h:link onclick="PF('CreateDialog').show();return false;" class="standardText">
+                                    <i class="fas fa-plus-circle" />&nbsp;&nbsp;Create Account
+                                </h:link>
+
+                                <h:link onclick="PF('SignInDialog').show();return false;" class="standardText">
+                                    <i class="far fa-address-card" />&nbsp;&nbsp;Sign In
+                                </h:link>
+                                <h:link onclick="PF('SignInDialog').show();return false;" class="standardText">
+                                    <i class="fas fa-sign-in-alt" />&nbsp;&nbsp;Log Out
                                 </h:link>
                             </div>
                         </div>
@@ -106,7 +117,7 @@
         Selecting the 'Recipe Search' menu option displays the included
         RecipeSearchDialog.xhtml file in a dialog box on top of the currently displayed page.
         -->
-        <ui:include src="/search/RecipeSearchDialog.xhtml"/>
+<!--        <ui:include src="/search/RecipeSearchDialog.xhtml"/>-->
 
     </ui:composition>
     <!-- Do not enter tags before the composition line since they are ignored by JSF -->

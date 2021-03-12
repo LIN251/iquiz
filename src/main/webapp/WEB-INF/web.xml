@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<!--
+  ~ Created by Osman Balci on 2021.2.6
+  ~ Copyright © 2021 Osman Balci. All rights reserved.
+  -->
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!--
+    ********************************************************************
+    This file is called Java Web Application Deployment Descriptor File.
+    It is used to configure a Java web application for deployment.
+    ********************************************************************
+
+    javax.faces.PROJECT_STAGE = Development
+        Instructs the compiler to perform detailed error checking. This may degrade
+        the execution efficiency (performance) of large and complex applications.
+
+    javax.faces.PROJECT_STAGE = Production
+        Instructs the compiler to perform minimal error checking. This may improve
+        the execution efficiency (performance) of large and complex applications.
+
+    Change to "Production" when you are ready to deploy to obtain better performance.
+    -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <!-- This enables you to insert comments within a panel grid -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!-- Defines PrimeFaces uploader mode -->
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>auto</param-value>
+    </context-param>
+
+    <!--
+    This enables the use of Font Awesome icons in PrimeFaces buttons.
+    Search for more than 1,600 icons at https://fontawesome.com/icons?d=gallery&m=free
+    -->
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>otf</extension>
+        <mime-type>font/opentype</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/x-font-ttf</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/x-font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/x-font-woff2</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+
+    <!--
+    FacesServlet is a servlet that manages the request processing lifecycle for web
+    applications that are utilizing JavaServer Faces to construct the user interface.
+
+    The <load-on-startup> value 1 indicates that Faces Servlet must be loaded
+    (instantiated and have its init() called) on the startup of the Web application.
+    -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--
+    If the runtime determines that the Faces Servlet must be
+    automatically mapped, it must be mapped to *.xhtml
+    -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+<!--    &lt;!&ndash;-->
+<!--    The session-timeout element defines the time in minutes after which the user's-->
+<!--    session expires. If session-timeout is set to 0 or less, the user's session never expires.-->
+<!--    &ndash;&gt;-->
+<!--    <session-config>-->
+<!--        <session-timeout>30</session-timeout>-->
+<!--    </session-config>-->
+
+<!--    &lt;!&ndash; Show the sessionTimeout.xhtml page when ViewExpiredException occurs. &ndash;&gt;-->
+<!--    <error-page>-->
+<!--        <exception-type>javax.faces.application.ViewExpiredException</exception-type>-->
+<!--        <location>/template/sessionTimeout.xhtml</location>-->
+<!--    </error-page>-->
+
+    <!-- Specify which file to show when the application is launched. -->
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
 </web-app>

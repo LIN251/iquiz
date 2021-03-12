@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
      <!--
@@ -42,12 +43,12 @@
                 *****************************************
                 -->
                 <td align="right" valign="middle">
-                    <a href="https://www.edamam.com"  target="_blank">
-                        <i class="fas fa-thumbs-up" />&nbsp;Edamam</a>&nbsp;&nbsp;
-                    <a href="https://www.marthastewart.com/"  target="_blank">
-                        <i class="fas fa-birthday-cake" />&nbsp;Martha Stewart</a>&nbsp;&nbsp;
-                    <a href="https://www.seriouseats.com/recipes" target="_blank">
-                        <i class="fas fa-utensils" />&nbsp;Serious Eats</a>
+                    <a href="https://quizlet.com/"  target="_blank">
+                        <i class="fas fa-graduation-cap" />&nbsp;Quizlet</a>&nbsp;&nbsp;
+                    <a href="" target="_blank">
+                        <i class="fas fa-school" />&nbsp;School</a>&nbsp;
+                    <a href=""  target="_blank">
+                        <i class="fas fa-leanpub" />&nbsp;Learn</a>&nbsp;
                 </td>
             </tr>
             <!--
@@ -56,13 +57,14 @@
             **************************************************
             -->
             <tr>
-                <td colspan="2" align="center" valign="middle">
-                    <a href="https://manta.cs.vt.edu/cs5704/" target="_blank">
-                        CS5705 Software Engineering</a> Assignment 1 app developed by
-                    <a href="https://www.linkedin.com/in/calvin-huang-cx/" target="_blank">
-                        Calvin Huang</a> only for educational purposes.<br /><br />
-                        <a href="https://developer.edamam.com/" target="_blank">
-                            <img src="#{resource['images:EdamamAttribution.png']}" alt="EdamanImage"/></a>
+                <td colspan="2" align="center" valign="middle" style="white-space:pre-wrap; word-wrap:break-word">
+                    Virginia Tech <a href="https://manta.cs.vt.edu/cs5704/" target="_blank">CS5705 Software Engineering</a> Team Project. Written by <a href="https://manta.cs.vt.edu/cs5704/" target="_blank">@Group 3</a>
+                    Checkout the code on GitHub. Copyright © ${today.year} Group 3. All rights reserved.
+<!--                    <h:link outcome="/index">-->
+<!--                       <img src="#{resource['images:iquiz_logo.png']}"-->
+<!--                             style="width:150px; height:auto;"-->
+<!--                             alt="iQuiz Logo" />-->
+<!--                    </h:link>-->
                 </td>
             </tr>
         </table>

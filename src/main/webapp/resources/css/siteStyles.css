@@ -82,7 +82,8 @@ Style the div component whose unique id is "header" per reference
 <div id="header"> in siteTemplate
 */
 #header {
-    background-color: azure;
+    background-color: #dbc2a7;
+    /*background-color: azure;*/
     width: 100%;
     height: 84px;
     position: absolute;
