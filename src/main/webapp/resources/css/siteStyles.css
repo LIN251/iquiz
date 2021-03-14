@@ -22,7 +22,7 @@ html, body {
     /* background-color: gainsboro;     */
     /* background-color: ivory;         */
     /* background-color: linen;         */
-    background-color: oldlace;
+    background-color: white;
     /* background-color: papayawhip;    */
     /* background-color: wheat;         */
     /* background-color: powderblue;    */
@@ -82,7 +82,7 @@ Style the div component whose unique id is "header" per reference
 <div id="header"> in siteTemplate
 */
 #header {
-    background-color: #dbc2a7;
+    background-color: #861F41;
     /*background-color: azure;*/
     width: 100%;
     height: 84px;
