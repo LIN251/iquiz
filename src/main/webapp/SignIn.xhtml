@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.24
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Sign In" />
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <div align="center">
+
+                <h1>Sign In</h1>
+                <br />
+
+                <h:form>
+                    <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2">
+
+                        <h:outputLabel value="Username:" for="username" />
+                        <p:inputText id="username" value="#{loginManager.username}" required="true" class="inputTextField"
+                                     requiredMessage="The Username field is required." label="Username" >
+                        </p:inputText>
+
+                        <h:outputLabel value="Password:" for="password" />
+                        <p:password id="password" value="#{loginManager.password}" feedback="false" class="inputTextField" >
+                        </p:password>
+
+                    </p:panelGrid>
+
+                    <br/>
+                    <br/>
+                    <!--
+                    ================================
+                    |         SIGN IN Button       |
+                    ================================
+                    -->
+                    <p:commandButton id="login" value="Sign In" action="#{loginManager.loginUser()}" 
+                                     ajax="false" icon="fas fa-sign-in-alt" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |   CREATE AN ACCOUNT Button   |
+                    ================================
+                    -->
+                    <p:button outcome="/userAccount/CreateAccount" value="&nbsp;Create an Account" icon="fas fa-user-plus"  />
+
+                    &nbsp;
+                    <!--
+                    ================================
+                    |    FORGOT PASSWORD Button    |
+                    ================================
+                    -->               
+                    <p:button outcome="/userPasswordChange/EnterUsername" value="Forgot Password" icon="fas fa-key"  />
+                    
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         CANCEL Button        |
+                    ================================
+                    -->
+                    <p:button outcome="/index" value="Cancel" icon="fas fa-ban"  />
+                </h:form>
+
+            </div>
+            <br/><br/><br/>
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

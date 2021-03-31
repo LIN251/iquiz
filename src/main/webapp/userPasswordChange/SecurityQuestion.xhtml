@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.24
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Security Question" />
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <div align="center" style="width:50%; margin:0 auto;">
+
+                <h:form>
+                    
+                    <h1>Please Answer Your Security Question</h1>
+
+                    <!-- fieldset is an HTML tag that draws a box around the content enclosed within it -->
+                    <fieldset>
+                        <div style="margin-bottom:20px">
+                            <h:outputLabel for="answer" value="#{passwordResetManager.getSelectedSecurityQuestionForUsername()}" />
+                        </div>
+
+                        <div style="margin-bottom:10px">
+                            <p:inputText id="answer" value="#{passwordResetManager.answerToSecurityQuestion}" required="true"
+                                         requiredMessage="Please enter your answer to the security question!" 
+                                         class="inputTextField" />
+                        </div>
+
+                        <br/>
+                        <!--
+                        ================================
+                        |         SUBMIT Button        |
+                        ================================
+                        -->
+                        <p:commandButton id="submit" value="Submit" ajax="false" icon="fas fa-arrow-up"
+                                         action="#{passwordResetManager.securityAnswerSubmit()}"/>
+                        &nbsp;
+                        <!--
+                        ================================
+                        |         CANCEL Button        |
+                        ================================
+                        -->
+                        <p:button outcome="/index" value="Cancel" icon="fas fa-ban"  />
+                    </fieldset>
+
+                    <br/>                
+                </h:form>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+</html>

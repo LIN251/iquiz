@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.24
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="My Account" />
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <h:form id="UserProfileForm">
+                <!--
+                <tr> defines a row in the table
+                <td> defines a column within a row.
+                Number of <td> elements = number of columns
+                The table below has 1 row and 2 columns.
+                Left column contains the vertical navigation menu.
+                Right column contains the user's profile data.
+                -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="10">
+                    <tr>
+                        <!--
+                        ***********************************************
+                        Row 1 Column 1 (Left): VERTICAL NAVIGATION MENU
+                        ***********************************************
+                        -->
+                        <td width="180" align="left" valign="middle" nowrap="nowrap">
+                            <ul class="verticalMenu">
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |          HOME Link           |
+                                    ================================
+                                    -->
+                                    <h:link outcome="/index">
+                                        <i class="fas fa-home" />&nbsp;Home
+                                    </h:link>
+                                </li>
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |         MY Videos Link        |
+                                    ================================
+                                    -->
+                                    <h:link outcome="/userVideo/List">
+                                        <i class="fas fa-file-alt" />&nbsp;My Videos
+                                    </h:link>
+                                </li>
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |      EDIT PROFILE Link       |
+                                    ================================
+                                    -->
+                                    <h:link outcome="/userAccount/EditAccount">
+                                        <i class="fas fa-edit" />&nbsp;Edit Profile
+                                    </h:link>
+                                </li>
+
+                                <li class="verticalMenuItem"> 
+                                    <!--
+                                    ================================
+                                    |      CHANGE PHOTO Link       |
+                                    ================================
+                                    -->
+                                    <h:link outcome="/userPhoto/ChangePhoto">
+                                        <i class="fas fa-camera" />&nbsp;Change Photo
+                                    </h:link>
+                                </li>
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |     CHANGE PASSWORD Link     |
+                                    ================================
+                                    -->
+                                    <h:link outcome="/userPasswordChange/EnterUsername">
+                                        <i class="fas fa-key" />&nbsp;Change Password
+                                    </h:link>
+                                </li>
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |      DELETE ACCOUNT Link     |
+                                    ================================
+                                    -->
+
+                                    <!-- ****************** Delete Account Begin **************************** -->
+                                    <!-- 
+                                    When the user selects YES on the confirmDialogBox, SecurityQuestionDialog included below is
+                                    displayed, and the form with id SecurityQuestionForm in the SecurityQuestionDialog is updated.
+                                    -->
+                                    <p:commandLink oncomplete="PF('SecurityQuestionDialog').show()" update=":SecurityQuestionForm" >
+
+                                        <label style="font-size: 10pt;">
+                                            <i class="fas fa-trash-alt" />&nbsp;Delete Account
+                                        </label>
+
+                                        <p:confirm header="Account Deletion Confirmation" 
+                                                   message="Are you sure to permanently delete your account? This cannot be undone!" 
+                                                   icon="fas fa-exclamation-triangle fa-2x" />
+                                    </p:commandLink>
+                                    <!-- 
+                                    The confirmation dialog is displayed to check if the user really wants to delete the account.
+                                    -->
+                                    <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                        <div align="center">
+                                            <p:commandButton value="No" type="button" 
+                                                             class="ui-confirmdialog-no" icon="fas fa-window-close" />
+                                            &nbsp;
+                                            <p:commandButton value="Yes" type="button" 
+                                                             class="ui-confirmdialog-yes" icon="fas fa-check-square" />
+                                        </div>
+                                    </p:confirmDialog>
+
+                                    <!-- ****************** Delete Account End **************************** -->
+                                </li>
+
+                                <li class="verticalMenuItem">
+                                    <!--
+                                    ================================
+                                    |         SIGN OUT Link        |
+                                    ================================
+                                    -->
+                                    <h:commandLink action="#{userController.logout()}">
+                                        <i class="fas fa-sign-out-alt" />&nbsp;Sign Out
+                                    </h:commandLink>
+                                </li>
+                            </ul>
+                        </td>
+                        <!--
+                        *****************************************
+                        Row 1 Column 2 (Right): USER PROFILE DATA
+                        *****************************************
+                        -->
+                        <td align="center" valign="top">
+
+                            <h1> #{userController.selected.firstName}&nbsp;#{userController.selected.lastName}'s Account Profile </h1>
+
+                            <!-- 
+                            USER'S PROFILE PHOTO: Display the user's account profile photo in a circle. 
+                            The cache="false" option enables immediate display of a newly uploaded photo without using cache.
+                            -->
+                            <p:graphicImage cache="false" class="profilePhoto" value="#{userController.userPhoto()}" />
+                            <br />
+                            <br />
+                            <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" >
+
+                                <h:outputText value="First Name:"/>
+                                <h:outputText value="#{userController.selected.firstName}" />
+
+                                <h:outputText value="Middle Name:"/>
+                                <h:outputText value="#{userController.selected.middleName}" />
+
+                                <h:outputText value="Last Name:"/>
+                                <h:outputText value="#{userController.selected.lastName}" />
+
+                                <h:outputText value="Address Line 1:"/>
+                                <h:outputText value="#{userController.selected.address1}" />
+
+                                <h:outputText value="Address Line 2:"/>
+                                <h:outputText value="#{userController.selected.address2}" />
+
+                                <h:outputText value="City:"/>
+                                <h:outputText value="#{userController.selected.city}" />
+
+                                <h:outputText value="State:"/>
+                                <h:outputText value="#{userController.selected.state}" />
+
+                                <h:outputText value="Zip Code"/>
+                                <h:outputText value="#{userController.selected.zipcode}" />
+
+                                <h:outputText value="Email:"/>
+                                <h:outputText value="#{userController.selected.email}" />
+
+                                <h:outputText value="Username:"/>
+                                <h:outputText value="#{userController.selected.username}" />
+
+                            </p:panelGrid>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </h:form>
+
+            <!-- 
+            =================================================================
+            Dialog for Security Question and Answer for User Account Deletion
+            =================================================================
+            -->
+            <p:dialog position="center center" id="SecurityQuestionDlg" widgetVar="SecurityQuestionDialog" 
+                      modal="true" resizable="false" appendTo="@(body)" header="Security Question" 
+                      showEffect="blind" hideEffect="fade">
+                <!--
+                Various effect options are available when displaying and closing p:dialog or p:confirmDialog.
+                You can apply a showEffect and a hideEffect option listed below: 
+                ******************************************************************
+                |   blind, bounce, clip, drop, explode, fade, fold, highlight,   |
+                |   puff, pulsate, scale, shake, size, slide, and transfer.      |
+                ******************************************************************
+                -->
+                <h:form id="SecurityQuestionForm">
+                    <fieldset>
+                        <div style="margin-bottom:20px">
+                            <h:outputLabel for="answer" value="#{userController.getSelectedSecurityQuestion()}"/>
+                        </div>
+
+                        <div style="margin-bottom:10px">
+                            <p:inputText id="answer" value="#{userController.answerToSecurityQuestion}" required="true" 
+                                         requiredMessage="Please enter your answer to the security question!" 
+                                         class="inputTextField" />
+                        </div>
+                        <br/>
+                        <div align="center">
+                            <!--
+                            ================================
+                            |         SUBMIT Button        |
+                            ================================
+                            -->
+                            <p:commandButton id="Submit" value="Submit" icon="fas fa-arrow-up" ajax="false"
+                                             action="#{userController.securityAnswerSubmit()}"
+                                             update=":growlInfoMessage, :growlErrorMessage, :growlFatalMessage, :growlWarningMessage"
+                                             oncomplete="PF('SecurityQuestionDialog').hide()"/>
+                            &nbsp;
+                            <!--
+                            ================================
+                            |        CANCEL Button         |
+                            ================================
+
+                            JSF application lifecycle execute phase contains the following subphases: 
+                            [See https://docs.oracle.com/javaee/6/tutorial/doc/bnaqq.html for detailed description]
+
+                                1. Restore View Phase
+                                2. Apply Request Values Phase
+                                3. Process Validations Phase
+                                4. Update Model Values Phase
+                                5. Invoke Application Phase
+                                6. Render Response Phase
+
+                            immediate="true" causes the execution of only the Apply Request Values Phase. 
+                            Therefore, the <f:event> validation is not performed since the operation is cancelled.
+                            -->
+                            <p:commandButton id="cancel" value="Cancel" icon="fas fa-ban" immediate="true"
+                                             oncomplete="PF('SecurityQuestionDialog').hide()" />
+                        </div>
+                        <br />
+                    </fieldset>
+                </h:form>
+            </p:dialog>
+
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

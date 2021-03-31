@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.24
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Change Photo" />
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent"> 
+
+            <div align="center" style="width:90%; margin:0 auto;">
+
+                <h1>Profile Photo</h1>
+
+                Either Take Your Photo or Upload an Existing One
+                <br/><br/>
+                <!-- 
+                ======================================================
+                Capture User's Photo by Using User's Computer's Camera
+                ======================================================
+                *** CLEAR Web Browser's CACHE to see the Captured Photo on other Web Pages ***
+                After user's photo is captured, it is immediately stored in CloudStorage/PhotoStorage/tmp_file.
+                To see the captured photo on another page, web browser's cache must be cleared.
+                Refreshing the page will not help and will still show the cached earlier photo.
+                -->
+                <fieldset>
+                    <h1>Position yourself and click Capture to take your photo using your computer's camera</h1>
+
+                    <h:form id="TakePhoto">      
+                        <table border="0" align="center" cellpadding="5" cellspacing="0">
+                            <tr>
+                                <!--
+                                ***********************************************************
+                                Row 1 Column 1: Capture Photo with User's Computer's Camera
+                                ***********************************************************
+                                -->
+                                <td>
+                                    <p:photoCam widgetVar="photoCam" listener="#{userPhotoController.onCapture}" update="capturedPhoto" />
+                                </td>
+                                <!--
+                                ********************************************************************
+                                Row 1 Column 2: Store Captured Photo in tmp_file and Display it Here
+                                ********************************************************************
+                                -->
+                                <td>
+                                    <p:outputPanel id="capturedPhoto">
+                                        <!-- Display the captured photo in a circle if it exists (rendered) -->
+                                        <p:graphicImage value="#{userPhotoController.capturedPhoto()}" cache="false"
+                                                        rendered="#{not empty userPhotoController.filename}" class="profilePhoto" />
+                                    </p:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!--
+                                ************************************************************
+                                Row 2 Columns 1 & 2 Merged: Display Capture and Redo Buttons
+                                ************************************************************
+                                -->
+                                <td colspan="2" align="center">
+                                    <!--
+                                    ================================
+                                    |        CAPTURE Button        |
+                                    ================================
+                                    -->
+                                    <p:commandButton type="button" value="Capture" onclick="PF('photoCam').capture()" icon="fas fa-camera" />
+                                    &nbsp;
+                                    <!--
+                                    ================================
+                                    |          REDO Button         |
+                                    ================================
+                                    -->
+                                    <p:commandButton id="redo" value="Redo" ajax="false" 
+                                                     action="#{userPhotoController.redo()}" icon="fas fa-redo" />
+                                    &nbsp;
+                                    <!--
+                                    ================================
+                                    |          DONE Button         |
+                                    ================================
+                                    -->
+                                    <p:button outcome="/userAccount/Profile" value="Done" icon="fas fa-check-circle" />
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </fieldset>
+                <br/>
+                <!-- 
+                ================================================================
+                Obtain User's Photo by Selecting and Uploading an Existing Photo
+                ================================================================
+                -->
+
+                <!-- 
+                The enctype attribute sets the content type of the data to be submitted to the server.  
+                enctype="multipart/form-data" is required when the form used has a file upload control.
+                -->
+
+                <h:form id="UploadPhoto" enctype="multipart/form-data">
+                    <!-- fieldset is an HTML tag that draws a box around the content enclosed within it -->
+                    <fieldset>
+                        <h1>Click Choose File to select an existing photo on your computer and then click Upload to upload it</h1>
+
+                        <!--
+                        p:fileUpload uploads the selected file and stores it into "private UploadedFile file" of userPhotoController.
+                        -->
+                        <p:fileUpload id="file" value="#{userPhotoController.file}" mode="simple" />
+                        <br/><br/>
+                        <!--
+                        ================================
+                        |        UPLOAD Button         |
+                        ================================
+                        After the file is uploaded by p:fileUpload above, we invoke userPhotoController.upload()
+                        to store the uploaded file into the UserPhotoStorage external directory.
+                        -->
+                        <p:commandButton id="upload" value="Upload" ajax="false" 
+                                         action="#{userPhotoController.upload()}" icon="fas fa-upload" />
+                    </fieldset>
+                    <br/><br/>
+                    <!--
+                    ================================
+                    |        CANCEL Button         |
+                    ================================
+                    -->
+                    <p:button outcome="/userAccount/Profile" value="Cancel" icon="fas fa-ban" />
+
+                </h:form>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+</html>
