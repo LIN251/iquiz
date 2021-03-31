@@ -26,10 +26,8 @@
             <div align="center">
 
                 <h:form id="AccountCreationForm">
-
-                    <h1>Create an Account</h1>
-
-                    <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2">
+                    <p:panel header="Sign Up">
+                    <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" styleClass="ui-noborder">
                         <!--
                         ********************************
                         *          FIRST NAME          *
@@ -64,77 +62,6 @@
                         <p:inputText id="lastName" value="#{userController.lastName}" required="true" class="inputTextField"
                                      requiredMessage="The Last Name field is required.">
                             <f:validateLength minimum="2" />
-                        </p:inputText>
-
-                        <!--
-                        ********************************
-                        *        ADDRESS LINE 1        *
-                        ********************************
-                        -->
-                        <p:outputLabel value="Address Line 1:" for="address1" />
-                        <p:inputText id="address1" value="#{userController.address1}" required="true" class="inputTextField"
-                                     requiredMessage="The Address Line 1 field is required.">
-                            <f:validateLength minimum="2" />
-                        </p:inputText>
-
-                        <!--
-                        ********************************
-                        *        ADDRESS LINE 2        *
-                        ********************************
-                        -->
-                        <p:outputLabel value="Address Line 2:" for="address2" />
-                        <p:inputText id="address2" value="#{userController.address2}" class="inputTextField">
-                        </p:inputText>
-
-                        <!--
-                        ********************************
-                        *             CITY             *
-                        ********************************
-                        -->
-                        <p:outputLabel value="City:" for="city" />
-                        <p:inputText id="city" value="#{userController.city}" required="true" class="inputTextField"
-                                     requiredMessage="The City field is required.">
-                            <f:validateLength minimum="2" />
-                        </p:inputText>
-
-                        <!--
-                        ********************************
-                        *      STATE ABBREVIATION      *
-                        ********************************
-                        -->
-                        <p:outputLabel value="State:" for="state" />
-                        <h:selectOneMenu id="state" value="#{userController.state}" required="true">
-                            <!--
-                            List of U.S. state postal codes is iterated over 
-                            to display the list for the user to select one.
-                            -->
-                            <f:selectItems value="#{userController.listOfStates()}" var="state"
-                                           itemLabel="#{state}" itemValue="#{state}" />
-                        </h:selectOneMenu>
-
-                        <!--
-                        ********************************
-                        *           ZIP CODE           *
-                        ********************************
-                        -->
-                        <p:outputLabel id="zipcodeEntry" value="Zip Code:" for="zipcode" >
-                            &nbsp;<i class="fas fa-question-circle" />
-                            <!--
-                            When the user mouses over the icon, a tooltip is displayed
-                            to provide context-sensitive help information to the user.
-                            -->
-                            <p:tooltip for="zipcodeEntry" value="Enter 5 digits or 9 digits with hyphen, e.g., 24060-1804" 
-                                       showEffect="clip" hideEffect="explode" position="top" />
-                        </p:outputLabel> 
-
-                        <p:inputText id="zipcode" value="#{userController.zipcode}" required="true" class="inputTextField"
-                                     requiredMessage="The Zip Code field is required.">
-                            <f:validateLength minimum="5" />
-                            <!-- 
-                            Execute the "validate" method in the "ZipCodeValidator.java" 
-                            class file to validate the ZIP code entered. 
-                            -->
-                            <f:validator validatorId="zipCodeValidator"/> 
                         </p:inputText>
 
                         <!--
@@ -241,6 +168,7 @@
                                     required="true" class="inputTextField"/>
 
                     </p:panelGrid>
+                    </p:panel>
                     <br />
 
                     <!--

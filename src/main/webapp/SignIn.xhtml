@@ -22,11 +22,20 @@
         <ui:define name="editableContent">
             <div align="center">
 
-                <h1>Sign In</h1>
-                <br />
-
                 <h:form>
-                    <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2">
+                    <p:panel id="pnl" header="Sign In" styleClass="">
+<!--                        <h:panelGrid columns="3" cellpadding="7">-->
+<!--                            <h:outputLabel for="firstname" value="Firstname: *"/>-->
+<!--                            <p:inputText id="firstname" value="#{blockUIView.firstname}" required="true" label="Firstname">-->
+<!--                                <f:validateLength minimum="2"/>-->
+<!--                            </p:inputText>-->
+<!--                            <p:message for="firstname"/>-->
+
+<!--                            <h:outputLabel for="lastname" value="Lastname: *"/>-->
+<!--                            <p:inputText id="lastname" value="#{blockUIView.lastname}" required="true" label="Lastname"/>-->
+<!--                            <p:message for="lastname"/>-->
+<!--                        </h:panelGrid>-->
+                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
 
                         <h:outputLabel value="Username:" for="username" />
                         <p:inputText id="username" value="#{loginManager.username}" required="true" class="inputTextField"
@@ -38,7 +47,7 @@
                         </p:password>
 
                     </p:panelGrid>
-
+                    </p:panel>
                     <br/>
                     <br/>
                     <!--

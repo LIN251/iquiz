@@ -71,7 +71,7 @@ Style the div component whose unique id is "page" per reference
 */
 #page {
     font-family: "Times New Roman", Times, Serif;
-    font-size: 12pt;
+    font-size: 14pt;
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
@@ -257,18 +257,18 @@ Used in headerTemplate
 */
 
 /* Style p:panelGrid Column 1 */
-.panelGridColumn1 {
-    text-align: right;
-    background-color: bisque; 
-    white-space: nowrap;        /* Disallow line break */
-}
+/*.panelGridColumn1 {*/
+/*    text-align: right;*/
+/*    background-color: bisque; */
+/*    white-space: nowrap;        !* Disallow line break *!*/
+/*}*/
 
-/* Style p:panelGrid Column 2 */
-.panelGridColumn2 {
-    text-align: left;
-    background-color: blanchedalmond; 
-    white-space: nowrap;        /* Disallow line break */
-}
+/*!* Style p:panelGrid Column 2 *!*/
+/*.panelGridColumn2 {*/
+/*    text-align: left;*/
+/*    background-color: blanchedalmond; */
+/*    white-space: nowrap;        !* Disallow line break *!*/
+/*}*/
 
 /* Style standard text and input text field text */
 .standardText, .inputTextField, .recipeDataFields {
@@ -419,29 +419,29 @@ Style PrimeFaces ui-button, which is the base style for buttons such as
 p:commandButton, p:button, .ui-confirmdialog-yes, .ui-confirmdialog-no,
 .ui-fileupload-choose, .ui-fileupload-upload, .ui-fileupload-cancel
 */
-.ui-button {
-    border-radius: 2em !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 10pt !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    text-decoration: none;
-    color: black;
-    padding-top: 3px !important; 
-    padding-bottom: 2px !important;
-    padding-left: 3px !important;       /* Leave space before the icon */
-}
+/*.ui-button {*/
+/*    border-radius: 2em !important;*/
+/*    font-family: Arial, Helvetica, sans-serif !important;*/
+/*    font-size: 10pt !important;*/
+/*    font-style: normal !important;*/
+/*    font-weight: normal !important;*/
+/*    text-decoration: none;*/
+/*    color: black;*/
+/*    padding-top: 3px !important; */
+/*    padding-bottom: 2px !important;*/
+/*    padding-left: 3px !important;       !* Leave space before the icon *!*/
+/*}*/
 
 /*
 We use Font Awesome "SVG with JS" icons within buttons of type ui-button.
 Therefore, remove the default ui-icon showing in the ui-button background.
 */
-.ui-button .ui-icon {
-    margin-top: -0.65em !important; 
-    text-indent: 0px !important;
-    background-image: none !important;
-    margin-left: 0.52em;                /* Leave space before the icon */
-}
+/*.ui-button .ui-icon {*/
+/*    !*margin-top: -0.65em !important; *!*/
+/*    !*text-indent: 0px !important;*!*/
+/*    !*background-image: none !important;*!*/
+/*    !*margin-right: 0.52em;                !* Leave space before the icon *!*!*/
+/*}*/
 
 /*
 We use Font Awesome "SVG with JS" icons within ui-confirm-dialog box.
@@ -495,36 +495,40 @@ Position the confirmation dialog box on the center of the screen per
     padding-right: 5px;
 }
 
-/* Override PrimeFaces style definitions for the Data Table component */
-.ui-datatable-data, .ui-column-title, .ui-panel-titlebar, .ui-paginator, 
-.ui-dialog-content, .ui-confirm-dialog-message, .ui-widget-content {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10pt;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
+.ui-button {
+    color: #861F41;
 }
+
+/* Override PrimeFaces style definitions for the Data Table component */
+/*.ui-datatable-data, .ui-column-title, .ui-panel-titlebar, .ui-paginator, */
+/*.ui-dialog-content, .ui-confirm-dialog-message, .ui-widget-content {*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    font-size: 10pt;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    text-decoration: none;*/
+/*}*/
 
 /* Override PrimeFaces style definitions for the Data Grid component */
-.ui-datagrid, .ui-datagrid-content, .ui-datagrid-data, .ui-datagrid-row, 
-.ui-datagrid-column {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10pt;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    background-color: oldlace;
-}
+/*.ui-datagrid, .ui-datagrid-content, .ui-datagrid-data, .ui-datagrid-row, */
+/*.ui-datagrid-column {*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    font-size: 10pt;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    text-decoration: none;*/
+/*    background-color: oldlace;*/
+/*}*/
 
 /* Override PrimeFaces style definitions for the Panel component */
-.ui-panel, .ui-panel-content {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10pt;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    background-color: oldlace;
-}
+/*.ui-panel, .ui-panel-content {*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    font-size: 10pt;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    text-decoration: none;*/
+/*    background-color: oldlace;*/
+/*}*/
 
 /* Override PrimeFaces style definitions for the Dialog component */
 .ui-dialog, .ui-dialog-content, .ui-dialog-buttonpane {
@@ -563,12 +567,16 @@ if content overflows an element's box.
 }
 
 /* This styles the <p:panel header="..."> */
-.ui-widget-header {
-    text-align: center;
-    /* text-transform: uppercase; we do not want this */
-}
+/*.ui-widget-header {*/
+/*    text-align: center;*/
+/*    !* text-transform: uppercase; we do not want this *!*/
+/*}*/
 
 /* Leave 10px pading on top for the ui-button elements */
-.ui-button {
-    margin-top: 10px !important;
+/*.ui-button {*/
+/*    margin-top: 10px !important;*/
+/*}*/
+
+.ui-panel {
+    width: fit-content;
 }

@@ -56,21 +56,7 @@ siteTemplate for the entire site, achieving great maintainability.
                 Column 2 (Center): Welcome User
                 *******************************
                 -->
-<!--                <td align="right" valign="middle">-->
-<!--                    &lt;!&ndash; Welcome the user if signed in &ndash;&gt;-->
-<!--                    <c:if test="#{userController.isLoggedIn() == true}">-->
-<!--                        <div class="helloText">Hello, #{userController.selected.firstName}</div>-->
-<!--                    </c:if>-->
-<!--                    <c:if test="#{userController.isLoggedIn() == false}">-->
-<!--                        <h1>Hello, Guest</h1>-->
-<!--                    </c:if>-->
-<!--                </td>-->
-                <!--
-                ***************************************
-                Column 3 (Right): Hamburger Menu Button
-                ***************************************
-                -->
-                <td align="right" valign="middle" style="width:100px;">
+                <td align="right" valign="middle">
 
                     <!--
                     tabindex="0" enables the menu element to be focusable and to trigger interaction.
@@ -81,63 +67,19 @@ siteTemplate for the entire site, achieving great maintainability.
                     <h:link> renders into <a href> for which drop-down menu CSS style is defined.
                     Therefore, the drop-down menu works either with <a href> or <h:link>.
                     -->
-                    <div tabindex="0" class="menu" style="float:right;padding-right:20px;">
-                        <div class="menu-dropdown" style="right:0;">
-
-                            <h:link outcome="/index" class="standardText">
-                                <i class="fas fa-home" />&nbsp;Home
-                            </h:link>
-
-<!--                            <h:link outcome="/publicVideo/List" class="standardText">-->
-<!--                                <i class="fas fa-video" />&nbsp;Public Videos-->
-<!--                            </h:link>-->
-
-                            <!--
-                            ===========================================
-                            |   Menu Options IF a User is Signed In   |
-                            ===========================================
-                            -->
+                    <div class="card">
+                        <p:commandButton id="dynaButton" style="background: rgb(255, 255, 255); color: #861F41" value="Menu" type="button" icon="pi pi-bars"/>
+                        <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                            <p:menuitem value="Home" outcome="/index" icon="fas fa-home"/>
                             <c:if test="#{userController.isLoggedIn() == true}">
-
-<!--                                <h:link outcome="/userVideo/List" class="standardText" >-->
-<!--                                    <i class="fas fa-file-alt" />&nbsp;My Videos-->
-<!--                                </h:link>-->
-
-                                <!-- Clicking "My Account" displays the Profile.xhtml file -->
-                                <h:link outcome="/userAccount/Profile" class="standardText">
-                                    <!--
-                                    Display the user's photo in a small circle. The cache="false" option
-                                    enables immediate display of a newly uploaded photo without using cache.
-                                    -->
-                                    <p:graphicImage cache="false" class="smallProfilePhoto"
-                                                    value="#{userController.userPhoto()}"/>&nbsp;&nbsp;My Account
-                                </h:link>
-
-                                <!-- Clicking "Sign Out" invokes userController's logout() method -->
-                                <h:commandLink action="#{userController.logout()}" class="standardText" >
-                                    <i class="fas fa-sign-out-alt" />&nbsp;Sign Out
-                                </h:commandLink>
-
+                                <p:menuitem value="Profile" outcome="/userAccount/Profile" icon="fas fa-home"/>
+                                <p:menuitem value="Sign Out" action="#{userController.logout()}" icon="fas fa-sign-out-alt"/>
                             </c:if>
-
-                            <!--
-                            ============================================
-                            |   Menu Options IF No User is Signed In   |
-                            ============================================
-                            -->
                             <c:if test="#{userController.isLoggedIn() == false}">
-                                <!-- Clicking "Sign In" displays the SignIn.xhtml file -->
-                                <h:link outcome="/SignIn" class="standardText">
-                                    <i class="fas fa-sign-in-alt" />&nbsp;Sign In
-                                </h:link>
-
-                                <!-- Clicking "Create an Account" displays the CreateAccount.xhtml file -->
-                                <h:link outcome="/userAccount/CreateAccount" class="standardText">
-                                    <i class="fas fa-user-plus" />&nbsp;Create an Account
-                                </h:link>
+                                <p:menuitem value="Sign In" outcome="/SignIn" icon="fas fa-sign-in-alt"/>
+                                <p:menuitem value="Sign Up" outcome="/userAccount/CreateAccount" icon="fas fa-user-plus"/>
                             </c:if>
-
-                        </div>
+                        </p:menu>
                     </div>
                 </td>
             </tr>
