@@ -52,7 +52,7 @@ public class Question implements Serializable {
     @Column(name = "quiz_id_fk")
     private Integer quizID;
 
-    @OneToMany(mappedBy = "question_id_fk")
+    @OneToMany(mappedBy = "questionId")
     private Collection<Answer> questionAnswerCollection;
 
 
@@ -81,6 +81,45 @@ public class Question implements Serializable {
     ======================================================
      */
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public int getQuestionPoint() {
+        return questionPoint;
+    }
+
+    public void setQuestionPoint(int questionPoint) {
+        this.questionPoint = questionPoint;
+    }
+
+    public Integer getQuizID() {
+        return quizID;
+    }
+
+    public void setQuizID(Integer quizID) {
+        this.quizID = quizID;
+    }
+
+    public Collection<Answer> getQuestionAnswerCollection() {
+        return questionAnswerCollection;
+    }
+
+    public void setQuestionAnswerCollection(Collection<Answer> questionAnswerCollection) {
+        this.questionAnswerCollection = questionAnswerCollection;
+    }
 
     /*
     ================

@@ -68,7 +68,7 @@ public class Quiz implements Serializable {
     @Column(name = "user_id_fk")
     private Integer userID;
 
-    @OneToMany(mappedBy = "quiz_id_fk")
+    @OneToMany(mappedBy = "quizID")
     private Collection<Question> quizQuestionCollection;
 
 
@@ -100,6 +100,69 @@ public class Quiz implements Serializable {
     ======================================================
      */
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isPublish() {
+        return publish;
+    }
+
+    public void setPublish(boolean publish) {
+        this.publish = publish;
+    }
+
+    public Date getPublishAt() {
+        return publishAt;
+    }
+
+    public void setPublishAt(Date publishAt) {
+        this.publishAt = publishAt;
+    }
+
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
+    public String getAccessCode() {
+        return accessCode;
+    }
+
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
+    public Collection<Question> getQuizQuestionCollection() {
+        return quizQuestionCollection;
+    }
+
+    public void setQuizQuestionCollection(Collection<Question> quizQuestionCollection) {
+        this.quizQuestionCollection = quizQuestionCollection;
+    }
 
     /*
     ================
