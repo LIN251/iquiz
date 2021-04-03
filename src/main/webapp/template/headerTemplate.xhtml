@@ -72,6 +72,7 @@ siteTemplate for the entire site, achieving great maintainability.
                         <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
                             <p:menuitem value="Home" outcome="/index" icon="fas fa-home"/>
                             <c:if test="#{userController.isLoggedIn() == true}">
+                                <p:menuitem value="My Quizzes" outcome="/quizzes/MyQuizzes" icon="fas fa-bars"/>
                                 <p:menuitem value="Profile" outcome="/userAccount/Profile" icon="fas fa-home"/>
                                 <p:menuitem value="Sign Out" action="#{userController.logout()}" icon="fas fa-sign-out-alt"/>
                             </c:if>

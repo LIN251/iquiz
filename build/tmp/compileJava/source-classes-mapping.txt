@@ -10,27 +10,27 @@ edu/vt/globals/Methods.java
  edu.vt.globals.Methods
 edu/vt/validators/PasswordValidator.java
  edu.vt.validators.PasswordValidator
-edu/vt/validators/UsernameValidator.java
- edu.vt.validators.UsernameValidator
-edu/vt/validators/EmailValidator.java
- edu.vt.validators.EmailValidator
-edu/vt/EntityBeans/User.java
- edu.vt.EntityBeans.User
-edu/vt/EntityBeans/UserPhoto.java
- edu.vt.EntityBeans.UserPhoto
-edu/vt/controllers/SliderController.java
- edu.vt.controllers.SliderController
-edu/vt/FacadeBeans/AbstractFacade.java
- edu.vt.FacadeBeans.AbstractFacade
+edu/vt/FacadeBeans/UserPhotoFacade.java
+ edu.vt.FacadeBeans.UserPhotoFacade
+edu/vt/controllers/UserPhotoController.java
+ edu.vt.controllers.UserPhotoController
 edu/vt/FacadeBeans/UserFacade.java
  edu.vt.FacadeBeans.UserFacade
 edu/vt/managers/LoginManager.java
  edu.vt.managers.LoginManager
-edu/vt/controllers/UserController.java
- edu.vt.controllers.UserController
-edu/vt/FacadeBeans/UserPhotoFacade.java
- edu.vt.FacadeBeans.UserPhotoFacade
 edu/vt/managers/PasswordResetManager.java
  edu.vt.managers.PasswordResetManager
-edu/vt/controllers/UserPhotoController.java
- edu.vt.controllers.UserPhotoController
+edu/vt/FacadeBeans/AbstractFacade.java
+ edu.vt.FacadeBeans.AbstractFacade
+edu/vt/validators/EmailValidator.java
+ edu.vt.validators.EmailValidator
+edu/vt/EntityBeans/User.java
+ edu.vt.EntityBeans.User
+edu/vt/validators/UsernameValidator.java
+ edu.vt.validators.UsernameValidator
+edu/vt/controllers/SliderController.java
+ edu.vt.controllers.SliderController
+edu/vt/EntityBeans/UserPhoto.java
+ edu.vt.EntityBeans.UserPhoto
+edu/vt/controllers/UserController.java
+ edu.vt.controllers.UserController

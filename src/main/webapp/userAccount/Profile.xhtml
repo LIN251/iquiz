@@ -7,7 +7,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
@@ -39,112 +40,34 @@
                         ***********************************************
                         -->
                         <td width="180" align="left" valign="middle" nowrap="nowrap">
-                            <ul class="verticalMenu">
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |          HOME Link           |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/index">
-                                        <i class="fas fa-home" />&nbsp;Home
-                                    </h:link>
-                                </li>
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |         MY Videos Link        |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/userVideo/List">
-                                        <i class="fas fa-file-alt" />&nbsp;My Videos
-                                    </h:link>
-                                </li>
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |      EDIT PROFILE Link       |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/userAccount/EditAccount">
-                                        <i class="fas fa-edit" />&nbsp;Edit Profile
-                                    </h:link>
-                                </li>
-
-                                <li class="verticalMenuItem"> 
-                                    <!--
-                                    ================================
-                                    |      CHANGE PHOTO Link       |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/userPhoto/ChangePhoto">
-                                        <i class="fas fa-camera" />&nbsp;Change Photo
-                                    </h:link>
-                                </li>
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |     CHANGE PASSWORD Link     |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/userPasswordChange/EnterUsername">
-                                        <i class="fas fa-key" />&nbsp;Change Password
-                                    </h:link>
-                                </li>
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |      DELETE ACCOUNT Link     |
-                                    ================================
-                                    -->
-
-                                    <!-- ****************** Delete Account Begin **************************** -->
-                                    <!-- 
-                                    When the user selects YES on the confirmDialogBox, SecurityQuestionDialog included below is
-                                    displayed, and the form with id SecurityQuestionForm in the SecurityQuestionDialog is updated.
-                                    -->
-                                    <p:commandLink oncomplete="PF('SecurityQuestionDialog').show()" update=":SecurityQuestionForm" >
-
-                                        <label style="font-size: 10pt;">
-                                            <i class="fas fa-trash-alt" />&nbsp;Delete Account
+                            <p:menu style="width: fit-content">
+                                <p:menuitem value="Home" outcome="/index" icon="fas fa-home"/>
+                                <p:menuitem value="My Quizzes" outcome="/quizzes/MyQuizzes" icon="fas fa-bars"/>
+                                <p:menuitem value="Edit Profile" outcome="/userAccount/EditAccount" icon="fas fa-edit"/>
+                                <p:menuitem value="Change Photo" outcome="/userPhoto/ChangePhoto" icon="fas fa-camera"/>
+                                <p:menuitem value="Change Password" outcome="/userPasswordChange/EnterUsername" icon="fas fa-key"/>
+                                <p:menuitem value="Delete Account" oncomplete="PF('SecurityQuestionDialog').show()" update=":SecurityQuestionForm" icon="fas fa-trash-alt">
+                                        <label>
+                                            Delete Account
                                         </label>
-
-                                        <p:confirm header="Account Deletion Confirmation" 
-                                                   message="Are you sure to permanently delete your account? This cannot be undone!" 
+                                        <p:confirm header="Account Deletion Confirmation"
+                                                   message="Are you sure to permanently delete your account? This cannot be undone!"
                                                    icon="fas fa-exclamation-triangle fa-2x" />
-                                    </p:commandLink>
-                                    <!-- 
+                                    <!--
                                     The confirmation dialog is displayed to check if the user really wants to delete the account.
                                     -->
                                     <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
                                         <div align="center">
-                                            <p:commandButton value="No" type="button" 
+                                            <p:commandButton value="No" type="button"
                                                              class="ui-confirmdialog-no" icon="fas fa-window-close" />
                                             &nbsp;
-                                            <p:commandButton value="Yes" type="button" 
+                                            <p:commandButton value="Yes" type="button"
                                                              class="ui-confirmdialog-yes" icon="fas fa-check-square" />
                                         </div>
                                     </p:confirmDialog>
-
-                                    <!-- ****************** Delete Account End **************************** -->
-                                </li>
-
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |         SIGN OUT Link        |
-                                    ================================
-                                    -->
-                                    <h:commandLink action="#{userController.logout()}">
-                                        <i class="fas fa-sign-out-alt" />&nbsp;Sign Out
-                                    </h:commandLink>
-                                </li>
-                            </ul>
+                                </p:menuitem>
+                                <p:menuitem value="Sign Out" action="#{userController.logout()}" icon="fas fa-sign-out-alt"/>
+                            </p:menu>
                         </td>
                         <!--
                         *****************************************
@@ -153,49 +76,18 @@
                         -->
                         <td align="center" valign="top">
 
-                            <h1> #{userController.selected.firstName}&nbsp;#{userController.selected.lastName}'s Account Profile </h1>
-
-                            <!-- 
-                            USER'S PROFILE PHOTO: Display the user's account profile photo in a circle. 
-                            The cache="false" option enables immediate display of a newly uploaded photo without using cache.
-                            -->
-                            <p:graphicImage cache="false" class="profilePhoto" value="#{userController.userPhoto()}" />
-                            <br />
-                            <br />
-                            <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" >
-
-                                <h:outputText value="First Name:"/>
-                                <h:outputText value="#{userController.selected.firstName}" />
-
-                                <h:outputText value="Middle Name:"/>
-                                <h:outputText value="#{userController.selected.middleName}" />
-
-                                <h:outputText value="Last Name:"/>
-                                <h:outputText value="#{userController.selected.lastName}" />
-
-                                <h:outputText value="Address Line 1:"/>
-                                <h:outputText value="#{userController.selected.address1}" />
-
-                                <h:outputText value="Address Line 2:"/>
-                                <h:outputText value="#{userController.selected.address2}" />
-
-                                <h:outputText value="City:"/>
-                                <h:outputText value="#{userController.selected.city}" />
-
-                                <h:outputText value="State:"/>
-                                <h:outputText value="#{userController.selected.state}" />
-
-                                <h:outputText value="Zip Code"/>
-                                <h:outputText value="#{userController.selected.zipcode}" />
-
-                                <h:outputText value="Email:"/>
-                                <h:outputText value="#{userController.selected.email}" />
-
-                                <h:outputText value="Username:"/>
-                                <h:outputText value="#{userController.selected.username}" />
-
-                            </p:panelGrid>
-
+                            <p:card style="width: 25em">
+                                <f:facet name="header">
+                                    <p:graphicImage cache="false" style="width:fit-content; height: auto;" styleClass="ui-noborder" value="#{userController.userPhoto()}" />
+                                </f:facet>
+                                <f:facet name="title">
+                                    #{userController.selected.firstName}&nbsp; #{userController.selected.middleName} &nbsp;#{userController.selected.lastName}
+                                </f:facet>
+                                <f:facet name="subtitle">
+                                    #{userController.selected.username}
+                                </f:facet>
+                                 <i class="fas fa-envelope-square"></i> &nbsp;<h:outputText value="#{userController.selected.email}" />
+                            </p:card>
                         </td>
                     </tr>
                 </table>

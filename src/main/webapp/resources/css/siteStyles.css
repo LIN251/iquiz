@@ -580,3 +580,8 @@ if content overflows an element's box.
 .ui-panel {
     width: fit-content;
 }
+
+card_p {
+    line-height: 1.5;
+    margin: 0;
+}
