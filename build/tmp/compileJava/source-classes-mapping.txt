@@ -4,10 +4,16 @@ edu/vt/globals/Password.java
  edu.vt.globals.Password$InvalidHashException
 edu/vt/globals/Constants.java
  edu.vt.globals.Constants
+edu/vt/managers/PasswordResetManager.java
+ edu.vt.managers.PasswordResetManager
 edu/vt/validators/ZipCodeValidator.java
  edu.vt.validators.ZipCodeValidator
+edu/vt/EntityBeans/UserPhoto.java
+ edu.vt.EntityBeans.UserPhoto
 edu/vt/globals/Methods.java
  edu.vt.globals.Methods
+edu/vt/EntityBeans/Answer.java
+ edu.vt.EntityBeans.Answer
 edu/vt/validators/PasswordValidator.java
  edu.vt.validators.PasswordValidator
 edu/vt/FacadeBeans/UserPhotoFacade.java
@@ -18,8 +24,8 @@ edu/vt/FacadeBeans/UserFacade.java
  edu.vt.FacadeBeans.UserFacade
 edu/vt/managers/LoginManager.java
  edu.vt.managers.LoginManager
-edu/vt/managers/PasswordResetManager.java
- edu.vt.managers.PasswordResetManager
+edu/vt/controllers/UserController.java
+ edu.vt.controllers.UserController
 edu/vt/FacadeBeans/AbstractFacade.java
  edu.vt.FacadeBeans.AbstractFacade
 edu/vt/validators/EmailValidator.java
@@ -30,7 +36,7 @@ edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
 edu/vt/controllers/SliderController.java
  edu.vt.controllers.SliderController
-edu/vt/EntityBeans/UserPhoto.java
- edu.vt.EntityBeans.UserPhoto
-edu/vt/controllers/UserController.java
- edu.vt.controllers.UserController
+edu/vt/EntityBeans/Quiz.java
+ edu.vt.EntityBeans.Quiz
+edu/vt/EntityBeans/Question.java
+ edu.vt.EntityBeans.Question
