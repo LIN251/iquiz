@@ -585,3 +585,12 @@ card_p {
     line-height: 1.5;
     margin: 0;
 }
+
+.float{
+    position:fixed !important;
+    width:60px !important;
+    height:60px !important;
+    bottom:40px !important;
+    right:40px !important;
+    border-radius:50px !important;
+}

@@ -40,3 +40,5 @@ edu/vt/EntityBeans/Quiz.java
  edu.vt.EntityBeans.Quiz
 edu/vt/EntityBeans/Question.java
  edu.vt.EntityBeans.Question
+edu/vt/managers/CreateQuizManager.java
+ edu.vt.managers.CreateQuizManager
