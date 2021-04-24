@@ -10,8 +10,8 @@ edu/vt/validators/ZipCodeValidator.java
  edu.vt.validators.ZipCodeValidator
 edu/vt/EntityBeans/Question.java
  edu.vt.EntityBeans.Question
-edu/vt/pojo/QuizQuestion.java
- edu.vt.pojo.QuizQuestion
+edu/vt/EntityBeans/UserPhoto.java
+ edu.vt.EntityBeans.UserPhoto
 edu/vt/globals/Methods.java
  edu.vt.globals.Methods
 edu/vt/EntityBeans/Answer.java
@@ -42,7 +42,7 @@ edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
 edu/vt/controllers/SliderController.java
  edu.vt.controllers.SliderController
-edu/vt/EntityBeans/UserPhoto.java
- edu.vt.EntityBeans.UserPhoto
+edu/vt/pojo/QuizQuestion.java
+ edu.vt.pojo.QuizQuestion
 edu/vt/managers/CreateQuizManager.java
  edu.vt.managers.CreateQuizManager

@@ -15,8 +15,9 @@
 <!-- This page is constructed based on the siteTemplate -->
 <ui:composition>
     <p:dialog header="Quiz Details" showEffect="fade" modal="true"
-              widgetVar="manageProductDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
+              widgetVar="manageQuestionDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
         <h:form id="QuizAddForm">
+            <p:growl id="messages" showDetail="true"/>
             <p:outputPanel id="manage-question-content" class="ui-fluid">
                 <p:outputPanel>
                     <div style="padding-bottom: 10px">
@@ -26,7 +27,7 @@
                     <div class="p-field">
                         <p:outputLabel for="answerTB">Answer Choices</p:outputLabel>
                         <p:dataTable id="answerTB" var="answerChoice" value="#{createQuizManager.selectedAnswerChoices}" editable="true"
-                                     paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom" style="margin-bottom:20px">
+                                     paginator="true" rows="4" rowSelectMode="add" paginatorPosition="bottom" style="margin-bottom:20px" emptyMessage="Click &#8220;Add Answer Choice&#8221; to add.">
 
 <!--                            <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":QuizAddForm:msgs"/>-->
 <!--                            <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":QuizAddForm:msgs"/>-->
@@ -37,7 +38,7 @@
                                         <h:outputText value="#{answerChoice.answerText}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="modelInput" value="#{answerChoice.answerText}" style="width:100%"/>
+                                        <p:inputText id="modelInput" value="#{answerChoice.answerText}" required="true" requiredMessage="Question Title is required" style="width:100%"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -55,20 +56,35 @@
 <!--                                </p:cellEditor>-->
                             </p:column>
 
-                            <p:column style="width:6rem">
+                            <p:column style="width: 20%;">
                                 <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                &nbsp;
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                                 action="#{createQuizManager.deleteSelectedAnswerChoice(createQuizManager.selectedAnswerChoice)}">
+                                    <f:setPropertyActionListener value="#{answerChoice}" target="#{createQuizManager.selectedAnswerChoice}"/>
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Add" process="@this" action="#{createQuizManager.addAnswerChoice}"/>
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="Add Answer Choice" immediate="true" styleClass="vt-theme-button-marron" update="answerTB" actionListener="#{createQuizManager.addAnswerChoice}"/>
+                            </p:toolbarGroup>
+
+                            <p:toolbarGroup name="right">
+                                <p:commandButton value="Create Question" actionListener="#{createQuizManager.createQuestion}"
+                                                 styleClass="vt-theme-button-marron" update="manage-question-content" process="manage-question-content @this"/>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <br/><br/>
                     </div>
                 </p:outputPanel>
             </p:outputPanel>
-            <f:facet name="footer">
-                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveProduct}"
-                                 update="manage-question-content" process="manage-question-content @this"/>
-                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
-                                 class="ui-button-secondary"/>
-            </f:facet>
+<!--            <f:facet name="footer">-->
+<!--                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveProduct}"-->
+<!--                                 update="manage-question-content" process="manage-question-content @this"/>-->
+<!--                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"-->
+<!--                                 class="ui-button-secondary"/>-->
+<!--            </f:facet>-->
         </h:form>
     </p:dialog>
 </ui:composition>

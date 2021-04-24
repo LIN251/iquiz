@@ -28,9 +28,9 @@
 <!--            };-->
 <!--        </script>-->
         <div align="center" style="width:95%">
-
             <h:form id="CreateQuizForm">
 <!--                <p:autoUpdate/>-->
+                    <p:growl id="messages" showDetail="true"/>
                     <p:panel id="createQuizPanel" styleClass="">
                         <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
 
@@ -52,7 +52,7 @@
                 </p:toolbar>
                 <p:dataTable id="dt-questions" var="question" value="#{createQuizManager.questions}"
                              reflow="true" style="max-width: 70%"
-                             selection="#{createQuizManager.selectedQuestions}" rowKey="#{question.questionNumber}" paginator="true"
+                             rowKey="#{question.questionNumber}" paginator="true"
                              rows="10" rowSelectMode="add" paginatorPosition="bottom">
 
                     <p:column headerText="Answer Choices" style="width:2rem">
@@ -88,13 +88,14 @@
                                 <h:outputText value="#{answer.answerText}"/>
                             </p:column>
                             <p:column headerText="True/False">
-                                <h:outputText value="#{answer.correct}"/>
+                                <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answer.correct}"
+                                                       onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
                             </p:column>
                         </p:dataTable>
                     </p:rowExpansion>
                 </p:dataTable>
-                <p:commandButton icon="pi pi-plus" actionListener="#{createQuizManager.addQuestion}"
-                                 update=":QuizAddForm:manage-question-content" oncomplete="PF('manageProductDialog').show()"
+                <p:commandButton icon="pi pi-plus"
+                                 update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
                                  styleClass="float" style="background-color: #861F41; border-color: #861F41">
                     <p:resetInput target=":QuizAddForm:manage-question-content"/>
                 </p:commandButton>

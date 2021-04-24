@@ -33,7 +33,7 @@ html, body {
 
 /* Style standard HTML tags body and paragraph p */
 body, p {
-    font-family: "Times New Roman", Times, Serif;
+    /*font-family: "Times New Roman", Times, Serif;*/
     font-size: 12pt;
     font-style: normal;
     font-weight: normal;
@@ -43,7 +43,7 @@ body, p {
 
 /* Style standard HTML tag header 1 */
 h1 {
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 12pt;
     font-style: normal;
     font-weight: normal;
@@ -70,12 +70,12 @@ Style the div component whose unique id is "page" per reference
 <div id="page"> in siteTemplate
 */
 #page {
-    font-family: "Times New Roman", Times, Serif;
-    font-size: 14pt;
+    /*font-family: "Times New Roman", Times, Serif;*/
+    /*font-size: 14pt;*/
     font-style: normal;
     font-weight: normal;
-    text-decoration: none;
-    color: black;
+    /*text-decoration: none;*/
+    /*color: black;*/
 }
 /* 
 Style the div component whose unique id is "header" per reference 
@@ -271,12 +271,6 @@ Used in headerTemplate
 /*}*/
 
 /* Style standard text and input text field text */
-.standardText, .inputTextField, .recipeDataFields {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10pt;
-    font-style: normal;
-    font-weight: normal;
-}
 
 /* Used in CreateAccount, EditAccount, SignIn, EnterUsername, and SecurityQuestion */
 .inputTextField {
@@ -349,12 +343,12 @@ Skinning PrimeFaces Galleria Image Slider
 -----------------------------------------
 */
 
-.ui-galleria-caption {
-    position: absolute;
-    left: 0px !important;
-    background-color: rgba(240, 255, 255, 0.8) !important;
-    padding: 0px !important;
-}
+/*.ui-galleria-caption {*/
+/*    position: absolute;*/
+/*    left: 0px !important;*/
+/*    background-color: rgba(240, 255, 255, 0.8) !important;*/
+/*    padding: 0px !important;*/
+/*}*/
 
 /*
 =========================================
@@ -376,37 +370,10 @@ cascading hierarchy, use the !important attribute.
 Skinning PrimeFaces Growl Messages
 ----------------------------------
 */
-.ui-growl-item-container {
-    background: none !important;            /* Remove background gradient */
-    background-color: lightgray !important; /* Color background Light Gray */
-    opacity: 1.0  !important;               /* Remove background semi transparency */
-    box-shadow: none;                       /* Remove message box shadow */
-}
 .ui-shadow {
     text-shadow: none;  /* Remove message text shadow */
 }
-.ui-growl-info {
-    font-size: 10pt !important;
-    color: darkgreen;   /* Color severity="info" message Summary text as Dark Green */
-}
-.ui-growl-warn {
-    font-size: 10pt !important;
-    color: darkblue;    /* Color severity="warn" (warning) message Summary text as Dark Blue */
-}
-.ui-growl-error {
-    font-size: 10pt !important;
-    color: purple;      /* Color severity="error" message Summary text as Purple */
-}
-.ui-growl-fatal {
-    font-size: 10pt !important;
-    color: darkred;     /* Color severity="fatal" message Summary text as Dark Red */
-}
 /* Close sticky="true" message box by clicking anywhere in the box */
-.ui-growl-icon-close {
-    width: 100%;
-    height: 100%;
-    background-image: none !important;
-}
 
 /*
 ---------------------------
@@ -447,32 +414,6 @@ Therefore, remove the default ui-icon showing in the ui-button background.
 We use Font Awesome "SVG with JS" icons within ui-confirm-dialog box.
 Therefore, remove the default ui-icon showing in the ui-confirm-dialog background.
 */
-.ui-confirm-dialog .ui-icon {
-    text-indent: 0px !important;
-    background-image: none !important;
-}
-
-/* Remove icon from the Choose, Upload and Cancel p:fileUpload buttons */
-.ui-fileupload-choose .ui-icon {
-    visibility: hidden !important;
-}
-.ui-fileupload-upload .ui-icon {
-    visibility: hidden !important;
-}
-.ui-fileupload-cancel .ui-icon {
-    visibility: hidden !important;
-}
-
-/* Move title text to left for the Choose, Upload and Cancel p:fileUpload buttons */
-.ui-fileupload-choose .ui-button-text {
-    margin-left: -12px !important;
-}
-.ui-fileupload-upload .ui-button-text {
-    margin-left: -12px !important;
-}
-.ui-fileupload-cancel .ui-button-text {
-    margin-left: -12px !important;
-}
 
 /*
 ---------------------------------------
@@ -602,12 +543,18 @@ card_p {
 
 .vt-theme-button-marron {
     margin-right: .5rem;
-    background-color: #861F41;
+    background-color: #861F41 !important;
+    border-color: #861F41 !important;
+    lighting-color: #861F41 !important;
     color: white;
 }
 
 .vt-theme-button-marron {
     margin-right: .5rem;
     background-color: #E87722;
+    border-color: #E87722;
     color: white;
+}
+.ui-row-editor{
+    display: inline-block;
 }

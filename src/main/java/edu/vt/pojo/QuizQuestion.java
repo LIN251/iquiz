@@ -17,7 +17,6 @@ public class QuizQuestion implements Serializable {
     private int questionPoint;
     private int questionNumber;
     private List<AnswerChoice> answerChoices;
-
     /*
     ===============================================================
     Class constructors for instantiating a User entity object to
