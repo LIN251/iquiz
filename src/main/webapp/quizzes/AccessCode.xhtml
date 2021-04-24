@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  - Created by Lin Zhang on 2021.3.6
+  - Copyright © 2021 Lin Zhang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition>
+
+    <!--
+    ===========================================================================
+    |  Selecting the Recipe SEARCH menu option displays this Dialog window   |
+    |  for the user to search a Recipe by name, code, or capital city name.  |
+    ===========================================================================
+    -->
+    <p:dialog position="center center" id="accessCodeDialog" widgetVar="accessCodeDialog"
+              modal="true" resizable="false" appendTo="@(body)" header="Enter quiz access code "
+              showEffect="slide" hideEffect="fade" width="500px" >
+
+        <h:form id="accessCodeForm">
+
+            <table border="0" align="center" cellpadding="10" cellspacing="0">
+                <tr>
+                    <td align="left">Code:</td>
+                    <td align="right" nowrap="nowrap">
+                        <!-- At least 2 characters to be searched under the selected category are entered here. -->
+                        <p:inputText id="keyword" value="#{accessCodeController.searchQuery}" style="width:200px"
+                                     required="true" requiredMessage="Enter an access code.">
+                            <f:validateLength minimum="2" />
+                        </p:inputText>
+                        <p:watermark for="keyword" value="Enter an access code." id="watermark" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left">Name:</td>
+                    <td align="right" nowrap="nowrap">
+                        <!-- At least 2 characters to be searched under the selected category are entered here. -->
+                        <p:inputText id="takerName" value="#{accessCodeController.takerName}" style="width:200px"
+                                     required="true" requiredMessage="Enter your name.">
+                            <f:validateLength minimum="2" />
+                        </p:inputText>
+                        <p:watermark for="takerName" value="Enter your name." id="takerName_watermark" />
+                    </td>
+                </tr>
+
+            </table>
+            <h:panelGroup>
+                <br /><br />
+                <div align="center">
+                    <!--
+                    Show the Results page while executing the performSearch() method of the backing bean.
+                    We cannot redirect to show the Results page from the backing bean because:
+
+                        (1) This commandButton submits the JSF Request.
+                        (2) Processing of the Request produces Request-Response cycle to obtain the JSON file from the API.
+                        (3) The Response for the first Request is lost.
+
+                    Therefore, we redirect to show the Results page on the client side as follows.
+                    The Results page will place a GET Request to get its values from the backing bean's properties.
+                    -->
+                    <p:commandButton value="Search" icon="fas fa-search"
+                                     update=":growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                     actionListener="#{accessCodeController.performSearch()}"
+                                     action="/quizzes/takeQuiz?faces-redirect=true"
+                                     onclick="PF('accessCodeDialog').hide()" />
+                    &nbsp;
+<!--                    <p:commandButton value="Clear" icon="fas fa-undo" ajax="false"-->
+<!--                                     action="#{searchedQuizController.clear()}" immediate="true"-->
+<!--                    >-->
+<!--                        <p:resetInput target=":searchDialogForm" />-->
+<!--                    </p:commandButton>-->
+
+
+
+                    &nbsp;
+                    <!-- CANCEL button -->
+                    <p:commandButton value="Cancel" onclick="PF('accessCodeDialog').hide()"
+                                     icon="fas fa-ban" immediate="true" />
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright  2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <ui:define name="title">
+        <!-- Set the page title -->
+        <h:outputText value="Create Quiz"/>
+    </ui:define>
+
+    <!-- Create the content for this page below -->
+    <ui:define name="editableContent">
+        <script type="text/javascript">
+            (function test() {
+                x = "#{accessCodeController.printHello()}"
+            })();
+        </script>
+        <div align="center" style="width:95%">
+
+            <h:form id="CreateQuizForm">
+                <p:autoUpdate/>
+                <p:panel id="createQuizPanel" styleClass="">
+                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
+
+                        <h:outputLabel value="Quiz Title:" for="quizTitle" />
+                        <p:inputText id="quizTitle" value="#{createQuizManager.quizTitle}" required="true" class="inputTextField"
+                                     requiredMessage="The Quiz Title field is required." label="QuizTitle" >
+                        </p:inputText>
+
+                        <h:outputLabel value="Quiz Time:" for="quizTime" />
+                        <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" >
+                        </p:inputText>
+                    </p:panelGrid>
+                </p:panel>
+                <br/><br/>
+                <p:repeat value="#{createQuizManager.questions}" var="question">
+                    <p:card style="max-width: 50%">
+                        <f:facet name="header">
+                            <div align="left" style="height: 50px; background-color: #861F41; color: white">
+                                <div style="vertical-align: center" class="ui-card-title">
+                                    <div align="left" style="padding-top: 10px; padding-left: 10px">
+                                        Question: #{question.questionNumber}
+                                    </div>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
+                            <h:outputLabel value="Question Title:" for="questionTitle#{question.questionNumber}" />
+                            <p:inputText id="questionTitle#{question.questionNumber}" value="#{createQuizManager.questionTitle}" required="true" class="inputTextField"
+                                         requiredMessage="The Username field is required." label="Username" >
+                            </p:inputText>
+                        </p:panelGrid>
+                        <!--                            <h:panelGrid columns="3" cellpadding="5">-->
+                        <!--                                <p:repeat value="#{createQuizManager.answerChoices}" var="answer">-->
+                        <!--                                    <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>-->
+                        <!--                                    <h:outputLabel for="opt2" value="Green"/>-->
+                        <!--                                    <p:inputText/>-->
+                        <!--                                </p:repeat>-->
+                        <!--                            </h:panelGrid>-->
+                        <p:commandButton id="addAnswerChoice" immediate="true" icon="fas fa-plus" onclick="test('questionTitle#{question.questionNumber}')"/>
+                    </p:card>
+                    <br/><br/>
+                </p:repeat>
+                <p:commandButton id="addQuestion" immediate="true" icon="fas fa-plus"  action="#{createQuizManager.addQuestion()}"
+                                 styleClass="float"/>
+            </h:form>
+        </div>
+
+        <!--
+        ==================================================================
+        Dialog for Security Question and Answer for Survey Deletion
+        ==================================================================
+        -->
+    </ui:define>
+
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>
