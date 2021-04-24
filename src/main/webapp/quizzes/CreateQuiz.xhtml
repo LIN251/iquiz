@@ -22,12 +22,15 @@
 
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
-
+<!--        <script type="text/javascript">-->
+<!--            function test() {-->
+<!--                x = "#{createQuizManager.printHello()}"-->
+<!--            };-->
+<!--        </script>-->
         <div align="center" style="width:95%">
 
             <h:form id="CreateQuizForm">
-                <p:button icon="fas fa-plus" styleClass="float"/>
-                <p:card style="max-width: 80%">
+<!--                <p:autoUpdate/>-->
                     <p:panel id="createQuizPanel" styleClass="">
                         <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
 
@@ -41,10 +44,60 @@
                             </p:inputText>
                         </p:panelGrid>
                     </p:panel>
-                    <p:repeat value="#{createQuizManager.questions}" var="question">
+                <br/><br/>
+                <p:toolbar style="max-width: 70%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">Quiz Questions</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-questions" var="question" value="#{createQuizManager.questions}"
+                             reflow="true" style="max-width: 70%"
+                             selection="#{createQuizManager.selectedQuestions}" rowKey="#{question.questionNumber}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
 
-                    </p:repeat>
-                </p:card>
+                    <p:column headerText="Answer Choices" style="width:2rem">
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="Question Number" style="width: 10%">
+                        <h:outputText value="#{question.questionNumber}"/>
+                    </p:column>
+                    <p:column headerText="Question Point" style="width: 10%">
+                        <h:outputText value="#{question.questionPoint}"/>
+                    </p:column>
+                    <p:column headerText="Question Title">
+                        <h:outputText value="#{question.questionText}"/>
+                    </p:column>
+                    <p:column exportable="false">
+<!--                        <p:commandButton icon="pi pi-pencil" update=":CreateQuizForm:manage-question-content"-->
+<!--                                         oncomplete="PF('manageProductDialog').show()"-->
+<!--                                         styleClass="edit-button rounded-button ui-button-success" process="@this">-->
+<!--                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>-->
+<!--                            <p:resetInput target=":CreateQuizForm:manage-question-content"/>-->
+<!--                        </p:commandButton>-->
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                         action="#{createQuizManager.deleteSelectedQuestion}">
+                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>
+                        </p:commandButton>
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable id="dt-answers" var="answer" value="#{question.answerChoices}"
+                                     reflow="true" style="max-width: 100%"
+                                     paginator="false"
+                                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <p:column headerText="Answer Text" style="width: 80%">
+                                <h:outputText value="#{answer.answerText}"/>
+                            </p:column>
+                            <p:column headerText="True/False">
+                                <h:outputText value="#{answer.correct}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
+                </p:dataTable>
+                <p:commandButton icon="pi pi-plus" actionListener="#{createQuizManager.addQuestion}"
+                                 update=":QuizAddForm:manage-question-content" oncomplete="PF('manageProductDialog').show()"
+                                 styleClass="float" style="background-color: #861F41; border-color: #861F41">
+                    <p:resetInput target=":QuizAddForm:manage-question-content"/>
+                </p:commandButton>
             </h:form>
         </div>
 
@@ -53,6 +106,7 @@
         Dialog for Security Question and Answer for Survey Deletion
         ==================================================================
         -->
+        <ui:include src="/quizzes/AddQuiz.xhtml"/>
     </ui:define>
 
 </ui:composition>

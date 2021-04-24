@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition>
+    <p:dialog header="Quiz Details" showEffect="fade" modal="true"
+              widgetVar="manageProductDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
+        <h:form id="QuizAddForm">
+            <p:outputPanel id="manage-question-content" class="ui-fluid">
+                <p:outputPanel>
+                    <div style="padding-bottom: 10px">
+                        <p:outputLabel for="questionTitle">Question Title</p:outputLabel>
+                        <p:inputText id="questionTitle" value="#{createQuizManager.questionTitle}"  required="true"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="answerTB">Answer Choices</p:outputLabel>
+                        <p:dataTable id="answerTB" var="answerChoice" value="#{createQuizManager.selectedAnswerChoices}" editable="true"
+                                     paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom" style="margin-bottom:20px">
+
+<!--                            <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":QuizAddForm:msgs"/>-->
+<!--                            <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":QuizAddForm:msgs"/>-->
+
+                            <p:column headerText="Answer Text">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{answerChoice.answerText}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="modelInput" value="#{answerChoice.answerText}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="True/False" style="width: 20%">
+                                <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answerChoice.correct}"
+                                                       onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+<!--                                <p:cellEditor>-->
+<!--                                    <f:facet name="output">-->
+<!--                                        <h:outputText value="#{answerChoice.correct}"/>-->
+<!--                                    </f:facet>-->
+<!--                                    <f:facet name="input">-->
+<!--                                        <p:inputText value="#{answerChoice.correct}" style="width:100%"/>-->
+<!--                                    </f:facet>-->
+<!--                                </p:cellEditor>-->
+                            </p:column>
+
+                            <p:column style="width:6rem">
+                                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton value="Add" process="@this" action="#{createQuizManager.addAnswerChoice}"/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+            <f:facet name="footer">
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveProduct}"
+                                 update="manage-question-content" process="manage-question-content @this"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                 class="ui-button-secondary"/>
+            </f:facet>
+        </h:form>
+    </p:dialog>
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

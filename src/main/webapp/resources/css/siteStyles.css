@@ -594,3 +594,20 @@ card_p {
     right:40px !important;
     border-radius:50px !important;
 }
+.ui-card-title {
+    text-align: center !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.vt-theme-button-marron {
+    margin-right: .5rem;
+    background-color: #861F41;
+    color: white;
+}
+
+.vt-theme-button-marron {
+    margin-right: .5rem;
+    background-color: #E87722;
+    color: white;
+}
