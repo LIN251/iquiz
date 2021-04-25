@@ -203,6 +203,7 @@ public class AccessCodeController implements Serializable {
 
 
     public void performSearch() {
+        reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(searchQuery);
 //        aQuiz.getTimeLimit()
@@ -232,6 +233,15 @@ public class AccessCodeController implements Serializable {
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
         }
+    }
+
+    private void reset() {
+        questionListForOneQuiz = new ArrayList<Question>();
+        questions= new ArrayList<QuizQuestion>();
+        answerChoices = new ArrayList<AnswerChoice>();
+        answerListForOneQuestion = new ArrayList<Answer>();
+        selectedAnswerChoices = new ArrayList<AnswerChoice>();
+        aQuiz = new Quiz();
     }
 
 
