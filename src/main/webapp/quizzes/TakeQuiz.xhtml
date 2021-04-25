@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   - Created by Calvin Huang on 2021.4.14
-  - Copyright  2021 Calvin Huang. All rights reserved.
+  - Copyright © 2021 Calvin Huang. All rights reserved.
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -17,72 +17,81 @@
 
     <ui:define name="title">
         <!-- Set the page title -->
-        <h:outputText value="Create Quiz"/>
+        <h:outputText value="Take Quiz"/>
     </ui:define>
 
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
-        <script type="text/javascript">
-            (function test() {
-                x = "#{accessCodeController.printHello()}"
-            })();
-        </script>
+
         <div align="center" style="width:95%">
-
-            <h:form id="CreateQuizForm">
-                <p:autoUpdate/>
-                <p:panel id="createQuizPanel" styleClass="">
-                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
-
-                        <h:outputLabel value="Quiz Title:" for="quizTitle" />
-                        <p:inputText id="quizTitle" value="#{createQuizManager.quizTitle}" required="true" class="inputTextField"
-                                     requiredMessage="The Quiz Title field is required." label="QuizTitle" >
-                        </p:inputText>
-
-                        <h:outputLabel value="Quiz Time:" for="quizTime" />
-                        <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" >
-                        </p:inputText>
-                    </p:panelGrid>
-                </p:panel>
+            <h:form id="TakeQuizForm">
+                <p:growl id="messages" showDetail="true"/>
                 <br/><br/>
-                <p:repeat value="#{createQuizManager.questions}" var="question">
-                    <p:card style="max-width: 50%">
-                        <f:facet name="header">
-                            <div align="left" style="height: 50px; background-color: #861F41; color: white">
-                                <div style="vertical-align: center" class="ui-card-title">
-                                    <div align="left" style="padding-top: 10px; padding-left: 10px">
-                                        Question: #{question.questionNumber}
-                                    </div>
-                                </div>
-                            </div>
-                        </f:facet>
-                        <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
-                            <h:outputLabel value="Question Title:" for="questionTitle#{question.questionNumber}" />
-                            <p:inputText id="questionTitle#{question.questionNumber}" value="#{createQuizManager.questionTitle}" required="true" class="inputTextField"
-                                         requiredMessage="The Username field is required." label="Username" >
-                            </p:inputText>
-                        </p:panelGrid>
-                        <!--                            <h:panelGrid columns="3" cellpadding="5">-->
-                        <!--                                <p:repeat value="#{createQuizManager.answerChoices}" var="answer">-->
-                        <!--                                    <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>-->
-                        <!--                                    <h:outputLabel for="opt2" value="Green"/>-->
-                        <!--                                    <p:inputText/>-->
-                        <!--                                </p:repeat>-->
-                        <!--                            </h:panelGrid>-->
-                        <p:commandButton id="addAnswerChoice" immediate="true" icon="fas fa-plus" onclick="test('questionTitle#{question.questionNumber}')"/>
-                    </p:card>
-                    <br/><br/>
-                </p:repeat>
-                <p:commandButton id="addQuestion" immediate="true" icon="fas fa-plus"  action="#{createQuizManager.addQuestion()}"
-                                 styleClass="float"/>
+                <p:panelGrid columns="2" cellpadding="7"  styleClass="ui-noborder">
+
+                    <p:toolbar style="background-color: #861F41">
+                        <p:toolbarGroup >
+                            <div style="color: white; font-size: large" align="center">Quiz:&nbsp;#{accessCodeController.aQuiz.getTitle()}</div>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <h:outputLabel value="Quiz Time Limited:&nbsp;#{accessCodeController.aQuiz.getTimeLimit()} mins" styleClass="ui-noborder"/>
+                </p:panelGrid>
+
+                <!--show questions-->
+
+<!--                question_text, question_point-->
+                <p:dataTable id="questionListForOneQuiz" var="aquestion" value="#{accessCodeController.questions}"
+                             reflow="true" style="max-width: 70%"
+                             rowKey="#{aquestion.id}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                    <p:column headerText="Answer Choices" style="width:2rem">
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="Question" style="width: 50%">
+                        <h:outputText value="#{aquestion.questionText}"/>
+                    </p:column>
+                    <p:column headerText="Question Point" style="width: 30%">
+                        <h:outputText value="#{aquestion.questionPoint} Points"/>
+                    </p:column>
+
+<!--                    <p:column exportable="false">-->
+<!--                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"-->
+<!--                                         action="#{createQuizManager.deleteSelectedQuestion}">-->
+<!--                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>-->
+<!--                        </p:commandButton>-->
+<!--                    </p:column>-->
+                    <p:rowExpansion>
+                        <p:dataTable id="data-answers" var="answer" value="#{aquestion.answerChoices}"
+                                     reflow="true" style="max-width: 100%"
+                                     paginator="false"
+                                     styleClass="noHeader"
+                                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <p:column style="width:2rem">
+                                <h:outputText value="#{answer.index}"/>
+                            </p:column>
+                            <p:column style="width: 40%">
+                                <h:outputText value="#{answer.answerText}"/>
+                            </p:column>
+                            <p:column style="width: 40%">
+<!--                         TBD!!!!-->
+<!--                            <p:selectBooleanCheckbox value="#{}" itemLabel="Basic"/>-->
+                            </p:column>
+<!--                            <p:column headerText="True/False">-->
+<!--                                <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answer.correct}"-->
+<!--                                                       onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />-->
+<!--                            </p:column>-->
+                        </p:dataTable>
+                    </p:rowExpansion>
+
+                </p:dataTable>
+
+
             </h:form>
         </div>
 
-        <!--
-        ==================================================================
-        Dialog for Security Question and Answer for Survey Deletion
-        ==================================================================
-        -->
+
     </ui:define>
 
 </ui:composition>

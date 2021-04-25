@@ -15,6 +15,7 @@ public class AnswerChoice implements Serializable {
      */
     private String answerText;
     private Boolean correct;
+    private String index;
     /*
     ===============================================================
     Class constructors for instantiating a User entity object to
@@ -22,9 +23,10 @@ public class AnswerChoice implements Serializable {
     ===============================================================
      */
 
-    public AnswerChoice(String text, Boolean correct) {
+    public AnswerChoice(String text, Boolean correct,String index) {
         this.answerText = text;
         this.correct = correct;
+        this.index = index;
     }
 
     /*
@@ -33,6 +35,14 @@ public class AnswerChoice implements Serializable {
     of the User table in the CloudDriveDB database.
     ======================================================
      */
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
     public String getAnswerText() {
         return answerText;

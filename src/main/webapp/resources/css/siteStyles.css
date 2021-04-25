@@ -176,6 +176,10 @@ the speed of the transition to change over time.
     transition: all ease 0.3s;          /* Generic */
 }
 
+.noHeader.ui-datatable table thead tr {
+    display: none;
+}
+
 /* Mouseover (hovering over) the social media icon animates its 360-degree rotation */
 .social-roll:hover {
     -webkit-transform:rotate(360deg);  /* For WebKit */

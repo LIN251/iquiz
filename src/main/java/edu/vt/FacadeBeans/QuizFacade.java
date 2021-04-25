@@ -5,7 +5,6 @@
 package edu.vt.FacadeBeans;
 
 import edu.vt.EntityBeans.Quiz;
-import edu.vt.EntityBeans.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

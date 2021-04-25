@@ -22,6 +22,7 @@ import java.util.Date;
         , @NamedQuery(name = "Question.findById", query = "SELECT q FROM Question q WHERE q.id = :question_id")
         , @NamedQuery(name = "Question.findByQuizID", query = "SELECT q FROM Question q WHERE q.quizID = :quiz_id_fk")})
 
+
 public class Question implements Serializable {
     /*
     ========================================================

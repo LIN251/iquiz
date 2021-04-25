@@ -78,6 +78,7 @@ siteTemplate for the entire site, achieving great maintainability.
                                 <p:menuitem value="Sign Out" action="#{userController.logout()}" icon="fas fa-sign-out-alt"/>
                             </c:if>
                             <c:if test="#{userController.isLoggedIn() == false}">
+                                <p:menuitem value="Take a quiz" icon="fas fa-search" onclick="PF('accessCodeDialog').show();return false;"/>
                                 <p:menuitem value="Create Quiz" outcome="/quizzes/CreateQuiz" icon="fas fa-bars"/>
                                 <p:menuitem value="Sign In" outcome="/SignIn" icon="fas fa-sign-in-alt"/>
                                 <p:menuitem value="Sign Up" outcome="/userAccount/CreateAccount" icon="fas fa-user-plus"/>
@@ -89,7 +90,7 @@ siteTemplate for the entire site, achieving great maintainability.
         </table>
 
     </h:form>
-
+    <ui:include src="/quizzes/AccessCode.xhtml"/>
 </ui:composition>
 <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 

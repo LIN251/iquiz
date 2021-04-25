@@ -4,32 +4,24 @@
  */
 package edu.vt.controllers;
 
+import edu.vt.EntityBeans.Answer;
+import edu.vt.EntityBeans.Question;
 import edu.vt.EntityBeans.Quiz;
 import edu.vt.EntityBeans.Taker;
-import edu.vt.EntityBeans.User;
-import edu.vt.EntityBeans.UserPhoto;
+import edu.vt.FacadeBeans.AnswerFacade;
+import edu.vt.FacadeBeans.QuestionFacade;
 import edu.vt.FacadeBeans.QuizFacade;
 import edu.vt.FacadeBeans.TakerFacade;
-import edu.vt.FacadeBeans.UserFacade;
-import edu.vt.FacadeBeans.UserPhotoFacade;
-import edu.vt.globals.Constants;
 import edu.vt.globals.Methods;
-import edu.vt.globals.Password;
+import edu.vt.pojo.AnswerChoice;
+import edu.vt.pojo.QuizQuestion;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
 ---------------------------------------------------------------------------
@@ -67,10 +59,30 @@ public class AccessCodeController implements Serializable {
     @EJB
     private QuizFacade quizFacade;
 
-
     @EJB
     private TakerFacade takerFacade;
 
+    @EJB
+    private QuestionFacade questionFacade;
+
+    @EJB
+    private AnswerFacade answerFacade;
+
+
+
+    private String searchQuery;
+    private String takerName;
+    private QuizQuestion selectedQuestion ;
+    private AnswerChoice selectedAnswerChoice ;
+    List<Question> questionListForOneQuiz = new ArrayList<Question>();
+    private List<QuizQuestion> questions= new ArrayList<QuizQuestion>();
+    private List<AnswerChoice> answerChoices = new ArrayList<AnswerChoice>();
+    List<Answer> answerListForOneQuestion = new ArrayList<Answer>();
+    private List<AnswerChoice> selectedAnswerChoices = new ArrayList<AnswerChoice>();
+    Quiz aQuiz = new Quiz();
+
+
+    //------------------------------------------setter and getter ------------------------------------------
 
     public TakerFacade getTakerFacade() {
         return takerFacade;
@@ -84,24 +96,58 @@ public class AccessCodeController implements Serializable {
         return quizFacade;
     }
 
+    public Quiz getaQuiz() {
+        return aQuiz;
+    }
+
+    public AnswerFacade getAnswerFacade() {
+        return answerFacade;
+    }
+
+    public void setAnswerFacade(AnswerFacade answerFacade) {
+        this.answerFacade = answerFacade;
+    }
+
+    public List<Answer> getAnswerListForOneQuestion() {
+        return answerListForOneQuestion;
+    }
+
+    public void setAnswerListForOneQuestion(List<Answer> answerListForOneQuestion) {
+        this.answerListForOneQuestion = answerListForOneQuestion;
+    }
+
+    public void setaQuiz(Quiz aQuiz) {
+        this.aQuiz = aQuiz;
+    }
+
     public void setQuizFacade(QuizFacade quizFacade) {
         this.quizFacade = quizFacade;
     }
 
-    private String searchQuery;
+    public List<Question> getQuestionListForOneQuiz() {
+        return questionListForOneQuiz;
+    }
+
+    public void setQuestionListForOneQuiz(List<Question> questionListForOneQuiz) {
+        this.questionListForOneQuiz = questionListForOneQuiz;
+    }
+
+    public QuestionFacade getQuestionFacade() {
+        return questionFacade;
+    }
+
+    public void setQuestionFacade(QuestionFacade questionFacade) {
+        this.questionFacade = questionFacade;
+    }
 
     public String getTakerName() {
         return takerName;
-    }
-    public void printHello() {
-     System.out.println("Hello");
     }
 
     public void setTakerName(String takerName) {
         this.takerName = takerName;
     }
 
-    private String takerName;
     public String getSearchQuery() {
         return searchQuery;
     }
@@ -110,27 +156,88 @@ public class AccessCodeController implements Serializable {
         this.searchQuery = searchQuery;
     }
 
+    public QuizQuestion getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public void setSelectedQuestion(QuizQuestion selectedQuestion) {
+        this.selectedQuestion = selectedQuestion;
+    }
+
+    public AnswerChoice getSelectedAnswerChoice() {
+        return selectedAnswerChoice;
+    }
+
+    public void setSelectedAnswerChoice(AnswerChoice selectedAnswerChoice) {
+        this.selectedAnswerChoice = selectedAnswerChoice;
+    }
+
+    public List<QuizQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<QuizQuestion> questions) {
+        this.questions = questions;
+    }
+
+    public List<AnswerChoice> getAnswerChoices() {
+        return answerChoices;
+    }
+
+    public void setAnswerChoices(List<AnswerChoice> answerChoices) {
+        this.answerChoices = answerChoices;
+    }
+
+    public List<AnswerChoice> getSelectedAnswerChoices() {
+        return selectedAnswerChoices;
+    }
+
+    public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) {
+        this.selectedAnswerChoices = selectedAnswerChoices;
+    }
+    //------------------------------------------------- END -------------------------------------------------
+
     public AccessCodeController() {
+
     }
 
 
-    public String performSearch() {
-        Quiz aQuiz = getQuizFacade().findOneQuiz(searchQuery);
+    public void performSearch() {
+        questionListForOneQuiz = new ArrayList<Question>();
+        aQuiz = getQuizFacade().findOneQuiz(searchQuery);
+//        aQuiz.getTimeLimit()
         if (aQuiz == null) {
-            // A user already exists with the username entered by the user
+            // Quiz Does Not Exists
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
-            return "";
+
         }
         else{
+            //update taker
             Taker newTaker = new Taker();
             newTaker.setFirstName(takerName);
             newTaker.setLastName("taker");
             getTakerFacade().create(newTaker);
-
+            //get all questions
+            questionListForOneQuiz = getQuestionFacade().findAllquestions(aQuiz.getId());
+            //collect all questions and answers
+            for (int i = 0; i < questionListForOneQuiz.size(); i++) {
+                answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
+                answerChoices = new ArrayList<AnswerChoice>();
+                for (int x = 0; x < answerListForOneQuestion.size(); x++) {
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), false, getCharForNumber(x+1)));
+                }
+                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
+                questions.add(initialQuestion);
+            }
+            //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
-
-            return "/quizzes/takeQuiz?faces-redirect=true";
         }
     }
+
+
+    private String getCharForNumber(int i) {
+        return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
+    }
+
 
 }

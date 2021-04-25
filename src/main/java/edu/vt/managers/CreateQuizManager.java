@@ -62,10 +62,10 @@ public class CreateQuizManager implements Serializable {
         questions = new ArrayList<QuizQuestion>();
         answerChoices = new ArrayList<AnswerChoice>();
         selectedAnswerChoices = new ArrayList<>();
-        answerChoices.add(new AnswerChoice("Washington DC", false));
-        answerChoices.add(new AnswerChoice("Richmond", false));
-        answerChoices.add(new AnswerChoice("Blacksburg", true));
-        answerChoices.add(new AnswerChoice("New York", false));
+        answerChoices.add(new AnswerChoice("Washington DC", false,"A"));
+        answerChoices.add(new AnswerChoice("Richmond", false,"B"));
+        answerChoices.add(new AnswerChoice("Blacksburg", true,"C"));
+        answerChoices.add(new AnswerChoice("New York", false,"D"));
         QuizQuestion initialQuestion = new QuizQuestion("Example", 1, questionNumber, answerChoices);
         questions.add(initialQuestion);
         questions.add(initialQuestion);
@@ -140,7 +140,7 @@ public class CreateQuizManager implements Serializable {
     }
 
     public void addAnswerChoice() {
-        selectedAnswerChoices.add(new AnswerChoice("", false));
+        selectedAnswerChoices.add(new AnswerChoice("", false,"A"));
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "CreateQuizForm:dt-questions");
     }
 

@@ -14,12 +14,21 @@ import java.util.Date;
 // The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
 @Entity
 
+//CREATE TABLE Answer(
+//        answer_id INT PRIMARY KEY AUTO_INCREMENT,
+//        question_id_fk INT,
+//        answer_text VARCHAR(1024),
+//        instructor_result boolean NOT NULL,
+//        FOREIGN KEY (question_id_fk) REFERENCES Question (question_id)
+//        );
 // Name of the database table represented
 @Table(name = "Answer")
 
 @NamedQueries({
         @NamedQuery(name = "Answer.findAll", query = "SELECT a FROM Answer a")
         , @NamedQuery(name = "Answer.findById", query = "SELECT a FROM Answer a WHERE a.id = :answer_id")
+        , @NamedQuery(name = "Answer.findByAnswerText", query = "SELECT a FROM Answer a WHERE a.answer_text = :answer_text")
+        , @NamedQuery(name = "Answer.findByInstructorResult", query = "SELECT a FROM Answer a WHERE a.instructorResult = :instructor_result")
         , @NamedQuery(name = "Answer.findByQuizID", query = "SELECT a FROM Answer a WHERE a.questionId = :question_id_fk")})
 
 public class Answer implements Serializable {
@@ -62,9 +71,9 @@ public class Answer implements Serializable {
     public Answer(Integer id) {
     }
 
-    public Answer(boolean instructorResult) {
-        this.instructorResult = instructorResult;
-    }
+//    public Answer(boolean instructorResult) {
+//        this.instructorResult = instructorResult;
+//    }
 
     /*
     ======================================================
@@ -114,4 +123,35 @@ public class Answer implements Serializable {
         return id.toString();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getAnswer_text() {
+        return answer_text;
+    }
+
+    public void setAnswer_text(String answer_text) {
+        this.answer_text = answer_text;
+    }
+
+    public boolean isInstructorResult() {
+        return instructorResult;
+    }
+
+    public void setInstructorResult(boolean instructorResult) {
+        this.instructorResult = instructorResult;
+    }
+
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
+    }
 }

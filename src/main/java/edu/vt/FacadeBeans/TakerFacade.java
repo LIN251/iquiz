@@ -4,7 +4,6 @@
  */
 package edu.vt.FacadeBeans;
 
-import edu.vt.EntityBeans.Quiz;
 import edu.vt.EntityBeans.Taker;
 
 import javax.ejb.Stateless;

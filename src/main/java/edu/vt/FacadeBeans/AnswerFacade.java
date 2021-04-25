@@ -4,17 +4,18 @@
  */
 package edu.vt.FacadeBeans;
 
+import edu.vt.EntityBeans.Answer;
 import edu.vt.EntityBeans.Question;
 import edu.vt.EntityBeans.Quiz;
 
 import javax.ejb.Stateless;
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless
-public class QuestionFacade extends AbstractFacade<Quiz> {
+public class AnswerFacade extends AbstractFacade<Quiz> {
 
     /*
     Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "Recipes-WangZhengboPU")'
@@ -40,17 +41,17 @@ public class QuestionFacade extends AbstractFacade<Quiz> {
     constructor method, which in turn initializes its entityClass instance variable
     with the Recipe class object reference returned by the Recipe.class.
      */
-    public QuestionFacade() {
+    public AnswerFacade() {
         // Invokes super's AbstractFacade constructor method by passing
         // Recipe.class, which is the object reference of the Recipe class.
         super(Quiz.class);
     }
 
 
-    public  List<Question> findAllquestions(int tempQuizID) {
+    public  List<Answer> findAllAnswersForOneQuestion(int questionId) {
 
-        List<Question> result = em.createQuery("SELECT c FROM Question c WHERE c.quizID = :quizID")
-                    .setParameter("quizID", tempQuizID)
+        List<Answer> result = em.createQuery("SELECT c FROM Answer c WHERE c.questionId = :questionId")
+                    .setParameter("questionId", questionId)
                     .getResultList();
         return result;
     }

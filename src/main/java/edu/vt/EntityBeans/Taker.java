@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
 
 // The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
 @Entity
