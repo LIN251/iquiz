@@ -8,7 +8,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
@@ -32,6 +32,12 @@
                         <div style="color: white; font-size: 30px">#{myQuizController.selectedQuiz.title}</div>
                     </p:toolbarGroup>
                 </p:toolbar>
+                <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
+                <div>
+                    <i style="margin-left: 5px">Time Limit: #{myQuizController.selectedQuiz.timeLimit} minutes</i>
+                    <i style="margin-left: 500px">Points: #{myQuizController.totalPoints}</i>
+                </div>
+                <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
                 <p:dataTable id="questionList" var="question" value="#{myQuizController.quizQuestions}"
                              reflow="true" style="max-width: 70%"
                              rowKey="#{question.id}" paginator="true"
@@ -44,10 +50,13 @@
                                      paginator="false"
                                      styleClass="noHeader"
                                      rows="10" rowSelectMode="add" paginatorPosition="bottom">
-                            <p:column style="width:2rem">
+                            <p:column style="width: 6em">
+                                <p:selectBooleanButton style="margin-left: 20px" disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" value="#{answer.correct}" onLabel=""  offLabel=""/>
+                            </p:column>
+                            <p:column style="width: 2em">
                                 <h:outputText style="font-size: 16px" value="#{answer.index}"/>
                             </p:column>
-                            <p:column style="width: 40%">
+                            <p:column style="width: 60%">
                                 <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
                             </p:column>
                         </p:dataTable>
@@ -55,13 +64,6 @@
                     <p:column style="width: 10%">
                         <h:outputText value="#{question.questionPoint} Points"/>
                     </p:column>
-
-                    <!--                    <p:column exportable="false">-->
-                    <!--                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"-->
-                    <!--                                         action="#{createQuizManager.deleteSelectedQuestion}">-->
-                    <!--                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>-->
-                    <!--                        </p:commandButton>-->
-                    <!--                    </p:column>-->
 
                 </p:dataTable>
 

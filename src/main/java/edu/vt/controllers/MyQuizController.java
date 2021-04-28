@@ -58,6 +58,7 @@ public class MyQuizController implements Serializable {
     private List<Question> questionItems = null;
     private List<Answer> answerItems = null;
     private ArrayList<QuizQuestion> quizQuestions;
+    private Integer totalPoints;
     private Quiz selected;
     private Quiz selectedQuiz = null;
 
@@ -69,6 +70,7 @@ public class MyQuizController implements Serializable {
     */
     public MyQuizController() {
         quizQuestions = new ArrayList<QuizQuestion>();
+        totalPoints = 0;
     }
 
     public QuizFacade getQuizFacade() { return quizFacade; }
@@ -117,6 +119,8 @@ public class MyQuizController implements Serializable {
 
     public List<QuizQuestion> getQuizQuestions() { return quizQuestions; }
 
+    public Integer getTotalPoints() { return totalPoints; }
+
     public String updateQuestion(int id) {
 
 //        System.out.println("0000000000");
@@ -125,6 +129,7 @@ public class MyQuizController implements Serializable {
         selectedQuiz = null;
         answerItems = null;
         quizQuestions.clear();
+        totalPoints = 0;
 
         if(questionItems == null) {
             questionItems = getQuestionFacade().findQuestionByQuizId(id);
@@ -137,10 +142,15 @@ public class MyQuizController implements Serializable {
                 answerItems = getAnswerFacade().findAllAnswersForOneQuestion(questionItems.get(i).getId());
                 ArrayList<AnswerChoice> everyAnswer = new ArrayList<AnswerChoice>();
                 for(int j = 0; j < answerItems.size(); j++) {
-                    everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), false, getCharForNumber(j + 1)));
+                    everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), answerItems.get(j).isInstructorResult(), getCharForNumber(j + 1)));
                 }
                 quizQuestions.add(new QuizQuestion(questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), questionItems.get(i).getId(), everyAnswer));
 
+            }
+        }
+        if(totalPoints == 0) {
+            for(int i = 0; i < questionItems.size(); i++) {
+                totalPoints += questionItems.get(i).getQuestionPoint();
             }
         }
         return "/quizzes/MyQuizzesView?faces-redirect=true";

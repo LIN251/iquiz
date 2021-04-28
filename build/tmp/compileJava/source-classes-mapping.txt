@@ -56,9 +56,9 @@ edu/vt/FacadeBeans/QuizFacade.java
  edu.vt.FacadeBeans.QuizFacade
 edu/vt/controllers/AccessCodeController.java
  edu.vt.controllers.AccessCodeController
-edu/vt/controllers/MyQuizController.java
- edu.vt.controllers.MyQuizController
-edu/vt/FacadeBeans/QuestionFacade.java
- edu.vt.FacadeBeans.QuestionFacade
 edu/vt/controllers/CreateQuizController.java
  edu.vt.controllers.CreateQuizController
+edu/vt/FacadeBeans/QuestionFacade.java
+ edu.vt.FacadeBeans.QuestionFacade
+edu/vt/controllers/MyQuizController.java
+ edu.vt.controllers.MyQuizController
