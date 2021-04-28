@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <ui:define name="title">
+        <!-- Set the page title -->
+        <h:outputText value="Create Quiz"/>
+    </ui:define>
+
+    <!-- Create the content for this page below -->
+    <ui:define name="editableContent">
+        <div align="center" style="width:95%">
+            <h:form id="AccessQuizForm">
+                <f:metadata>
+                    <f:viewParam name="access_code" />
+                </f:metadata>
+                <p:growl id="messages" showDetail="true"/>
+                <p:toolbar style="max-width: 50%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">Take Quiz</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:panel id="accessQuizPanel" style="width: 50%">
+                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
+                        <h:outputLabel value="Name:" for="name" />
+                        <p:inputText id="name" value="#{accessCodeController.takerName}" required="true" class="inputTextField"
+                                     requiredMessage="The Name Title field is required." label="Name" >
+                        </p:inputText>
+                    </p:panelGrid>
+                </p:panel>
+                <p:toolbar style="max-width: 50%">
+                    <p:toolbarGroup>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Take Quiz" icon="fas fa-arrow-right"
+                                         styleClass="vt-theme-button-marron"
+                                         actionListener="#{accessCodeController.performSearchByAccessCode(access_code)}"
+                                         action="/quizzes/TakeQuiz?faces-redirect=true"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

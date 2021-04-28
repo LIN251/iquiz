@@ -235,6 +235,39 @@ public class AccessCodeController implements Serializable {
         }
     }
 
+    public void performSearchByAccessCode(String access_code) {
+        reset();
+        questionListForOneQuiz = new ArrayList<Question>();
+        aQuiz = getQuizFacade().findOneQuiz(access_code);
+//        aQuiz.getTimeLimit()
+        if (aQuiz == null) {
+            // Quiz Does Not Exists
+            Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
+
+        }
+        else{
+            //update taker
+            Taker newTaker = new Taker();
+            newTaker.setFirstName(takerName);
+            newTaker.setLastName("taker");
+            getTakerFacade().create(newTaker);
+            //get all questions
+            questionListForOneQuiz = getQuestionFacade().findAllquestions(aQuiz.getId());
+            //collect all questions and answers
+            for (int i = 0; i < questionListForOneQuiz.size(); i++) {
+                answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
+                answerChoices = new ArrayList<AnswerChoice>();
+                for (int x = 0; x < answerListForOneQuestion.size(); x++) {
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), false, getCharForNumber(x+1)));
+                }
+                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
+                questions.add(initialQuestion);
+            }
+            //show message
+            Methods.showMessage("Information", "Success!", "Openning the quiz!");
+        }
+    }
+
     private void reset() {
         questionListForOneQuiz = new ArrayList<Question>();
         questions= new ArrayList<QuizQuestion>();
