@@ -48,9 +48,8 @@
                     <p:toolbarGroup align="right">
                         <p:commandButton value="Take Quiz" icon="fas fa-arrow-right"
                                          styleClass="vt-theme-button-marron"
-                                         update="messages"
-                                         actionListener="#{accessCodeController.performSearchByAccessCode(access_code)}"
-                                         action="/quizzes/TakeQuiz?faces-redirect=true"/>
+                                         update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                         action="#{accessCodeController.performSearchByAccessCode(access_code)}"/>
                     </p:toolbarGroup>
                 </p:toolbar>
             </h:form>

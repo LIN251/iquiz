@@ -235,7 +235,7 @@ public class AccessCodeController implements Serializable {
         }
     }
 
-    public void performSearchByAccessCode(String access_code) {
+    public String performSearchByAccessCode(String access_code) {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(access_code);
@@ -243,7 +243,7 @@ public class AccessCodeController implements Serializable {
         if (aQuiz == null) {
             // Quiz Does Not Exists
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
-
+            return null;
         }
         else{
             //update taker
@@ -265,6 +265,7 @@ public class AccessCodeController implements Serializable {
             }
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
+            return "/quizzes/TakeQuiz?faces-redirect=true";
         }
     }
 
