@@ -14,8 +14,8 @@ edu/vt/pojo/AnswerChoice.java
  edu.vt.pojo.AnswerChoice
 edu/vt/FacadeBeans/AbstractFacade.java
  edu.vt.FacadeBeans.AbstractFacade
-edu/vt/EntityBeans/Answer.java
- edu.vt.EntityBeans.Answer
+edu/vt/FacadeBeans/AnswerFacade.java
+ edu.vt.FacadeBeans.AnswerFacade
 edu/vt/EntityBeans/Taker.java
  edu.vt.EntityBeans.Taker
 edu/vt/EntityBeans/User.java
@@ -28,8 +28,8 @@ edu/vt/globals/Password.java
  edu.vt.globals.Password
  edu.vt.globals.Password$CannotPerformOperationException
  edu.vt.globals.Password$InvalidHashException
-edu/vt/FacadeBeans/QuizFacade.java
- edu.vt.FacadeBeans.QuizFacade
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade
 edu/vt/EntityBeans/UserPhoto.java
  edu.vt.EntityBeans.UserPhoto
 edu/vt/EntityBeans/Quiz.java
@@ -38,6 +38,8 @@ edu/vt/validators/ZipCodeValidator.java
  edu.vt.validators.ZipCodeValidator
 edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
+edu/vt/EntityBeans/Answer.java
+ edu.vt.EntityBeans.Answer
 edu/vt/FacadeBeans/UserPhotoFacade.java
  edu.vt.FacadeBeans.UserPhotoFacade
 edu/vt/validators/EmailValidator.java
@@ -46,17 +48,17 @@ edu/vt/controllers/UserPhotoController.java
  edu.vt.controllers.UserPhotoController
 edu/vt/FacadeBeans/UserFacade.java
  edu.vt.FacadeBeans.UserFacade
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
 edu/vt/managers/CreateQuizManager.java
  edu.vt.managers.CreateQuizManager
-edu/vt/controllers/CreateQuizController.java
- edu.vt.controllers.CreateQuizController
-edu/vt/FacadeBeans/AnswerFacade.java
- edu.vt.FacadeBeans.AnswerFacade
-edu/vt/FacadeBeans/QuestionFacade.java
- edu.vt.FacadeBeans.QuestionFacade
 edu/vt/controllers/UserController.java
  edu.vt.controllers.UserController
+edu/vt/FacadeBeans/QuizFacade.java
+ edu.vt.FacadeBeans.QuizFacade
 edu/vt/controllers/AccessCodeController.java
  edu.vt.controllers.AccessCodeController
+edu/vt/controllers/MyQuizController.java
+ edu.vt.controllers.MyQuizController
+edu/vt/FacadeBeans/QuestionFacade.java
+ edu.vt.FacadeBeans.QuestionFacade
+edu/vt/controllers/CreateQuizController.java
+ edu.vt.controllers.CreateQuizController

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <ui:define name="title">
+        <!-- Set the page title -->
+        <h:outputText value="Take Quiz"/>
+    </ui:define>
+
+    <!-- Create the content for this page below -->
+    <ui:define name="editableContent">
+
+        <div align="center" style="width:95%">
+            <h:form id="TakeQuizForm">
+                <p:growl id="messages" showDetail="true"/>
+                <br/><br/>
+                <p:toolbar style="width: 1190px; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: 30px">#{myQuizController.selectedQuiz.title}</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="questionList" var="question" value="#{myQuizController.quizQuestions}"
+                             reflow="true" style="max-width: 70%"
+                             rowKey="#{question.id}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                    <p:column style="width: 90%">
+                        <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
+                        <p:dataTable id="questionListAnswer" var="answer" value="#{question.answerChoices}"
+                                     reflow="true" style="max-width: 100%"
+                                     paginator="false"
+                                     styleClass="noHeader"
+                                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <p:column style="width:2rem">
+                                <h:outputText style="font-size: 16px" value="#{answer.index}"/>
+                            </p:column>
+                            <p:column style="width: 40%">
+                                <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                    <p:column style="width: 10%">
+                        <h:outputText value="#{question.questionPoint} Points"/>
+                    </p:column>
+
+                    <!--                    <p:column exportable="false">-->
+                    <!--                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"-->
+                    <!--                                         action="#{createQuizManager.deleteSelectedQuestion}">-->
+                    <!--                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>-->
+                    <!--                        </p:commandButton>-->
+                    <!--                    </p:column>-->
+
+                </p:dataTable>
+
+
+            </h:form>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

@@ -28,179 +28,62 @@
             <h:form id="MyQuizzesListForm">
 
                 <p:panel header="MyQuizzes">
+                    <h:form>
+<!--                        <script type="text/javascript">-->
+<!--                            function callQuestion(test){-->
+<!--                                window.onbeforeunload = function() {-->
+<!--                                    alert(test)-->
+<!--                                    console.log(test)-->
+<!--                                    "#{myQuizController.updateQuestion(test)}"-->
 
-                    <!--
-                    Read about p:dataTable in PrimeFaces User Guide and learn about it.
-                    The table is displayed as sorted in the order of database Primary Key (id) values.
-                    -->
-
-<!--                    <p:dataTable id="datalist" value="#{publicVideoController.items}" var="item"-->
-<!--                                 selectionMode="single" selection="#{publicVideoController.selected}"-->
-<!--                                 reflow="true"-->
-<!--                                 paginator="true"-->
-<!--                                 rowKey="#{item.id}"-->
-<!--                                 rows="5"-->
-<!--                                 rowsPerPageTemplate="5,10,15,20,30,40,50"-->
-<!--                                 class="dataTable" >-->
-
-<!--                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton playButton shareButton"/>-->
-<!--                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton playButton shareButton"/>-->
-
-<!--                        <p:column headerText="Id"-->
-<!--                                  exportFunction="#{item.getId()}" style="width:20px; text-align:center" >-->
-<!--                            <h:outputText class="standardText" value="#{item.id}"/>-->
-<!--                        </p:column>-->
-<!--                        &lt;!&ndash;-->
-<!--                        ********************-->
-<!--                        *   PublicVideo NAME   *-->
-<!--                        ********************-->
-<!--                        &ndash;&gt;-->
-<!--                        <p:column sortBy="#{item.title}" headerText="Title"-->
-<!--                                  exportFunction="#{item.getTitle()}" style="width:100px;" >-->
-<!--                            <h:outputText class="standardText" value="#{item.title}"/>-->
-<!--                        </p:column>-->
-
-<!--                        &lt;!&ndash;-->
-<!--                        ********************-->
-<!--                        *   PublicVideo Thumbnail   *-->
-<!--                        ********************-->
-<!--                        &ndash;&gt;-->
-<!--                        <p:column exportable="false" headerText="Thumbnail" style="width:80px;" >-->
-<!--                            <img src="https://i1.ytimg.com/vi/#{item.youTubeVideoId}/hqdefault.jpg"-->
-<!--                                 alt="Video Thumbnail" class="scalableImage"/>-->
-<!--                        </p:column>-->
-
-<!--                        <p:column headerText="Description"-->
-<!--                                  exportFunction="#{item.description()}" style="width:250px;" >-->
-<!--                            <h:outputText class="standardText" value="#{item.description}"/>-->
-<!--                        </p:column>-->
-<!--                        &lt;!&ndash;-->
-<!--                        ******************************-->
-<!--                        *   PublicVideo Duration-->
-<!--                        ******************************-->
-<!--                        &ndash;&gt;-->
-<!--                        <p:column sortBy="#{item.duration}" headerText="Duration"-->
-<!--                                  exportFunction="#{item.getDuration()}" style="width:80px; text-align:center">-->
-<!--                            <h:outputText class="standardText" value="#{item.duration}"/>-->
-<!--                        </p:column>-->
-
-<!--                        &lt;!&ndash;-->
-<!--                        ***********************************-->
-<!--                        *   PublicVideo Date Published-->
-<!--                        ***********************************-->
-<!--                        &ndash;&gt;-->
-<!--                        <p:column sortBy="#{item.datePublished}" headerText="Date Published"-->
-<!--                                  exportFunction="#{item.getDatePublished()}" style="width:100px; text-align:center" >-->
-<!--                            <h:outputText class="standardText" value="#{item.formatDate(item.datePublished)}"/>-->
-<!--                        </p:column>-->
-
-<!--                        &lt;!&ndash;-->
-<!--                        ********************************************-->
-<!--                        *   PublicVideo Category-->
-<!--                        ********************************************-->
-<!--                        &ndash;&gt;-->
-<!--                        <p:column sortBy="#{item.category}" headerText="Category"-->
-<!--                                  exportFunction="#{item.getCategory()}"-->
-<!--                                  style="width:80px; text-align:center" >-->
-<!--                            <h:outputText class="standardText" value="#{item.category}"/>-->
-<!--                        </p:column>-->
+<!--                                }-->
 
 
-<!--                        &lt;!&ndash;-->
-<!--                        ****************************************-->
-<!--                        *   FOOTER Section of the Data Table   *-->
-<!--                        ****************************************-->
-<!--                        &ndash;&gt;-->
-<!--                        <f:facet name="footer">-->
-<!--                            &lt;!&ndash;-->
-<!--                            =============-->
-<!--                            CREATE Button-->
-<!--                            =============-->
-<!--                            &ndash;&gt;-->
-<!--                            <p:commandButton id="createButton" icon="fas fa-plus" value="Create"-->
-<!--                                             actionListener="#{publicVideoController.prepareCreate()}"-->
-<!--                                             update=":PublicVideoCreateForm" oncomplete="PF('PublicVideoCreateDialog').show()"/>-->
+<!--                            }-->
 
-<!--                            &lt;!&ndash;-->
-<!--                            ==================-->
-<!--                            VIEW (Read) Button-->
-<!--                            ==================-->
-<!--                            &ndash;&gt;-->
-<!--                            <p:commandButton id="viewButton"   icon="fas fa-eye" value="View"-->
-<!--                                             update=":PublicVideoViewForm" oncomplete="PF('PublicVideoViewDialog').show()"-->
-<!--                                             disabled="#{empty publicVideoController.selected}"/>-->
+<!--                        </script>-->
 
-<!--                            &lt;!&ndash;-->
-<!--                            ====================-->
-<!--                            EDIT (Update) Button-->
-<!--                            ====================-->
-<!--                            &ndash;&gt;-->
-<!--                            <p:commandButton id="editButton"   icon="fas fa-edit" value="Edit"-->
-<!--                                             update=":PublicVideoEditForm" oncomplete="PF('PublicVideoEditDialog').show()"-->
-<!--                                             disabled="#{empty publicVideoController.selected}"/>-->
+                        <div>
+                            <p:dataTable style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
+                                <p:column id="id" style="text-align: left" headerText="ID">
+                                    <h:outputText value="#{item.id}" />
+                                </p:column>
 
-<!--                            &lt;!&ndash;-->
-<!--                            =============-->
-<!--                            DELETE Button-->
-<!--                            =============-->
-<!--                            &ndash;&gt;-->
-<!--                            &lt;!&ndash;-->
-<!--                            ***************************************************-->
-<!--                            Display a Confirmation dialog for the DELETE button-->
-<!--                            ***************************************************-->
-<!--                            &ndash;&gt;-->
-<!--                            <p:commandButton id="deleteButton" icon="fas fa-trash-alt"  value="Delete"-->
-<!--                                             actionListener="#{publicVideoController.destroy()}"-->
-<!--                                             update="growlInfoMessage,datalist" disabled="#{empty publicVideoController.selected}">-->
+                                <p:column style="text-align: left" headerText="Title">
+                                    <h:outputText class="inputTextField" value="#{item.title}" />
+                                </p:column>
 
-<!--                                <p:confirm header="Video Deletion Confirmation"-->
-<!--                                           message="Are you sure you want to permanently delete *** #{publicVideoController.selected.title} *** from the database?"-->
-<!--                                           icon="fas fa-exclamation-triangle fa-2x" />-->
-<!--                            </p:commandButton>-->
+                                <p:column style="text-align: left" headerText="Published">
+                                    <h:outputText class="inputTextField" value="#{item.publish}" />
+                                </p:column>
 
-<!--                            <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">-->
-<!--                                <div align="center">-->
-<!--                                    &lt;!&ndash; The value of the first button listed below will be shown as-->
-<!--                                    highlighted (default action) when displayed &ndash;&gt;-->
-<!--                                    <p:commandButton value="No" type="button"-->
-<!--                                                     class="ui-confirmdialog-no" icon="fas fa-window-close" />-->
-<!--                                    &nbsp;-->
-<!--                                    <p:commandButton value="Yes" type="button"-->
-<!--                                                     class="ui-confirmdialog-yes" icon="fas fa-check-square" />-->
-<!--                                </div>-->
-<!--                            </p:confirmDialog>-->
-<!--                            &lt;!&ndash;-->
-<!--                            ************************************************-->
-<!--                            End of Display of the DELETE Confirmation dialog-->
-<!--                            ************************************************-->
-<!--                            &ndash;&gt;-->
+                                <p:column style="text-align: left" headerText="Created Date">
+                                    <h:outputText class="inputTextField" value="#{item.publishAt}" />
+                                </p:column>
 
-<!--                            <p:commandButton id="playButton"   icon="fas fa-play" value="Play"-->
-<!--                                             update=":PublicVideoPlayForm" oncomplete="PF('PublicVideoPlayDialog').show()"-->
-<!--                                             disabled="#{empty publicVideoController.selected}"/>-->
-<!--                            &lt;!&ndash;                            Share Button&ndash;&gt;-->
+                                <p:column style="text-align: left" headerText="Access Code">
+                                    <h:outputText class="inputTextField" value="#{item.accessCode}" />
+                                </p:column>
 
-<!--                            <p:commandButton id="shareButton" icon="fas fa-share"  value="Share"-->
-<!--                                             actionListener="#{publicVideoController.share()}"-->
-<!--                                             update="growlInfoMessage, @([id$=datalist2])" disabled="#{empty publicVideoController.selected}">-->
+                                <p:column style="text-align: left" headerText="">
 
-<!--                                <p:confirm header="Share Confirmation"-->
-<!--                                           message="Are you sure you want to add the selected video to the SignedIn User's Favorite List of YouTube Videos?"-->
-<!--                                           icon="fas fa-exclamation-triangle fa-2x" />-->
-<!--                            </p:commandButton>-->
-<!--                            &lt;!&ndash;-->
-<!--                            =============-->
-<!--                            SEARCH Button-->
-<!--                            =============-->
-<!--                            &ndash;&gt;-->
-<!--                            <p:commandButton id="searchButton" icon="fas fa-search" value="Search"-->
-<!--                                             update=":PublicVideoSearchForm"-->
-<!--                                             oncomplete="PF('PublicVideoSearchDialog').show()"/>-->
-<!--                        </f:facet>-->
-<!--                    </p:dataTable>-->
+                                    <p:commandButton id="view" ajax="false"  icon="pi pi-search" action="#{myQuizController.updateQuestion(item.id)}"  styleClass="rounded-button ui-button-success ui-button-outlined"/>
+                                    <p:tooltip for="view" value="View" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton type="button" id="edit" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
+                                    <p:tooltip for="edit" value="Edit" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton type="button" id="publish" icon="pi pi-check" styleClass="rounded-button ui-button-outlined"></p:commandButton>
+                                    <p:tooltip for="publish" value="Publish" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton type="button" id="delete" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined"></p:commandButton>
+                                    <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
                 </p:panel>
             </h:form>
-            <!--            <ui:include src="/userVideo/List.xhtml"/>-->
         </div>
     </ui:define>
 

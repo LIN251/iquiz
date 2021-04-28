@@ -51,9 +51,9 @@ public class CreateQuizController implements Serializable{
 //        public Question(String questionText, Integer questionPoint, Integer quizID) {
         for (int i = 0; i < questions.size(); i++){
             QuizQuestion qq = questions.get(i);
-            Question questionEntity = new Question(qq.getQuestionText(), qq.getQuestionNumber(), quizID);
+            Question questionEntity = new Question(qq.getQuestionText(), qq.getQuestionPoint(), quizID);
             questionFacade.create(questionEntity);
-            Question foundQuestion = questionFacade.findAllquestions(quizID).get(0);
+            Question foundQuestion = questionFacade.findAllquestions(quizID).get(i);
             int questionID = foundQuestion.getId();
             List<AnswerChoice> choices = qq.getAnswerChoices();
             for (int j = 0; j < choices.size(); j++){

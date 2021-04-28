@@ -55,4 +55,12 @@ public class QuestionFacade extends AbstractFacade<Question> {
         return result;
     }
 
+    public List<Question> findQuestionByQuizId(int quizID) {
+        List<Question> questions = em.createNamedQuery("Question.findByQuizID")
+                .setParameter("quiz_id_fk", quizID)
+                .getResultList();
+
+        return questions;
+    }
+
 }

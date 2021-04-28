@@ -57,4 +57,11 @@ public class QuizFacade extends AbstractFacade<Quiz> {
         }
     }
 
+    public Quiz findQuizByID(int quizid) {
+        Quiz quiz = (Quiz) em.createNamedQuery("Quiz.findById")
+                .setParameter("quiz_id", quizid)
+                .getSingleResult();
+        return quiz;
+    }
+
 }
