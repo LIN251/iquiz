@@ -18,7 +18,7 @@
 
     <ui:define name="title">
         <!-- Set the page title -->
-        <h:outputText value="Create Quiz"/>
+        <h:outputText value="Take Quiz"/>
     </ui:define>
 
     <!-- Create the content for this page below -->
@@ -31,14 +31,14 @@
                 <p:growl id="messages" showDetail="true"/>
                 <p:toolbar style="max-width: 50%; background-color: #861F41">
                     <p:toolbarGroup>
-                        <div style="color: white; font-size: large">Take Quiz</div>
+                        <div style="color: white; font-size: large">Enter your name</div>
                     </p:toolbarGroup>
                 </p:toolbar>
                 <p:panel id="accessQuizPanel" style="width: 50%">
                     <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
                         <h:outputLabel value="Name:" for="name" />
                         <p:inputText id="name" value="#{accessCodeController.takerName}" required="true" class="inputTextField"
-                                     requiredMessage="The Name Title field is required." label="Name" >
+                                     requiredMessage="The Name field is required." label="Name" >
                         </p:inputText>
                     </p:panelGrid>
                 </p:panel>
@@ -48,6 +48,7 @@
                     <p:toolbarGroup align="right">
                         <p:commandButton value="Take Quiz" icon="fas fa-arrow-right"
                                          styleClass="vt-theme-button-marron"
+                                         update="messages"
                                          actionListener="#{accessCodeController.performSearchByAccessCode(access_code)}"
                                          action="/quizzes/TakeQuiz?faces-redirect=true"/>
                     </p:toolbarGroup>
