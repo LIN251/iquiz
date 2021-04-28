@@ -45,8 +45,13 @@
                             </p:inputText>
 
                             <h:outputLabel value="Quiz Time:" for="quizTime" />
-                            <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" required="true" requiredMessage="The Quiz Time field is required.">
-                            </p:inputText>
+                            <p:inputMask id="quizTime" value="#{createQuizManager.quizTime}" label="Number" mask="9[99]"
+                                         validateMask="false" required="true" requiredMessage="The Quiz Time field is required.">
+                                <f:validateLength minimum="1" maximum="3"/>
+                            </p:inputMask>
+                            <p:message for="quizTime"/>
+<!--                            <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" required="true" requiredMessage="The Quiz Time field is required.">-->
+<!--                            </p:inputText>-->
                         </p:panelGrid>
                     </p:panel>
                 <br/><br/>
@@ -114,10 +119,18 @@
                         </p:dataTable>
                     </p:rowExpansion>
                 </p:dataTable>
-                <p:commandButton value="Submit"
-                                 action="#{createQuizManager.submitQuiz}"
-                                 ajax="false"
-                />
+
+                <p:toolbar style="max-width: 70%">
+                    <p:toolbarGroup>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Submit"
+                                         style="background-color: #861F41; border-color: #861F41"
+                                         action="#{createQuizController.saveQuiz(createQuizManager.quizTitle, createQuizManager.quizTime, createQuizManager.questions)}"
+                                         ajax="false"
+                        />
+                    </p:toolbarGroup>
+                </p:toolbar>
                 <p:commandButton icon="pi pi-plus"
                                  update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
                                  styleClass="float" style="background-color: #861F41; border-color: #861F41">

@@ -71,6 +71,12 @@ public class Answer implements Serializable {
     public Answer(Integer id) {
     }
 
+    public Answer(String answer_text, boolean instructorResult, int questionID) {
+        this.answer_text = answer_text;
+        this.instructorResult = instructorResult;
+        this.questionId = questionID;
+    }
+
 //    public Answer(boolean instructorResult) {
 //        this.instructorResult = instructorResult;
 //    }

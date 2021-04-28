@@ -14,7 +14,7 @@ import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless
-public class QuestionFacade extends AbstractFacade<Quiz> {
+public class QuestionFacade extends AbstractFacade<Question> {
 
     /*
     Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "Recipes-WangZhengboPU")'
@@ -43,7 +43,7 @@ public class QuestionFacade extends AbstractFacade<Quiz> {
     public QuestionFacade() {
         // Invokes super's AbstractFacade constructor method by passing
         // Recipe.class, which is the object reference of the Recipe class.
-        super(Quiz.class);
+        super(Question.class);
     }
 
 

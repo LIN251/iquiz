@@ -37,7 +37,6 @@ public class CreateQuizManager implements Serializable {
     private int questionNumber = 1;
     private List<QuizQuestion> questions;
     private String questionTitle;
-    private List<AnswerChoice> answerChoices;
     private QuizQuestion selectedQuestion;
     private AnswerChoice selectedAnswerChoice;
     private List<AnswerChoice> selectedAnswerChoices;
@@ -61,15 +60,7 @@ public class CreateQuizManager implements Serializable {
 //    }
     public CreateQuizManager(){
         questions = new ArrayList<QuizQuestion>();
-        answerChoices = new ArrayList<AnswerChoice>();
         selectedAnswerChoices = new ArrayList<>();
-        answerChoices.add(new AnswerChoice("Washington DC", false,"A"));
-        answerChoices.add(new AnswerChoice("Richmond", false,"B"));
-        answerChoices.add(new AnswerChoice("Blacksburg", true,"C"));
-        answerChoices.add(new AnswerChoice("New York", false,"D"));
-        QuizQuestion initialQuestion = new QuizQuestion("Example", 1, questionNumber, answerChoices);
-        questions.add(initialQuestion);
-        questions.add(initialQuestion);
     }
     /*
     =========================
@@ -123,14 +114,6 @@ public class CreateQuizManager implements Serializable {
 
     public void setSelectedQuestion(QuizQuestion selectedQuestion) {
         this.selectedQuestion = selectedQuestion;
-    }
-
-    public List<AnswerChoice> getAnswerChoices() {
-        return answerChoices;
-    }
-
-    public void setAnswerChoices(List<AnswerChoice> answerChoices) {
-        this.answerChoices = answerChoices;
     }
 
     public AnswerChoice getSelectedAnswerChoice() {
