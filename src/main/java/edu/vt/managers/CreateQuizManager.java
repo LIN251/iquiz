@@ -160,12 +160,33 @@ public class CreateQuizManager implements Serializable {
     //Methods
 
     public String submitQuiz() {
+        System.out.println(quizTitle);
+        System.out.println(quizTime);
+        for (int i = 0; i < questions.size(); i++){
+            System.out.println(questions.get(i).getQuestionText());
+            for(int j = 0; j < questions.get(i).getAnswerChoices().size(); j++){
+                System.out.println(questions.get(i).getAnswerChoices().get(j).getAnswerText());
+            }
+        }
         return null;
     }
 
     public void addAnswerChoice() {
         selectedAnswerChoices.add(new AnswerChoice("", false,"A"));
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "CreateQuizForm:dt-questions");
+    }
+
+    public void addAnswerChoiceByQuestion() {
+        selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A"));
+        PrimeFaces.current().ajax().update("QuizEditForm:manage-question-content", "CreateQuizForm:dt-questions");
+    }
+
+    public void editSelectedQuestion(){
+        clearQuestion();
+        PrimeFaces.current().ajax().update("CreateQuizForm:messages", "CreateQuizForm:dt-questions");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You have successfully edited your question"));
+        PrimeFaces.current().executeScript("PF('editQuestionDialog').hide()");
+        PrimeFaces.current().ajax().update("CreateQuizForm:messages");
     }
 
     public void deleteSelectedQuestion() {
@@ -181,13 +202,30 @@ public class CreateQuizManager implements Serializable {
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "QuizAddForm:manage-question-content");
     }
 
+    public void deleteSelectedAnswerChoiceByQuestion(AnswerChoice choice) {
+        this.selectedQuestion.getAnswerChoices().remove(choice);
+        PrimeFaces.current().ajax().update("QuizEditForm:manage-question-content");
+    }
+
     public void createQuestion(){
         this.selectedQuestion = new QuizQuestion(questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
         this.questions.add(this.selectedQuestion);
         questionNumber++;
+        clearQuestion();
         PrimeFaces.current().ajax().update("CreateQuizForm:messages", "CreateQuizForm:dt-questions");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Question Added"));
         PrimeFaces.current().executeScript("PF('manageQuestionDialog').hide()");
         PrimeFaces.current().ajax().update("CreateQuizForm:messages");
+    }
+
+    public void clearQuestion(){
+        questionTitle = null;
+        questionPoint = 1;
+        selectedAnswerChoices = new ArrayList<AnswerChoice>();
+    }
+
+    public void clearAllQuestions() {
+        this.questions = new ArrayList<QuizQuestion>();
+        this.selectedAnswerChoices = new ArrayList<AnswerChoice>();
     }
 }

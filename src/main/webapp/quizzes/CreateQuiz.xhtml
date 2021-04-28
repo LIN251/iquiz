@@ -31,7 +31,12 @@
             <h:form id="CreateQuizForm">
 <!--                <p:autoUpdate/>-->
                     <p:growl id="messages" showDetail="true"/>
-                    <p:panel id="createQuizPanel" styleClass="">
+                    <p:toolbar style="max-width: 70%; background-color: #861F41">
+                        <p:toolbarGroup>
+                            <div style="color: white; font-size: large">Quiz Information</div>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:panel id="createQuizPanel" style="width: 70%">
                         <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
 
                             <h:outputLabel value="Quiz Title:" for="quizTitle" />
@@ -40,7 +45,7 @@
                             </p:inputText>
 
                             <h:outputLabel value="Quiz Time:" for="quizTime" />
-                            <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" >
+                            <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" required="true" requiredMessage="The Quiz Time field is required.">
                             </p:inputText>
                         </p:panelGrid>
                     </p:panel>
@@ -49,11 +54,19 @@
                     <p:toolbarGroup>
                         <div style="color: white; font-size: large">Quiz Questions</div>
                     </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton class="ui-button-warning rounded-button" style="background-color: white; border-color: white" icon="pi pi-trash" process="@this"
+                                         action="#{createQuizManager.clearAllQuestions}" update="dt-questions">
+                            <p:confirm header="Confirmation" message="Clear all questions?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
                 </p:toolbar>
                 <p:dataTable id="dt-questions" var="question" value="#{createQuizManager.questions}"
                              reflow="true" style="max-width: 70%"
                              rowKey="#{question.questionNumber}" paginator="true"
-                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom"
+                             emptyMessage="Click &#8220;+&#8221; button to add question.">
 
                     <p:column headerText="Answer Choices" style="width:2rem">
                         <p:rowToggler/>
@@ -67,7 +80,7 @@
                     <p:column headerText="Question Title">
                         <h:outputText value="#{question.questionText}"/>
                     </p:column>
-                    <p:column exportable="false">
+                    <p:column exportable="false" style="width: 20%">
 <!--                        <p:commandButton icon="pi pi-pencil" update=":CreateQuizForm:manage-question-content"-->
 <!--                                         oncomplete="PF('manageProductDialog').show()"-->
 <!--                                         styleClass="edit-button rounded-button ui-button-success" process="@this">-->
@@ -76,6 +89,13 @@
 <!--                        </p:commandButton>-->
                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
                                          action="#{createQuizManager.deleteSelectedQuestion}">
+                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>
+                        </p:commandButton>
+
+                        &nbsp;
+                        <p:commandButton class="edit-button rounded-button ui-button-success" icon="pi pi-pencil"
+                                          oncomplete="PF('editQuestionDialog').show()" process="@this" update=":QuizEditForm:manage-question-content"
+                                          >
                             <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>
                         </p:commandButton>
                     </p:column>
@@ -94,11 +114,29 @@
                         </p:dataTable>
                     </p:rowExpansion>
                 </p:dataTable>
+                <p:commandButton value="Submit"
+                                 action="#{createQuizManager.submitQuiz}"
+                                 ajax="false"
+                />
                 <p:commandButton icon="pi pi-plus"
                                  update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
                                  styleClass="float" style="background-color: #861F41; border-color: #861F41">
                     <p:resetInput target=":QuizAddForm:manage-question-content"/>
                 </p:commandButton>
+
+                <p:confirmDialog widgetVar="deleteQuestionsDialog" showEffect="fade" width="300"
+                                 message="Delete all questions?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{createQuizManager.clearAllQuestions}"
+                                     process="@this" oncomplete="PF('deleteQuestionsDialog').hide()"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteQuestionsDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
             </h:form>
         </div>
 
@@ -108,6 +146,7 @@
         ==================================================================
         -->
         <ui:include src="/quizzes/AddQuiz.xhtml"/>
+        <ui:include src="/quizzes/EditQuestion.xhtml"/>
     </ui:define>
 
 </ui:composition>

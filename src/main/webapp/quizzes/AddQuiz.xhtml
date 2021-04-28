@@ -14,7 +14,7 @@
 
 <!-- This page is constructed based on the siteTemplate -->
 <ui:composition>
-    <p:dialog header="Quiz Details" showEffect="fade" modal="true"
+    <p:dialog header="Question Details" showEffect="fade" modal="true"
               widgetVar="manageQuestionDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
         <h:form id="QuizAddForm">
             <p:growl id="messages" showDetail="true"/>
@@ -53,14 +53,6 @@
                             <p:column headerText="True/False" style="width: 20%">
                                 <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answerChoice.correct}"
                                                        onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
-<!--                                <p:cellEditor>-->
-<!--                                    <f:facet name="output">-->
-<!--                                        <h:outputText value="#{answerChoice.correct}"/>-->
-<!--                                    </f:facet>-->
-<!--                                    <f:facet name="input">-->
-<!--                                        <p:inputText value="#{answerChoice.correct}" style="width:100%"/>-->
-<!--                                    </f:facet>-->
-<!--                                </p:cellEditor>-->
                             </p:column>
 
                             <p:column style="width: 20%;">
