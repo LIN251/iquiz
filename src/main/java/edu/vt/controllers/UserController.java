@@ -640,5 +640,14 @@ public class UserController implements Serializable {
             }
         }
     }
-
+    /*
+        *************************
+        Display the SignIn Screen
+        *************************
+        */
+    public void showSignIn() throws IOException {
+        if (!isLoggedIn()) {
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("/SignIn.xhtml?faces-redirect=true");
+        }
+    }
 }

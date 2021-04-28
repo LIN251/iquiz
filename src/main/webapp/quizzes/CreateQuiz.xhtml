@@ -8,6 +8,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <!-- Do not enter tags before the composition line since they are ignored by JSF -->
@@ -22,6 +23,9 @@
 
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
+        <c:when test="#{userController.isLoggedIn() == false}">
+            #{userController.showSignIn()}
+        </c:when>
 <!--        <script type="text/javascript">-->
 <!--            function test() {-->
 <!--                x = "#{createQuizManager.printHello()}"-->

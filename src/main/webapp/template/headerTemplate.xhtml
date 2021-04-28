@@ -73,13 +73,13 @@ siteTemplate for the entire site, achieving great maintainability.
                             <p:menuitem value="Home" outcome="/index" icon="fas fa-home"/>
                             <c:if test="#{userController.isLoggedIn() == true}">
                                 <p:menuitem value="My Quizzes" outcome="/quizzes/MyQuizzes" icon="fas fa-bars"/>
+                                <p:menuitem value="Create Quiz" outcome="/quizzes/CreateQuiz" icon="fas fa-bars"/>
 <!--                                <p:menuitem value="Create Quiz" outcome="/quizzes/CreateQuiz" icon="fas fa-bars"/>-->
                                 <p:menuitem value="Profile" outcome="/userAccount/Profile" icon="fas fa-home"/>
                                 <p:menuitem value="Sign Out" action="#{userController.logout()}" icon="fas fa-sign-out-alt"/>
                             </c:if>
                             <c:if test="#{userController.isLoggedIn() == false}">
                                 <p:menuitem value="Take a quiz" icon="fas fa-search" onclick="PF('accessCodeDialog').show();return false;"/>
-                                <p:menuitem value="Create Quiz" outcome="/quizzes/CreateQuiz" icon="fas fa-bars"/>
                                 <p:menuitem value="Sign In" outcome="/SignIn" icon="fas fa-sign-in-alt"/>
                                 <p:menuitem value="Sign Up" outcome="/userAccount/CreateAccount" icon="fas fa-user-plus"/>
                             </c:if>

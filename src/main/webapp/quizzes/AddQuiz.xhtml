@@ -8,12 +8,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
 <!-- This page is constructed based on the siteTemplate -->
 <ui:composition>
+    <c:when test="#{userController.isLoggedIn() == false}">
+        #{userController.showSignIn()}
+    </c:when>
     <p:dialog header="Question Details" showEffect="fade" modal="true"
               widgetVar="manageQuestionDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
         <h:form id="QuizAddForm">

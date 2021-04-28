@@ -14,8 +14,8 @@ edu/vt/pojo/AnswerChoice.java
  edu.vt.pojo.AnswerChoice
 edu/vt/FacadeBeans/AbstractFacade.java
  edu.vt.FacadeBeans.AbstractFacade
-edu/vt/controllers/CreateQuizController.java
- edu.vt.controllers.CreateQuizController
+edu/vt/EntityBeans/Answer.java
+ edu.vt.EntityBeans.Answer
 edu/vt/EntityBeans/Taker.java
  edu.vt.EntityBeans.Taker
 edu/vt/EntityBeans/User.java
@@ -48,15 +48,15 @@ edu/vt/FacadeBeans/UserFacade.java
  edu.vt.FacadeBeans.UserFacade
 edu/vt/FacadeBeans/TakerFacade.java
  edu.vt.FacadeBeans.TakerFacade
-edu/vt/controllers/UserController.java
- edu.vt.controllers.UserController
+edu/vt/managers/CreateQuizManager.java
+ edu.vt.managers.CreateQuizManager
 edu/vt/controllers/AccessCodeController.java
  edu.vt.controllers.AccessCodeController
 edu/vt/FacadeBeans/AnswerFacade.java
  edu.vt.FacadeBeans.AnswerFacade
 edu/vt/FacadeBeans/QuestionFacade.java
  edu.vt.FacadeBeans.QuestionFacade
-edu/vt/EntityBeans/Answer.java
- edu.vt.EntityBeans.Answer
-edu/vt/managers/CreateQuizManager.java
- edu.vt.managers.CreateQuizManager
+edu/vt/controllers/UserController.java
+ edu.vt.controllers.UserController
+edu/vt/controllers/CreateQuizController.java
+ edu.vt.controllers.CreateQuizController

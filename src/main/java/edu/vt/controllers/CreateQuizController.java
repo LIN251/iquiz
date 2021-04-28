@@ -40,7 +40,7 @@ public class CreateQuizController implements Serializable{
 
     }
 
-    public void saveQuiz(String quizTitle, String quizTime, List<QuizQuestion> questions){
+    public String saveQuiz(String quizTitle, String quizTime, List<QuizQuestion> questions){
 //        (String title, boolean publish, Date publishAt, int timeLimit, int userID, String accessCode)
         User signedInUser = (User) Methods.sessionMap().get("user");
         String access_code = randomAccessCode();
@@ -62,6 +62,7 @@ public class CreateQuizController implements Serializable{
                 answerFacade.create(answerEntity);
             }
         }
+        return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
     public String randomAccessCode() {
