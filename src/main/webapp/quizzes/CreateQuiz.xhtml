@@ -84,10 +84,10 @@
                                      reflow="true" style="max-width: 100%"
                                      paginator="false"
                                      rows="10" rowSelectMode="add" paginatorPosition="bottom">
-                            <p:column headerText="Answer Text" style="width: 80%">
+                            <p:column style="width: 80%">
                                 <h:outputText value="#{answer.answerText}"/>
                             </p:column>
-                            <p:column headerText="True/False">
+                            <p:column>
                                 <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answer.correct}"
                                                        onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
                             </p:column>

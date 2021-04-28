@@ -21,11 +21,18 @@
             <p:outputPanel id="manage-question-content" class="ui-fluid">
                 <p:outputPanel>
                     <div style="padding-bottom: 10px">
-                        <p:outputLabel for="questionTitle">Question Title</p:outputLabel>
-                        <p:inputText id="questionTitle" value="#{createQuizManager.questionTitle}"  required="true"/>
+                        <p:panelGrid columns="4"
+                                     columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-5"
+                                     layout="grid"
+                                     styleClass="ui-panelgrid-blank ui-fluid"
+                                     style="border:0px none; background-color:transparent;">
+                            <p:outputLabel for="questionTitle">Question Title</p:outputLabel>
+                            <p:inputText id="questionTitle" value="#{createQuizManager.questionTitle}"  required="true"/>
+                            <p:outputLabel for="questionPoint">Question Point</p:outputLabel>
+                            <p:inputText id="questionPoint" value="#{createQuizManager.questionPoint}" style="width: 20%" required="true"/>
+                        </p:panelGrid>
                     </div>
                     <div class="p-field">
-                        <p:outputLabel for="answerTB">Answer Choices</p:outputLabel>
                         <p:dataTable id="answerTB" var="answerChoice" value="#{createQuizManager.selectedAnswerChoices}" editable="true"
                                      paginator="true" rows="4" rowSelectMode="add" paginatorPosition="bottom" style="margin-bottom:20px" emptyMessage="Click &#8220;Add Answer Choice&#8221; to add.">
 
@@ -59,7 +66,7 @@
                             <p:column style="width: 20%;">
                                 <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
                                 &nbsp;
-                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" immediate="true" update="answerTB"
                                                  action="#{createQuizManager.deleteSelectedAnswerChoice(createQuizManager.selectedAnswerChoice)}">
                                     <f:setPropertyActionListener value="#{answerChoice}" target="#{createQuizManager.selectedAnswerChoice}"/>
                                 </p:commandButton>

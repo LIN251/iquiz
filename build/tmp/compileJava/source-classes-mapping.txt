@@ -8,30 +8,30 @@ edu/vt/globals/Methods.java
  edu.vt.globals.Methods
 edu/vt/validators/PasswordValidator.java
  edu.vt.validators.PasswordValidator
-edu/vt/pojo/AnswerChoice.java
- edu.vt.pojo.AnswerChoice
 edu/vt/managers/LoginManager.java
  edu.vt.managers.LoginManager
+edu/vt/pojo/AnswerChoice.java
+ edu.vt.pojo.AnswerChoice
 edu/vt/FacadeBeans/AbstractFacade.java
  edu.vt.FacadeBeans.AbstractFacade
 edu/vt/FacadeBeans/AnswerFacade.java
  edu.vt.FacadeBeans.AnswerFacade
 edu/vt/EntityBeans/Taker.java
  edu.vt.EntityBeans.Taker
-edu/vt/controllers/SliderController.java
- edu.vt.controllers.SliderController
 edu/vt/EntityBeans/User.java
  edu.vt.EntityBeans.User
+edu/vt/controllers/SliderController.java
+ edu.vt.controllers.SliderController
 edu/vt/managers/PasswordResetManager.java
  edu.vt.managers.PasswordResetManager
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
-edu/vt/FacadeBeans/QuizFacade.java
- edu.vt.FacadeBeans.QuizFacade
 edu/vt/globals/Password.java
  edu.vt.globals.Password
  edu.vt.globals.Password$CannotPerformOperationException
  edu.vt.globals.Password$InvalidHashException
+edu/vt/FacadeBeans/QuizFacade.java
+ edu.vt.FacadeBeans.QuizFacade
+edu/vt/controllers/AccessCodeController.java
+ edu.vt.controllers.AccessCodeController
 edu/vt/EntityBeans/Quiz.java
  edu.vt.EntityBeans.Quiz
 edu/vt/validators/ZipCodeValidator.java
@@ -46,8 +46,8 @@ edu/vt/controllers/UserPhotoController.java
  edu.vt.controllers.UserPhotoController
 edu/vt/FacadeBeans/UserFacade.java
  edu.vt.FacadeBeans.UserFacade
-edu/vt/managers/CreateQuizManager.java
- edu.vt.managers.CreateQuizManager
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade
 edu/vt/controllers/UserController.java
  edu.vt.controllers.UserController
 edu/vt/validators/EmailValidator.java
@@ -56,5 +56,5 @@ edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
 edu/vt/EntityBeans/UserPhoto.java
  edu.vt.EntityBeans.UserPhoto
-edu/vt/controllers/AccessCodeController.java
- edu.vt.controllers.AccessCodeController
+edu/vt/managers/CreateQuizManager.java
+ edu.vt.managers.CreateQuizManager
