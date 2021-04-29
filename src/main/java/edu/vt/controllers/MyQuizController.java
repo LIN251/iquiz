@@ -192,23 +192,6 @@ public class MyQuizController implements Serializable {
         return true;
     }
 
-    public String deleteQuiz(int quizID) {
-        List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
-        for(int i = 0; i < questions.size(); i++) {
-            List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
-            for(int j = 0; j < answers.size(); j++) {
-                getAnswerFacade().remove(answers.get(j));
-            }
-            getQuestionFacade().remove(questions.get(i));
-        }
-        Quiz quiz = getQuizFacade().findQuizByID(quizID);
-        System.out.println(quiz.getTitle());
-        getQuizFacade().remove(quiz);
-        System.out.println("remove quiz");
-        addMessage("Confirmed", "This quiz has been deleted");
-        return "/quizzes/MyQuizzes?faces-redirect=true";
-    }
-
 
     public String changeDateFormat(Date date) {
         String format = "MM/dd/yyyy";
@@ -232,11 +215,4 @@ public class MyQuizController implements Serializable {
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
-
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-
 }
