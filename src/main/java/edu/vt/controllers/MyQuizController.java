@@ -7,11 +7,15 @@ import edu.vt.EntityBeans.Quiz;
 import edu.vt.FacadeBeans.AnswerFacade;
 import edu.vt.FacadeBeans.QuestionFacade;
 import edu.vt.FacadeBeans.QuizFacade;
+import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
+import org.primefaces.PrimeFaces;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -159,6 +163,15 @@ public class MyQuizController implements Serializable {
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         quiz.setPublish(!judge);
         quizFacade.edit(quiz);
+        String pub;
+        if (quiz.isPublish()){
+            pub = "published";
+        }else{
+            pub = "unpublished";
+        }
+        String mess = "Your quiz is now " + pub + "!";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mess));
+        PrimeFaces.current().ajax().update("MyQuizzesListForm:msg");
         return true;
     }
 

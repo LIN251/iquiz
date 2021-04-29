@@ -27,7 +27,7 @@
             <h:form id="TakeQuizForm">
                 <p:growl id="messages" showDetail="true"/>
                 <br/><br/>
-                <p:toolbar style="width: 1190px; background-color: #861F41">
+                <p:toolbar style="width: 70%; background-color: #861F41">
                     <p:toolbarGroup>
                         <div style="color: white; font-size: 30px">#{myQuizController.selectedQuiz.title}</div>
                     </p:toolbarGroup>
@@ -50,10 +50,10 @@
                                      paginator="false"
                                      styleClass="noHeader"
                                      rows="10" rowSelectMode="add" paginatorPosition="bottom">
-                            <p:column style="width: 6em">
-                                <p:selectBooleanButton style="margin-left: 20px" disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" value="#{answer.correct}" onLabel=""  offLabel=""/>
+                            <p:column style="width: 5%">
+                                <p:button icon="pi pi-check" styleClass="rounded-button" rendered="#{answer.correct}" disabled="true" style="opacity: 100%"/>
                             </p:column>
-                            <p:column style="width: 2em">
+                            <p:column style="width: 5%">
                                 <h:outputText style="font-size: 16px" value="#{answer.index}"/>
                             </p:column>
                             <p:column style="width: 60%">

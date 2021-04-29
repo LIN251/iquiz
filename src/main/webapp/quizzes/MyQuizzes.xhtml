@@ -27,19 +27,23 @@
 
             <h:form id="MyQuizzesListForm">
 
-                <p:panel header="MyQuizzes">
-                        <div>
+                <p:growl id="msg"/>
+                <p:toolbar style="max-width: 80%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">My Quizzes</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
                             <p:dataTable style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
                                 <p:column id="id" style="text-align: left; width: 5%" headerText="ID">
                                     <h:outputText value="#{item.id}" />
                                 </p:column>
 
-                                <p:column style="text-align: left; width: 35%" headerText="Title">
+                                <p:column style="text-align: left; width: 25%" headerText="Title">
                                     <h:outputText class="inputTextField" value="#{item.title}" />
                                 </p:column>
 
                                 <p:column style="text-align: left; width: 10%" headerText="Published">
-                                    <p:toggleSwitch value="#{item.publish}" >
+                                    <p:toggleSwitch value="#{item.publish}">
                                         <p:ajax listener="#{myQuizController.updateQuiz(item.id, item.publish)}"/>
                                     </p:toggleSwitch>
                                 </p:column>
@@ -60,15 +64,10 @@
                                     <p:commandButton type="button" id="edit" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="edit" value="Edit" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton type="button" id="publish" icon="pi pi-check" styleClass="rounded-button ui-button-outlined"></p:commandButton>
-                                    <p:tooltip for="publish" value="Publish" showEffect="clip" hideEffect="fold" />
-                                    &nbsp;
                                     <p:commandButton type="button" id="delete" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
                                 </p:column>
                             </p:dataTable>
-                        </div>
-                </p:panel>
             </h:form>
         </div>
     </ui:define>
