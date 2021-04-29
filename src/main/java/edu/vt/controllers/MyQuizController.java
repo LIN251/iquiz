@@ -56,7 +56,7 @@ public class MyQuizController implements Serializable {
     @EJB
     private AnswerFacade answerFacade;
 
-    private List<Quiz> items = null;
+    private List<Quiz> items;
     private List<Question> questionItems = null;
     private List<Answer> answerItems = null;
     private ArrayList<QuizQuestion> quizQuestions;
@@ -158,7 +158,6 @@ public class MyQuizController implements Serializable {
     public boolean updateQuiz(int quizID, boolean judge) {
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         quiz.setPublish(!judge);
-        System.out.println(quiz.isPublish());
         quizFacade.edit(quiz);
         return true;
     }

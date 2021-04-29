@@ -13,8 +13,8 @@ repositories {
     // flat filesystem directory containing the PrimeFaces JAR file
     flatDir {
 //        dirs 'D:/Workplace_IntelliJ/iquiz/newiquiz/iquiz/src/main/webapp/WEB-INF/lib'
-        dirs '/Users/zhengbo/IdeaProjects/iquiz/src/main/webapp/WEB-INF/lib'
-//        dirs '/Users/calvin/Documents/IQuiz/iquiz/src/main/webapp/WEB-INF/lib'
+//        dirs '/Users/zhengbo/IdeaProjects/iquiz/src/main/webapp/WEB-INF/lib'
+        dirs '/Users/calvin/Documents/IQuiz/iquiz/src/main/webapp/WEB-INF/lib'
     }
 }
 

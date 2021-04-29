@@ -28,8 +28,6 @@
             <h:form id="MyQuizzesListForm">
 
                 <p:panel header="MyQuizzes">
-                    <h:form>
-
                         <div>
                             <p:dataTable style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
                                 <p:column id="id" style="text-align: left; width: 5%" headerText="ID">
@@ -41,7 +39,9 @@
                                 </p:column>
 
                                 <p:column style="text-align: left; width: 10%" headerText="Published">
-                                    <p:toggleSwitch onchange="#{myQuizController.updateQuiz(item.id, item.publish)}" value="#{item.publish}"/>
+                                    <p:toggleSwitch value="#{item.publish}" >
+                                        <p:ajax listener="#{myQuizController.updateQuiz(item.id, item.publish)}"/>
+                                    </p:toggleSwitch>
                                 </p:column>
 
                                 <p:column style="text-align: left; width: 10%" headerText="Created Date">
@@ -68,7 +68,6 @@
                                 </p:column>
                             </p:dataTable>
                         </div>
-                    </h:form>
                 </p:panel>
             </h:form>
         </div>
