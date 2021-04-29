@@ -75,11 +75,20 @@
                                     <p:commandButton type="button" id="edit" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="edit" value="Edit" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton type="button" id="delete" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined"></p:commandButton>
-                                    <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
+                                    <p:commandButton ajax="false" id="delete" icon="pi pi-times" action="#{myQuizController.deleteQuiz(item.id)}" update="message" styleClass="rounded-button ui-button-danger ui-button-outlined">
+                                        <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
+                                        <p:confirm header="Confirmation"
+                                                   message="Are you sure you want to delete this quiz?"
+                                                   icon="pi pi-info-circle" />
+                                    </p:commandButton>
                                     &nbsp;
                                     <p:commandButton type="button" id="copyButton" value="Share" onclick="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="copyButton" value="Copy Link to Clipboard" showEffect="clip" hideEffect="fold" />
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                        <p:commandButton value="Yes" process="@this" actionListener="#{myQuizController.deleteQuiz(item.id)}" styleClass="ui-confirmdialog-yes" update="MyQuizzesListForm" />
+                                    </p:confirmDialog>
                                 </p:column>
                             </p:dataTable>
             </h:form>
