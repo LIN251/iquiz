@@ -14,7 +14,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -122,9 +124,6 @@ public class MyQuizController implements Serializable {
     public Integer getTotalPoints() { return totalPoints; }
 
     public String updateQuestion(int id) {
-
-//        System.out.println("0000000000");
-//        System.out.println(id);
         questionItems = null;
         selectedQuiz = null;
         answerItems = null;
@@ -154,6 +153,21 @@ public class MyQuizController implements Serializable {
             }
         }
         return "/quizzes/MyQuizzesView?faces-redirect=true";
+    }
+
+    public boolean updateQuiz(int quizID, boolean judge) {
+        Quiz quiz = getQuizFacade().findQuizByID(quizID);
+        quiz.setPublish(!judge);
+        System.out.println(quiz.isPublish());
+        quizFacade.edit(quiz);
+        return true;
+    }
+
+    public String changeDateFormat(Date date) {
+        String format = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern(format);
+        return sdf.format(date);
     }
 
     private String getCharForNumber(int i) {

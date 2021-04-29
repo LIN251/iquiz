@@ -32,27 +32,27 @@
 
                         <div>
                             <p:dataTable style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
-                                <p:column id="id" style="text-align: left" headerText="ID">
+                                <p:column id="id" style="text-align: left; width: 5%" headerText="ID">
                                     <h:outputText value="#{item.id}" />
                                 </p:column>
 
-                                <p:column style="text-align: left" headerText="Title">
+                                <p:column style="text-align: left; width: 35%" headerText="Title">
                                     <h:outputText class="inputTextField" value="#{item.title}" />
                                 </p:column>
 
-                                <p:column style="text-align: left" headerText="Published">
-                                    <h:outputText class="inputTextField" value="#{item.publish}" />
+                                <p:column style="text-align: left; width: 10%" headerText="Published">
+                                    <p:toggleSwitch onchange="#{myQuizController.updateQuiz(item.id, item.publish)}" value="#{item.publish}"/>
                                 </p:column>
 
-                                <p:column style="text-align: left" headerText="Created Date">
-                                    <h:outputText class="inputTextField" value="#{item.publishAt}" />
+                                <p:column style="text-align: left; width: 10%" headerText="Created Date">
+                                    <h:outputText class="inputTextField" value="#{myQuizController.changeDateFormat(item.publishAt)}" />
                                 </p:column>
 
-                                <p:column style="text-align: left" headerText="Access Code">
+                                <p:column style="text-align: left; width: 10%" headerText="Access Code">
                                     <h:outputText class="inputTextField" value="#{item.accessCode}" />
                                 </p:column>
 
-                                <p:column style="text-align: left" headerText="">
+                                <p:column style="text-align: left; width: 20%;" headerText="">
 
                                     <p:commandButton id="view" ajax="false"  icon="pi pi-search" action="#{myQuizController.updateQuestion(item.id)}"  styleClass="rounded-button ui-button-success ui-button-outlined"/>
                                     <p:tooltip for="view" value="View" showEffect="clip" hideEffect="fold" />
