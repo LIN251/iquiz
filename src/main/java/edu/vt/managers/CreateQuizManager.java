@@ -5,6 +5,9 @@
 package edu.vt.managers;
 
 import edu.vt.EntityBeans.User;
+import edu.vt.FacadeBeans.AnswerFacade;
+import edu.vt.FacadeBeans.QuestionFacade;
+import edu.vt.FacadeBeans.QuizFacade;
 import edu.vt.FacadeBeans.UserFacade;
 import edu.vt.globals.Methods;
 import edu.vt.globals.Password;
@@ -46,7 +49,6 @@ public class CreateQuizManager implements Serializable {
     The @EJB annotation directs the EJB Container (of the WildFly AS) to inject (store) the object reference
     of the UserFacade object, after it is instantiated at runtime, into the instance variable 'userFacade'.
      */
-
     /*
     ==================
     Constructor Method

@@ -127,6 +127,23 @@ public class MyQuizController implements Serializable {
 
     public Integer getTotalPoints() { return totalPoints; }
 
+    public String deleteQuiz(int quizID) {
+        List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
+        for(int i = 0; i < questions.size(); i++) {
+            List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
+            for(int j = 0; j < answers.size(); j++) {
+                getAnswerFacade().remove(answers.get(j));
+            }
+            getQuestionFacade().remove(questions.get(i));
+        }
+        Quiz quiz = getQuizFacade().findQuizByID(quizID);
+        System.out.println(quiz.getTitle());
+        getQuizFacade().remove(quiz);
+        System.out.println("remove quiz");
+        addMessage("Confirmed", "This quiz has been deleted");
+        return "/quizzes/MyQuizzes?faces-redirect=true";
+    }
+
     public String updateQuestion(int id) {
         questionItems = null;
         selectedQuiz = null;
@@ -187,6 +204,11 @@ public class MyQuizController implements Serializable {
         int port  = FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort();
         String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code=" + accessCode;
         return link;
+    }
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     private String getCharForNumber(int i) {

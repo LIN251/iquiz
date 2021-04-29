@@ -65,6 +65,44 @@ public class CreateQuizController implements Serializable{
         return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
+    public String editQuiz(String quizTitle, String quizTime, List<QuizQuestion> questions, String access_code){
+//        (String title, boolean publish, Date publishAt, int timeLimit, int userID, String accessCode)
+        User signedInUser = (User) Methods.sessionMap().get("user");
+        Quiz quizEntity = quizFacade.findOneQuiz(access_code);
+        quizEntity.setTitle(quizTitle);
+        quizEntity.setTimeLimit(Integer.parseInt(quizTime));
+        quizFacade.edit(quizEntity);
+        int quizID = quizEntity.getId();
+        deleteQuestionAndAnswersForQuiz(quizID);
+//        public Question(String questionText, Integer questionPoint, Integer quizID) {
+        for (int i = 0; i < questions.size(); i++){
+            QuizQuestion qq = questions.get(i);
+            Question questionEntity = new Question(qq.getQuestionText(), qq.getQuestionPoint(), quizID);
+            questionFacade.create(questionEntity);
+            Question foundQuestion = questionFacade.findAllquestions(quizID).get(i);
+            int questionID = foundQuestion.getId();
+            List<AnswerChoice> choices = qq.getAnswerChoices();
+            for (int j = 0; j < choices.size(); j++){
+                AnswerChoice answerChoice = choices.get(j);
+                Answer answerEntity = new Answer(answerChoice.getAnswerText(), answerChoice.getCorrect(), questionID);
+                answerFacade.create(answerEntity);
+            }
+        }
+        return "/quizzes/MyQuizzes?faces-redirect=true";
+    }
+
+
+    public void deleteQuestionAndAnswersForQuiz(int quizID) {
+        List<Question> questions = questionFacade.findQuestionByQuizId(quizID);
+        for(int i = 0; i < questions.size(); i++) {
+            List<Answer> answers = answerFacade.findAllAnswersForOneQuestion(questions.get(i).getId());
+            for(int j = 0; j < answers.size(); j++) {
+                answerFacade.remove(answers.get(j));
+            }
+            questionFacade.remove(questions.get(i));
+        }
+    }
+
     public String randomAccessCode() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'

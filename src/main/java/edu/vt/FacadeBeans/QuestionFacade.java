@@ -47,7 +47,7 @@ public class QuestionFacade extends AbstractFacade<Question> {
     }
 
 
-    public  List<Question> findAllquestions(int tempQuizID) {
+    public List<Question> findAllquestions(int tempQuizID) {
 
         List<Question> result = em.createQuery("SELECT c FROM Question c WHERE c.quizID = :quizID")
                     .setParameter("quizID", tempQuizID)
@@ -69,5 +69,4 @@ public class QuestionFacade extends AbstractFacade<Question> {
                 .getSingleResult();
         return question;
     }
-
 }

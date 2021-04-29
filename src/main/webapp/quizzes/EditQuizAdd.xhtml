@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition>
+    <c:when test="#{userController.isLoggedIn() == false}">
+        #{userController.showSignIn()}
+    </c:when>
+    <p:dialog header="Question Details" showEffect="fade" modal="true"
+              widgetVar="manageQuestionDialog" responsive="true" style="max-width: 70%; max-height: 70%; overflow: auto">
+        <h:form id="QuizAddForm">
+            <p:growl id="messages" showDetail="true"/>
+            <p:outputPanel id="manage-question-content" class="ui-fluid">
+                <p:outputPanel>
+                    <div style="padding-bottom: 10px">
+                        <p:panelGrid columns="4"
+                                     columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-5"
+                                     layout="grid"
+                                     styleClass="ui-panelgrid-blank ui-fluid"
+                                     style="border:0px none; background-color:transparent;">
+                            <p:outputLabel for="questionTitle">Question Title</p:outputLabel>
+                            <p:inputText id="questionTitle" value="#{editQuizController.questionTitle}"  required="true"/>
+                            <p:outputLabel for="questionPoint">Question Point</p:outputLabel>
+                            <p:inputText id="questionPoint" value="#{editQuizController.questionPoint}" style="width: 20%" required="true"/>
+                        </p:panelGrid>
+                    </div>
+                    <div class="p-field">
+                        <p:dataTable id="answerTB" var="answerChoice" value="#{editQuizController.selectedAnswerChoices}" editable="true"
+                                     paginator="true" rows="4" rowSelectMode="add" paginatorPosition="bottom" style="margin-bottom:20px" emptyMessage="Click &#8220;Add Answer Choice&#8221; to add.">
+
+                            <!--                            <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":QuizAddForm:msgs"/>-->
+                            <!--                            <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":QuizAddForm:msgs"/>-->
+
+                            <p:column headerText="Answer Text">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{answerChoice.answerText}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="modelInput" value="#{answerChoice.answerText}" required="true" requiredMessage="Question Title is required" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="True/False" style="width: 20%">
+                                <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answerChoice.correct}"
+                                                       onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                            </p:column>
+
+                            <p:column style="width: 20%;">
+                                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                &nbsp;
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" immediate="true" update="answerTB"
+                                                 action="#{editQuizController.deleteSelectedAnswerChoice(editQuizController.selectedAnswerChoice)}">
+                                    <f:setPropertyActionListener value="#{answerChoice}" target="#{editQuizController.selectedAnswerChoice}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="Add Answer Choice" immediate="true" styleClass="vt-theme-button-marron" update="answerTB" actionListener="#{editQuizController.addAnswerChoice}"/>
+                            </p:toolbarGroup>
+
+                            <p:toolbarGroup name="right">
+                                <p:commandButton value="Create Question" actionListener="#{editQuizController.createQuestion}"
+                                                 styleClass="vt-theme-button-marron" update="manage-question-content" process="manage-question-content @this"/>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <br/><br/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+            <!--            <f:facet name="footer">-->
+            <!--                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveProduct}"-->
+            <!--                                 update="manage-question-content" process="manage-question-content @this"/>-->
+            <!--                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"-->
+            <!--                                 class="ui-button-secondary"/>-->
+            <!--            </f:facet>-->
+        </h:form>
+    </p:dialog>
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

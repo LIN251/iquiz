@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.4.14
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <ui:define name="title">
+        <!-- Set the page title -->
+        <h:outputText value="Create Quiz"/>
+    </ui:define>
+
+    <!-- Create the content for this page below -->
+    <ui:define name="editableContent">
+        <c:when test="#{userController.isLoggedIn() == false}">
+            #{userController.showSignIn()}
+        </c:when>
+        <!--        <script type="text/javascript">-->
+        <!--            function test() {-->
+        <!--                x = "#{createQuizManager.printHello()}"-->
+        <!--            };-->
+        <!--        </script>-->
+        <div align="center" style="width:95%">
+            <h:form id="EditQuizForm">
+                <!--                <p:autoUpdate/>-->
+                <p:growl id="messages" showDetail="false"/>
+                <p:toolbar style="max-width: 70%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">Quiz Information</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:panel id="createQuizPanel" style="width: 70%">
+                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
+
+                        <h:outputLabel value="Quiz Title:" for="quizTitle" />
+                        <p:inputText id="quizTitle" value="#{editQuizController.quizTitle}" required="true" class="inputTextField"
+                                     requiredMessage="The Quiz Title field is required." label="QuizTitle" >
+                        </p:inputText>
+
+                        <h:outputLabel value="Quiz Time:" for="quizTime" />
+                        <p:inputMask id="quizTime" value="#{editQuizController.quizTime}" label="Number" mask="9[99]"
+                                     validateMask="false" required="true" requiredMessage="The Quiz Time field is required.">
+                            <f:validateLength minimum="1" maximum="3"/>
+                        </p:inputMask>
+                        <p:message for="quizTime"/>
+                        <!--                            <p:inputText id="quizTime" value="#{createQuizManager.quizTime}" feedback="false" class="inputTextField" required="true" requiredMessage="The Quiz Time field is required.">-->
+                        <!--                            </p:inputText>-->
+                    </p:panelGrid>
+                </p:panel>
+                <br/><br/>
+                <p:toolbar style="max-width: 70%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">Quiz Questions</div>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton class="ui-button-warning rounded-button" style="background-color: white; border-color: white" icon="pi pi-trash" process="@this"
+                                         action="#{editQuizController.clearAllQuestions}" update="dt-questions">
+                            <p:confirm header="Confirmation" message="Clear all questions?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-questions" var="question" value="#{editQuizController.questions}"
+                             reflow="true" style="max-width: 70%"
+                             rowKey="#{question.questionNumber}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom"
+                             emptyMessage="Click &#8220;+&#8221; button to add question.">
+
+                    <p:column headerText="Answer Choices" style="width:2rem">
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="Question Number" style="width: 10%">
+                        <h:outputText value="#{question.questionNumber}"/>
+                    </p:column>
+                    <p:column headerText="Question Point" style="width: 10%">
+                        <h:outputText value="#{question.questionPoint}"/>
+                    </p:column>
+                    <p:column headerText="Question Title">
+                        <h:outputText value="#{question.questionText}"/>
+                    </p:column>
+                    <p:column exportable="false" style="width: 20%">
+                        <!--                        <p:commandButton icon="pi pi-pencil" update=":CreateQuizForm:manage-question-content"-->
+                        <!--                                         oncomplete="PF('manageProductDialog').show()"-->
+                        <!--                                         styleClass="edit-button rounded-button ui-button-success" process="@this">-->
+                        <!--                            <f:setPropertyActionListener value="#{question}" target="#{createQuizManager.selectedQuestion}"/>-->
+                        <!--                            <p:resetInput target=":CreateQuizForm:manage-question-content"/>-->
+                        <!--                        </p:commandButton>-->
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                         action="#{editQuizController.deleteSelectedQuestion}">
+                            <f:setPropertyActionListener value="#{question}" target="#{editQuizController.selectedQuestion}"/>
+                        </p:commandButton>
+
+                        &nbsp;
+                        <p:commandButton class="edit-button rounded-button ui-button-success" icon="pi pi-pencil"
+                                         oncomplete="PF('editQuestionDialog').show()" process="@this" update=":QuizEditQuestionForm:manage-question-content"
+                        >
+                            <f:setPropertyActionListener value="#{question}" target="#{editQuizController.selectedQuestion}"/>
+                        </p:commandButton>
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable id="dt-answers" var="answer" value="#{question.answerChoices}"
+                                     reflow="true" style="max-width: 100%"
+                                     paginator="false"
+                                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <p:column style="width: 80%">
+                                <h:outputText value="#{answer.answerText}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanButton onLabel="Correct" offLabel="Incorrect" value="#{answer.correct}"
+                                                       onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
+                </p:dataTable>
+
+                <p:toolbar style="max-width: 70%">
+                    <p:toolbarGroup>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Submit"
+                                         style="background-color: #861F41; border-color: #861F41"
+                                         action="#{createQuizController.editQuiz(editQuizController.quizTitle, editQuizController.quizTime, editQuizController.questions, editQuizController.accessCode)}"
+                                         ajax="false"
+                        />
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:commandButton icon="pi pi-plus"
+                                 update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
+                                 styleClass="float" style="background-color: #861F41; border-color: #861F41">
+                    <p:resetInput target=":QuizAddForm:manage-question-content"/>
+                </p:commandButton>
+
+                <p:confirmDialog widgetVar="deleteQuestionsDialog" showEffect="fade" width="300"
+                                 message="Delete all questions?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{editQuizController.clearAllQuestions}"
+                                     process="@this" oncomplete="PF('deleteQuestionsDialog').hide()"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteQuestionsDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+        </div>
+
+        <!--
+        ==================================================================
+        Dialog for Security Question and Answer for Survey Deletion
+        ==================================================================
+        -->
+        <ui:include src="/quizzes/EditQuizAdd.xhtml"/>
+        <ui:include src="/quizzes/EditQuizQuestion.xhtml"/>
+    </ui:define>
+
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>
