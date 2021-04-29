@@ -182,6 +182,13 @@ public class MyQuizController implements Serializable {
         return sdf.format(date);
     }
 
+    public String selectedQuizLink(String accessCode) {
+        String serverName = FacesContext.getCurrentInstance().getExternalContext().getRequestServerName();
+        int port  = FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort();
+        String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code=" + accessCode;
+        return link;
+    }
+
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }

@@ -23,6 +23,17 @@
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
 
+        <script type="text/javascript">
+            function copyQuizLink(value) {
+                var tempInput = document.createElement("input");
+                tempInput.value = value;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                alert("Copied the text: " + value);
+            };
+        </script>
         <div align="center" style="width:97%">
 
             <h:form id="MyQuizzesListForm">
@@ -56,7 +67,7 @@
                                     <h:outputText class="inputTextField" value="#{item.accessCode}" />
                                 </p:column>
 
-                                <p:column style="text-align: left; width: 20%;" headerText="">
+                                <p:column style="text-align: left; width: 30%;" headerText="">
 
                                     <p:commandButton id="view" ajax="false"  icon="pi pi-search" action="#{myQuizController.updateQuestion(item.id)}"  styleClass="rounded-button ui-button-success ui-button-outlined"/>
                                     <p:tooltip for="view" value="View" showEffect="clip" hideEffect="fold" />
@@ -66,6 +77,9 @@
                                     &nbsp;
                                     <p:commandButton type="button" id="delete" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton type="button" id="copyButton" value="Share" onclick="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined"></p:commandButton>
+                                    <p:tooltip for="copyButton" value="Copy Link to Clipboard" showEffect="clip" hideEffect="fold" />
                                 </p:column>
                             </p:dataTable>
             </h:form>
