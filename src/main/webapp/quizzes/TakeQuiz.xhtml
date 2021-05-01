@@ -38,6 +38,47 @@
                     <i style="margin-left: 500px">Points: #{accessCodeController.totalPoints}</i>
                 </div>
                 <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
+
+
+
+
+                <p:idleMonitor timeout="#{accessCodeController.timeLimit}"
+                               onidle="startTimer()" />
+
+<!--                <p:confirmDialog id="confirmDialog"-->
+<!--                                 message="You have been idle, Please click ok to remain logged in"-->
+<!--                                 header="Are you there?" severity="alert" widgetVar="idleDialog">-->
+<!--                    <p:commandButton id="confirm" value="Ok" oncomplete="extendSession()" />-->
+
+<!--                </p:confirmDialog>-->
+
+<!--                <p:remoteCommand name="terminateIdleSession" actionListener="#{idleMonitorView.onIdle}" out="count" />-->
+
+                <script type="text/javascript">
+                    var extend_session = 0;
+                    function startTimer() {
+
+                        extend_session = 0;
+                        setTimeout("timeout()", 120000);
+                        PF('idleDialog').show();
+                    }
+
+                    function timeout() {
+                        if (extend_session == 0) {
+                            terminateIdleSession();
+                        }
+                    }
+
+                    function extendSession() {
+                        extend_session = 1;
+                        PF('idleDialog').hide();
+                    }
+                </script>
+
+
+
+
+
                 <p:dataTable id="questionList" var="question" value="#{accessCodeController.questions}"
                              reflow="true" style="max-width: 70%"
                              rowKey="#{question.id}" paginator="true"
@@ -65,9 +106,6 @@
                     </p:column>
                 </p:dataTable>
 
-
-                <!--                <p:commandButton value="Submit" action="#{accessCodeController.process_submission}"-->
-                <!--                                 styleClass="vt-theme-button-marron" />-->
 
                 <p:commandButton value="Submit"
                                  update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"

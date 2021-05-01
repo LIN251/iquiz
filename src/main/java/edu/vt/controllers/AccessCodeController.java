@@ -92,6 +92,8 @@ public class AccessCodeController implements Serializable {
     private AnswerChoice selectedAns;
     ArrayList<Integer> answerList ;
     ArrayList<Integer> questionList ;
+    int timeLimit;
+
     //------------------------------------------setter and getter ------------------------------------------
 
     public TakerFacade getTakerFacade() {
@@ -255,6 +257,15 @@ public class AccessCodeController implements Serializable {
     public void setAttemptAnswerFacade(AttemptAnswerFacade attemptAnswerFacade) {
         this.attemptAnswerFacade = attemptAnswerFacade;
     }
+
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
     //------------------------------------------------- END -------------------------------------------------
 
     public AccessCodeController() {
@@ -266,7 +277,7 @@ public class AccessCodeController implements Serializable {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(searchQuery);
-//        aQuiz.getTimeLimit()
+        timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
@@ -300,7 +311,7 @@ public class AccessCodeController implements Serializable {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(access_code);
-//        aQuiz.getTimeLimit()
+        timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
@@ -333,6 +344,7 @@ public class AccessCodeController implements Serializable {
 
     private void reset() {
         selectedAns = null;
+        timeLimit=0;
         questionListForOneQuiz = new ArrayList<Question>();
         questions= new ArrayList<QuizQuestion>();
         answerChoices = new ArrayList<AnswerChoice>();
@@ -388,6 +400,13 @@ public class AccessCodeController implements Serializable {
 
         }
         newAttempt.setScore(studentScore);
+        getAttemptFacade().edit(newAttempt);
+        System.out.println(studentScore);
+
+        Attempt a = attemptFacade.find(newAttempt.getId());
+        System.out.println( a.getScore());
+
+
         return "/quizzes/AttemptResult?faces-redirect=true";
     }
 

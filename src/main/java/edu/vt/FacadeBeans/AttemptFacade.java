@@ -4,6 +4,7 @@
  */
 package edu.vt.FacadeBeans;
 
+import edu.vt.EntityBeans.Answer;
 import edu.vt.EntityBeans.Attempt;
 
 import javax.ejb.Stateless;
@@ -51,6 +52,13 @@ public class AttemptFacade extends AbstractFacade<Attempt> {
 //                    .setParameter("questionId", questionId)
 //                    .getResultList();
 //        return result;
+//    }
+
+//    public Attempt findAttemptByAttemptID(int id) {
+//        Attempt attempt = (Attempt) em.createNamedQuery("Attempt.findById")
+//                .setParameter("attempt_id", id)
+//                .getSingleResult();
+//        return attempt;
 //    }
 
 }

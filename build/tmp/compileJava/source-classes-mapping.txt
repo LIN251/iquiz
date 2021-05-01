@@ -1,9 +1,14 @@
 edu/vt/globals/Constants.java
  edu.vt.globals.Constants
+<<<<<<< Updated upstream
 edu/vt/controllers/ApiController.java
  edu.vt.controllers.ApiController
 edu/vt/FacadeBeans/AttemptFacade.java
  edu.vt.FacadeBeans.AttemptFacade
+=======
+edu/vt/EntityBeans/UserPhoto.java
+ edu.vt.EntityBeans.UserPhoto
+>>>>>>> Stashed changes
 edu/vt/EntityBeans/Question.java
  edu.vt.EntityBeans.Question
 edu/vt/pojo/QuizQuestion.java
@@ -12,8 +17,8 @@ edu/vt/globals/Methods.java
  edu.vt.globals.Methods
 edu/vt/validators/PasswordValidator.java
  edu.vt.validators.PasswordValidator
-edu/vt/EntityBeans/AttemptAnswer.java
- edu.vt.EntityBeans.AttemptAnswer
+edu/vt/validators/UsernameValidator.java
+ edu.vt.validators.UsernameValidator
 edu/vt/FacadeBeans/AttemptAnswerFacade.java
  edu.vt.FacadeBeans.AttemptAnswerFacade
 edu/vt/managers/LoginManager.java
@@ -32,6 +37,13 @@ edu/vt/controllers/SliderController.java
  edu.vt.controllers.SliderController
 edu/vt/managers/PasswordResetManager.java
  edu.vt.managers.PasswordResetManager
+<<<<<<< Updated upstream
+=======
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade
+edu/vt/FacadeBeans/QuizFacade.java
+ edu.vt.FacadeBeans.QuizFacade
+>>>>>>> Stashed changes
 edu/vt/globals/Password.java
  edu.vt.globals.Password
  edu.vt.globals.Password$CannotPerformOperationException
@@ -66,11 +78,11 @@ edu/vt/controllers/UserController.java
  edu.vt.controllers.UserController
 edu/vt/validators/EmailValidator.java
  edu.vt.validators.EmailValidator
-edu/vt/validators/UsernameValidator.java
- edu.vt.validators.UsernameValidator
-edu/vt/EntityBeans/UserPhoto.java
- edu.vt.EntityBeans.UserPhoto
+edu/vt/EntityBeans/AttemptAnswer.java
+ edu.vt.EntityBeans.AttemptAnswer
 edu/vt/EntityBeans/Attempt.java
  edu.vt.EntityBeans.Attempt
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
+edu/vt/FacadeBeans/AttemptFacade.java
+ edu.vt.FacadeBeans.AttemptFacade
+edu/vt/controllers/AccessCodeController.java
+ edu.vt.controllers.AccessCodeController

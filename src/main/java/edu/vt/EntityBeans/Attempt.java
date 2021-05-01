@@ -22,11 +22,11 @@ import java.io.Serializable;
 @Table(name = "Attempt")
 
 @NamedQueries({
-        @NamedQuery(name = "Attempt.findAll", query = "SELECT a FROM Attempt a")
-        , @NamedQuery(name = "Attempt.findById", query = "SELECT a FROM Attempt a WHERE a.id = :attempt_id")
-        , @NamedQuery(name = "Attempt.findByTakerId", query = "SELECT a FROM Attempt a WHERE a.takerId = :taker_id_fk")
-        , @NamedQuery(name = "Attempt.findByQuizId", query = "SELECT a FROM Attempt a WHERE a.quizID = :quiz_id_fk")
-        , @NamedQuery(name = "Attempt.findByScore", query = "SELECT a FROM Attempt a WHERE a.score = :score")})
+        @NamedQuery(name = "Attempt.findAll", query = "SELECT t FROM Attempt t")
+        , @NamedQuery(name = "Attempt.findById", query = "SELECT t FROM Attempt t WHERE t.id = :attempt_id")
+        , @NamedQuery(name = "Attempt.findByTakerId", query = "SELECT t FROM Attempt t WHERE t.takerId = :taker_id_fk")
+        , @NamedQuery(name = "Attempt.findByQuizId", query = "SELECT t FROM Attempt t WHERE t.quizID = :quiz_id_fk")
+        , @NamedQuery(name = "Attempt.findByScore", query = "SELECT t FROM Attempt t WHERE t.score = :score")})
 
 public class Attempt implements Serializable {
     /*
@@ -39,8 +39,10 @@ public class Attempt implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "answer_id")
+    @Column(name = "attempt_id")
     private Integer id;
+
+
 
     @Basic(optional = false)
     @NotNull
