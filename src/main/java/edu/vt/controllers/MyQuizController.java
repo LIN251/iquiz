@@ -69,6 +69,7 @@ public class MyQuizController implements Serializable {
     private Quiz selectedQuiz = null;
 
     private int selectedID;
+    private String selectedAccessCode;
     private List<Integer> did;
     /*
     ==================
@@ -138,6 +139,14 @@ public class MyQuizController implements Serializable {
 
     public void setSelectedID(int selectedID) {
         this.selectedID = selectedID;
+    }
+
+    public String getSelectedAccessCode() {
+        return selectedAccessCode;
+    }
+
+    public void setSelectedAccessCode(String selectedAccessCode) {
+        this.selectedAccessCode = selectedAccessCode;
     }
 
     public String deleteQuiz(int quizID) {
@@ -236,6 +245,7 @@ public class MyQuizController implements Serializable {
         String serverName = FacesContext.getCurrentInstance().getExternalContext().getRequestServerName();
         int port  = FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort();
         String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code=" + accessCode;
+//        PrimeFaces.current().ajax().update("MyQuizzesListForm:qrLinkDia");
         return link;
     }
 

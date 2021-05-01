@@ -31,7 +31,7 @@
                 tempInput.select();
                 document.execCommand("copy");
                 document.body.removeChild(tempInput);
-                alert("Copied the text: " + value);
+                PF('qrDia').show()
             };
         </script>
         <div align="center" style="width:97%">
@@ -78,10 +78,22 @@
                                     <p:commandButton ajax="false" id="delete" icon="pi pi-times" action="#{myQuizController.deleteQuiz(item.id)}" update="message" styleClass="rounded-button ui-button-danger ui-button-outlined"/>
                                     <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton type="button" id="copyButton" value="Share" onclick="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined"></p:commandButton>
+                                    <p:commandButton id="copyButton" value="Share" oncomplete="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined">
+                                        <f:setPropertyActionListener value="#{item.accessCode}" target="#{myQuizController.selectedAccessCode}"/>
+                                    </p:commandButton>
                                     <p:tooltip for="copyButton" value="Copy Link to Clipboard" showEffect="clip" hideEffect="fold" />
                                 </p:column>
                             </p:dataTable>
+
+                <p:dialog id="qrLinkDia" header="QR Code/Quiz Link" widgetVar="qrDia" minHeight="40" width="60%" showEffect="fade">
+                    <!--                    <div>#{myQuizController.selectedAccessCode}</div>-->
+                    <p:autoUpdate/>
+                    <p class="p-m-0">
+                        <h:outputText value="#{myQuizController.selectedQuizLink(myQuizController.selectedAccessCode)}"/>
+                        <br/>
+                        <p:barcode type="qr" value="#{myQuizController.selectedQuizLink(myQuizController.selectedAccessCode)}"/>
+                    </p>
+                </p:dialog>
             </h:form>
         </div>
     </ui:define>
