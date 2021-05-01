@@ -71,11 +71,11 @@ public class ApiController implements Serializable {
                     questionText = "Question Text Unavailable";
                 }
                 String correctAnswer = aQuestion.optString("correct_answer", "");
-                answers.add(new AnswerChoice(correctAnswer, true, "A"));
+                answers.add(new AnswerChoice(correctAnswer, true, "A", 0, 0));
                 JSONArray incorrectAnswersArray = aQuestion.getJSONArray("incorrect_answers");
                 for (int j=0; j<incorrectAnswersArray.length(); j++) {
                     String aIncorrectAnswer = incorrectAnswersArray.getString(j);
-                    answers.add(new AnswerChoice(aIncorrectAnswer, false, "A"));
+                    answers.add(new AnswerChoice(aIncorrectAnswer, false, "A", 0, 0));
                 }
                 Collections.shuffle(answers);
                 questions.add(new QuizQuestion(questionText, 1, 1, answers));
