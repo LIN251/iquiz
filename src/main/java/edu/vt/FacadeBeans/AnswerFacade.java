@@ -56,4 +56,18 @@ public class AnswerFacade extends AbstractFacade<Answer> {
         return result;
     }
 
+    public int findQuestionIDByAnswerID(int answerID) {
+        Answer answer = (Answer) em.createNamedQuery("Answer.findById")
+                .setParameter("answer_id", answerID)
+                .getSingleResult();
+        return answer.getQuestionId();
+    }
+
+    public Answer findAnswerByAnswerID(int answerID) {
+        Answer answer = (Answer) em.createNamedQuery("Answer.findById")
+                .setParameter("answer_id", answerID)
+                .getSingleResult();
+        return answer;
+    }
+
 }

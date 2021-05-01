@@ -16,6 +16,8 @@ public class AnswerChoice implements Serializable {
     private String answerText;
     private Boolean correct;
     private String index;
+    private int belongsTo;
+    private int AnswerChoiceID;
     /*
     ===============================================================
     Class constructors for instantiating a User entity object to
@@ -23,10 +25,14 @@ public class AnswerChoice implements Serializable {
     ===============================================================
      */
 
-    public AnswerChoice(String text, Boolean correct,String index) {
+
+
+    public AnswerChoice(String text, Boolean correct, String index, int belongsTo,int AnswerChoiceID) {
         this.answerText = text;
         this.correct = correct;
         this.index = index;
+        this.belongsTo = belongsTo;
+        this.AnswerChoiceID = AnswerChoiceID;
     }
 
     /*
@@ -58,5 +64,21 @@ public class AnswerChoice implements Serializable {
 
     public void setCorrect(Boolean correct) {
         this.correct = correct;
+    }
+
+    public int getBelongsTo() {
+        return belongsTo;
+    }
+
+    public void setBelongsTo(int belongsTo) {
+        this.belongsTo = belongsTo;
+    }
+
+    public int getAnswerChoiceID() {
+        return AnswerChoiceID;
+    }
+
+    public void setAnswerChoiceID(int answerChoiceID) {
+        AnswerChoiceID = answerChoiceID;
     }
 }

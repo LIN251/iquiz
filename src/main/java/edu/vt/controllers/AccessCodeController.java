@@ -8,10 +8,7 @@ import edu.vt.EntityBeans.Answer;
 import edu.vt.EntityBeans.Question;
 import edu.vt.EntityBeans.Quiz;
 import edu.vt.EntityBeans.Taker;
-import edu.vt.FacadeBeans.AnswerFacade;
-import edu.vt.FacadeBeans.QuestionFacade;
-import edu.vt.FacadeBeans.QuizFacade;
-import edu.vt.FacadeBeans.TakerFacade;
+import edu.vt.FacadeBeans.*;
 import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
@@ -21,7 +18,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;import edu.vt.EntityBeans.*;
+
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /*
 ---------------------------------------------------------------------------
@@ -68,6 +68,11 @@ public class AccessCodeController implements Serializable {
     @EJB
     private AnswerFacade answerFacade;
 
+    @EJB
+    private AttemptFacade attemptFacade;
+
+    @EJB
+    private AttemptAnswerFacade attemptAnswerFacade;
 
 
     private String searchQuery;
@@ -82,6 +87,11 @@ public class AccessCodeController implements Serializable {
     Quiz aQuiz = new Quiz();
     private Integer totalPoints;
 
+    private Taker newTaker;
+    private int studentScore;
+    private AnswerChoice selectedAns;
+    ArrayList<Integer> answerList ;
+    ArrayList<Integer> questionList ;
     //------------------------------------------setter and getter ------------------------------------------
 
     public TakerFacade getTakerFacade() {
@@ -203,6 +213,48 @@ public class AccessCodeController implements Serializable {
     public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
+
+
+    public int getStudentScore() {
+        return studentScore;
+    }
+
+    public void setStudentScore(int studentScore) {
+        this.studentScore = studentScore;
+    }
+
+
+    public AnswerChoice getSelectedAns() {
+        return selectedAns;
+    }
+
+    public void setSelectedAns(AnswerChoice selectedAns) {
+        this.selectedAns = selectedAns;
+    }
+
+    public Taker getNewTaker() {
+        return newTaker;
+    }
+
+    public void setNewTaker(Taker newTaker) {
+        this.newTaker = newTaker;
+    }
+
+    public AttemptFacade getAttemptFacade() {
+        return attemptFacade;
+    }
+
+    public void setAttemptFacade(AttemptFacade attemptFacade) {
+        this.attemptFacade = attemptFacade;
+    }
+
+    public AttemptAnswerFacade getAttemptAnswerFacade() {
+        return attemptAnswerFacade;
+    }
+
+    public void setAttemptAnswerFacade(AttemptAnswerFacade attemptAnswerFacade) {
+        this.attemptAnswerFacade = attemptAnswerFacade;
+    }
     //------------------------------------------------- END -------------------------------------------------
 
     public AccessCodeController() {
@@ -222,7 +274,7 @@ public class AccessCodeController implements Serializable {
         }
         else{
             //update taker
-            Taker newTaker = new Taker();
+            newTaker = new Taker();
             newTaker.setFirstName(takerName);
             newTaker.setLastName("taker");
             getTakerFacade().create(newTaker);
@@ -233,7 +285,7 @@ public class AccessCodeController implements Serializable {
                 answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
                 answerChoices = new ArrayList<AnswerChoice>();
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
-                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), false, getCharForNumber(x+1)));
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId()));
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
@@ -267,7 +319,7 @@ public class AccessCodeController implements Serializable {
                 answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
                 answerChoices = new ArrayList<AnswerChoice>();
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
-                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), false, getCharForNumber(x+1)));
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId()));
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
@@ -280,6 +332,7 @@ public class AccessCodeController implements Serializable {
     }
 
     private void reset() {
+        selectedAns = null;
         questionListForOneQuiz = new ArrayList<Question>();
         questions= new ArrayList<QuizQuestion>();
         answerChoices = new ArrayList<AnswerChoice>();
@@ -287,6 +340,9 @@ public class AccessCodeController implements Serializable {
         selectedAnswerChoices = new ArrayList<AnswerChoice>();
         aQuiz = new Quiz();
         totalPoints = 0;
+        studentScore = 0;
+        answerList = new ArrayList<Integer>();
+        questionList = new ArrayList<Integer>();
     }
 
 
@@ -294,5 +350,45 @@ public class AccessCodeController implements Serializable {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
 
+
+    public void onRowSelect(SelectEvent<AnswerChoice> event) {
+        if (answerList.contains(selectedAns.getBelongsTo())){
+            questionList.set(answerList.indexOf(selectedAns.getBelongsTo()), selectedAns.getAnswerChoiceID());
+        }
+        else{
+            answerList.add(selectedAns.getBelongsTo());
+            questionList.add(selectedAns.getAnswerChoiceID());
+        }
+    }
+
+
+
+    public String process_submission() {
+
+        Attempt newAttempt = new Attempt();
+        newAttempt.setTakerId(getNewTaker().getId());
+        newAttempt.setQuizID(aQuiz.getId());
+        newAttempt.setScore(0);
+        getAttemptFacade().create(newAttempt);
+
+        studentScore = 0;
+        for(int i = 0; i<questionList.size();i++){
+            int questionID =getAnswerFacade().findQuestionIDByAnswerID(questionList.get(i));
+            AttemptAnswer newAttemptAnswer = new AttemptAnswer();
+            newAttemptAnswer.setAttemptID(newAttempt.getId());
+            newAttemptAnswer.setAnswerID(questionList.get(i));
+            newAttemptAnswer.setQuestionID(questionID);
+            getAttemptAnswerFacade().create(newAttemptAnswer);
+
+            Answer aAnswer= getAnswerFacade().findAnswerByAnswerID(questionList.get(i));
+            if(aAnswer.isInstructorResult()){
+                Question aquestion = getQuestionFacade().findQuestionByQuestionId(questionID);
+                studentScore = studentScore + aquestion.getQuestionPoint();
+            }
+
+        }
+        newAttempt.setScore(studentScore);
+        return "/quizzes/AttemptResult?faces-redirect=true";
+    }
 
 }

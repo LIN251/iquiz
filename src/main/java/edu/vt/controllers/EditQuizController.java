@@ -194,7 +194,7 @@ public class EditQuizController implements Serializable{
             answerItems = getAnswerFacade().findAllAnswersForOneQuestion(questionItems.get(i).getId());
             ArrayList<AnswerChoice> everyAnswer = new ArrayList<>();
             for(int j = 0; j < answerItems.size(); j++) {
-                everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), answerItems.get(j).isInstructorResult(), getCharForNumber(j + 1)));
+                everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), answerItems.get(j).isInstructorResult(), getCharForNumber(j + 1),i, answerItems.get(j).getId()));
             }
             questions.add(new QuizQuestion(questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), i+1, everyAnswer));
         }
@@ -219,12 +219,12 @@ public class EditQuizController implements Serializable{
     }
 
     public void addAnswerChoice() {
-        selectedAnswerChoices.add(new AnswerChoice("", false,"A"));
+        selectedAnswerChoices.add(new AnswerChoice("", false,"A",1,1));
         PrimeFaces.current().ajax().update("QuizEditQuestionForm:manage-question-content", "EditQuizForm:dt-questions");
     }
 
     public void addAnswerChoiceByQuestion() {
-        selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A"));
+        selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A",1,1));
         PrimeFaces.current().ajax().update("QuizEditQuestionForm:manage-question-content", "EditQuizForm:dt-questions");
     }
 
