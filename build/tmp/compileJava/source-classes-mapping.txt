@@ -54,13 +54,13 @@ edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
 edu/vt/controllers/UserController.java
  edu.vt.controllers.UserController
-edu/vt/controllers/AccessCodeController.java
- edu.vt.controllers.AccessCodeController
+edu/vt/controllers/MyQuizController.java
+ edu.vt.controllers.MyQuizController
 edu/vt/FacadeBeans/QuestionFacade.java
  edu.vt.FacadeBeans.QuestionFacade
 edu/vt/controllers/CreateQuizController.java
  edu.vt.controllers.CreateQuizController
 edu/vt/controllers/EditQuizController.java
  edu.vt.controllers.EditQuizController
-edu/vt/controllers/MyQuizController.java
- edu.vt.controllers.MyQuizController
+edu/vt/controllers/AccessCodeController.java
+ edu.vt.controllers.AccessCodeController

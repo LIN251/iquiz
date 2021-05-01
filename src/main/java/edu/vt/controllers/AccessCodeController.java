@@ -80,7 +80,7 @@ public class AccessCodeController implements Serializable {
     List<Answer> answerListForOneQuestion = new ArrayList<Answer>();
     private List<AnswerChoice> selectedAnswerChoices = new ArrayList<AnswerChoice>();
     Quiz aQuiz = new Quiz();
-
+    private Integer totalPoints;
 
     //------------------------------------------setter and getter ------------------------------------------
 
@@ -195,10 +195,18 @@ public class AccessCodeController implements Serializable {
     public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) {
         this.selectedAnswerChoices = selectedAnswerChoices;
     }
+
+    public Integer getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
+    }
     //------------------------------------------------- END -------------------------------------------------
 
     public AccessCodeController() {
-
+        totalPoints = 0;
     }
 
 
@@ -229,6 +237,7 @@ public class AccessCodeController implements Serializable {
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
+                totalPoints += initialQuestion.getQuestionPoint();
             }
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
@@ -262,6 +271,7 @@ public class AccessCodeController implements Serializable {
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
+                totalPoints += initialQuestion.getQuestionPoint();
             }
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
@@ -276,6 +286,7 @@ public class AccessCodeController implements Serializable {
         answerListForOneQuestion = new ArrayList<Answer>();
         selectedAnswerChoices = new ArrayList<AnswerChoice>();
         aQuiz = new Quiz();
+        totalPoints = 0;
     }
 
 

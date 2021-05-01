@@ -68,6 +68,7 @@ public class MyQuizController implements Serializable {
     private Quiz selected;
     private Quiz selectedQuiz = null;
 
+    private int selectedID;
     private List<Integer> did;
     /*
     ==================
@@ -127,7 +128,20 @@ public class MyQuizController implements Serializable {
 
     public Integer getTotalPoints() { return totalPoints; }
 
+    public void setItems(List<Quiz> items) {
+        this.items = items;
+    }
+
+    public int getSelectedID() {
+        return selectedID;
+    }
+
+    public void setSelectedID(int selectedID) {
+        this.selectedID = selectedID;
+    }
+
     public String deleteQuiz(int quizID) {
+        System.out.println(quizID);
         List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
         for(int i = 0; i < questions.size(); i++) {
             List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
@@ -141,6 +155,24 @@ public class MyQuizController implements Serializable {
         getQuizFacade().remove(quiz);
         System.out.println("remove quiz");
         addMessage("Confirmed", "This quiz has been deleted");
+        return "/quizzes/MyQuizzes?faces-redirect=true";
+    }
+
+    public String deleteQuiz() {
+        System.out.println(selectedID);
+//        List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
+//        for(int i = 0; i < questions.size(); i++) {
+//            List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
+//            for(int j = 0; j < answers.size(); j++) {
+//                getAnswerFacade().remove(answers.get(j));
+//            }
+//            getQuestionFacade().remove(questions.get(i));
+//        }
+//        Quiz quiz = getQuizFacade().findQuizByID(quizID);
+//        System.out.println(quiz.getTitle());
+//        getQuizFacade().remove(quiz);
+//        System.out.println("remove quiz");
+//        addMessage("Confirmed", "This quiz has been deleted");
         return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
