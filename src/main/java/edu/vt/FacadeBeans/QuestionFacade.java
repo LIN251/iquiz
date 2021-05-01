@@ -69,4 +69,6 @@ public class QuestionFacade extends AbstractFacade<Question> {
                 .getSingleResult();
         return question;
     }
+
+
 }

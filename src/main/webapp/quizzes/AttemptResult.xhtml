@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Calvin Huang on 2021.3.5
+  - Copyright © 2021 Calvin Huang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+<!-- This page is constructed based on the siteTemplate -->
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <!-- Create the content for this page below -->
+    <ui:define name="editableContent">
+
+        <div align="center">
+            <!--
+            ========================================
+            *   PrimeFaces Galleria Image Slider   *
+            ========================================
+            Various effect options for transitions: blind, bounce, clip, drop, explode, fade,
+            fold, highlight, puff, pulsate, scale, shake, size, slide, and transfer.
+            -->
+<!--            <p:galleria value="#{sliderController.sliderImages}"-->
+<!--                        var="image" effect="slide" effectSpeed="1000" showFilmstrip="true"-->
+<!--                        panelWidth="710" panelHeight="430" showCaption="true">-->
+
+<!--                <p:graphicImage value="/resources/images/slider/#{image}"-->
+<!--                                alt="#{sliderController.description(image)}" title="" />-->
+
+<!--            </p:galleria>-->
+            <h:outputLabel value="Quiz Name: &nbsp;#{accessCodeController.aQuiz.title}"/>
+            <br/><br/>
+            <h:outputLabel value="Taker Name: &nbsp;#{accessCodeController.takerName}"  />
+            <br/><br/>
+            <h:outputLabel value="Quiz Score: &nbsp;#{accessCodeController.studentScore}"  />
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+<!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

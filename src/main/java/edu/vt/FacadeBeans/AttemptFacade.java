@@ -4,18 +4,15 @@
  */
 package edu.vt.FacadeBeans;
 
-import edu.vt.EntityBeans.Answer;
-import edu.vt.EntityBeans.Question;
-import edu.vt.EntityBeans.Quiz;
+import edu.vt.EntityBeans.Attempt;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless
-public class AnswerFacade extends AbstractFacade<Answer> {
+public class AttemptFacade extends AbstractFacade<Attempt> {
 
     /*
     Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "Recipes-WangZhengboPU")'
@@ -41,33 +38,19 @@ public class AnswerFacade extends AbstractFacade<Answer> {
     constructor method, which in turn initializes its entityClass instance variable
     with the Recipe class object reference returned by the Recipe.class.
      */
-    public AnswerFacade() {
+    public AttemptFacade() {
         // Invokes super's AbstractFacade constructor method by passing
         // Recipe.class, which is the object reference of the Recipe class.
-        super(Answer.class);
+        super(Attempt.class);
     }
 
 
-    public  List<Answer> findAllAnswersForOneQuestion(int questionId) {
-
-        List<Answer> result = em.createQuery("SELECT c FROM Answer c WHERE c.questionId = :questionId")
-                    .setParameter("questionId", questionId)
-                    .getResultList();
-        return result;
-    }
-
-    public int findQuestionIDByAnswerID(int answerID) {
-        Answer answer = (Answer) em.createNamedQuery("Answer.findById")
-                .setParameter("answer_id", answerID)
-                .getSingleResult();
-        return answer.getQuestionId();
-    }
-
-    public Answer findAnswerByAnswerID(int answerID) {
-        Answer answer = (Answer) em.createNamedQuery("Answer.findById")
-                .setParameter("answer_id", answerID)
-                .getSingleResult();
-        return answer;
-    }
+//    public  List<Answer> findAllAnswersForOneQuestion(int questionId) {
+//
+//        List<Answer> result = em.createQuery("SELECT c FROM Answer c WHERE c.questionId = :questionId")
+//                    .setParameter("questionId", questionId)
+//                    .getResultList();
+//        return result;
+//    }
 
 }
