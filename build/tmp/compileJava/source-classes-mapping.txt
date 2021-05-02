@@ -1,7 +1,7 @@
 edu/vt/globals/Constants.java
  edu.vt.globals.Constants
-edu/vt/controllers/ApiController.java
- edu.vt.controllers.ApiController
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade
 edu/vt/FacadeBeans/AttemptFacade.java
  edu.vt.FacadeBeans.AttemptFacade
 edu/vt/EntityBeans/Question.java
@@ -72,5 +72,5 @@ edu/vt/EntityBeans/UserPhoto.java
  edu.vt.EntityBeans.UserPhoto
 edu/vt/EntityBeans/Attempt.java
  edu.vt.EntityBeans.Attempt
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
+edu/vt/controllers/ApiController.java
+ edu.vt.controllers.ApiController

@@ -126,6 +126,12 @@
 
                 <p:toolbar style="max-width: 70%">
                     <p:toolbarGroup>
+                        <p:commandButton icon="pi pi-plus"
+                                         value="Add Question"
+                                         update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
+                                         style="background-color: #861F41; border-color: #861F41">
+                            <p:resetInput target=":QuizAddForm:manage-question-content"/>
+                        </p:commandButton>
                     </p:toolbarGroup>
                     <p:toolbarGroup align="right">
                         <p:commandButton value="Submit"
@@ -135,11 +141,6 @@
                         />
                     </p:toolbarGroup>
                 </p:toolbar>
-                <p:commandButton icon="pi pi-plus"
-                                 update=":QuizAddForm:manage-question-content" oncomplete="PF('manageQuestionDialog').show()"
-                                 styleClass="float" style="background-color: #861F41; border-color: #861F41">
-                    <p:resetInput target=":QuizAddForm:manage-question-content"/>
-                </p:commandButton>
 
                 <p:confirmDialog widgetVar="deleteQuestionsDialog" showEffect="fade" width="300"
                                  message="Delete all questions?" header="Confirm" severity="warn">

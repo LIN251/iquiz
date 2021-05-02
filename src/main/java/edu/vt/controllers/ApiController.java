@@ -28,7 +28,7 @@ public class ApiController implements Serializable {
     private AnswerChoice selectedAns;
 
     private String category;
-    private String numberOfQuestions;
+    private String numberOfQuestions = "10";
     private String difficulty;
     private String type;
 
@@ -109,7 +109,7 @@ public class ApiController implements Serializable {
         if(difficulty != null && difficulty.equals("") ){
             searchApiUrl += "&" + difficulty;
         }
-        if (difficulty != null && !type.equals("")){
+        if (type != null && !type.equals("")){
             searchApiUrl += "&" + type;
         }
         /*
