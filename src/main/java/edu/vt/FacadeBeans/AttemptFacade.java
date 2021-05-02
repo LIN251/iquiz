@@ -47,6 +47,20 @@ public class AttemptFacade extends AbstractFacade<Attempt> {
         super(Attempt.class);
     }
 
+    public List<Attempt> findAllAttemptByQuizId(int quizId) {
+        List<Attempt> attempts = em.createNamedQuery("Attempt.findByQuizId")
+                .setParameter("quiz_id_fk", quizId)
+                .getResultList();
+        return attempts;
+    }
+
+    public List<Attempt> findAttemptByTakerId(int takerId) {
+        List<Attempt> attempt = em.createNamedQuery("Attempt.findByTakerId")
+                .setParameter("taker_id_fk", takerId)
+                .getResultList();
+        return attempt;
+    }
+
 
 //    public  List<Answer> findAllAnswersForOneQuestion(int questionId) {
 //

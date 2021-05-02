@@ -44,6 +44,13 @@ public class TakerFacade extends AbstractFacade<Taker> {
         super(Taker.class);
     }
 
+    public Taker findTakerById(int id) {
+        Taker taker = (Taker) em.createQuery("SELECT c FROM Taker c WHERE c.id = :taker_id")
+                .setParameter("taker_id", id)
+                .getSingleResult();
+        return taker;
+    }
+
 
 //    public Quiz findOneQuiz(String searchQuery) {
 //        if (em.createQuery("SELECT c FROM Quiz c WHERE c.accessCode = :access_code")

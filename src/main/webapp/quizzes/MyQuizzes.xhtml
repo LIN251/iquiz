@@ -72,17 +72,21 @@
                                     <p:commandButton id="view" ajax="false"  icon="pi pi-search" action="#{myQuizController.updateQuestion(item.id)}"  styleClass="rounded-button ui-button-success ui-button-outlined"/>
                                     <p:tooltip for="view" value="View" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton id="edit" ajax="false" action="#{editQuizController.prepareEdit(item.id)}" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
+                                    <p:commandButton id="edit" ajax="false" action="#{editQuizController.prepareEdit(item.id)}" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="edit" value="Edit" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
                                     <p:commandButton ajax="false" id="delete" icon="pi pi-times" action="#{myQuizController.deleteQuiz(item.id)}" update="message" styleClass="rounded-button ui-button-danger ui-button-outlined"/>
                                     <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton id="report" icon="pi pi-chart-line" action="#{resultsController.obtainOverallData(item.id)}" styleClass="rounded-button ui-button-success ui-button-outlined"/>
+                                    <p:commandButton id="report" icon="pi pi-chart-line" action="#{resultsController.obtainOverallData(item.id)}" styleClass="rounded-button ui-button-help ui-button-outlined"/>
                                     <p:tooltip for="report" value="Report" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton id="copyButton" value="Share" oncomplete="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined">
+                                    <p:commandButton id="student" icon="pi pi-desktop" action="#{studentController.listStudents(item.id)}" styleClass="rounded-button ui-button-warning ui-button-outlined"/>
+                                    <p:tooltip for="student" value="Student Submission" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton id="copyButton" icon="pi pi-link" oncomplete="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined">
                                         <f:setPropertyActionListener value="#{item.accessCode}" target="#{myQuizController.selectedAccessCode}"/>
+                                        <p:tooltip for="copyButton" value="Share" showEffect="clip" hideEffect="fold" />
                                     </p:commandButton>
                                     <p:tooltip for="copyButton" value="Copy Link to Clipboard" showEffect="clip" hideEffect="fold" />
                                 </p:column>

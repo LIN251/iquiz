@@ -53,6 +53,13 @@ public class AttemptAnswerFacade extends AbstractFacade<AttemptAnswer> {
         return result;
     }
 
+    public List<AttemptAnswer> findAttemptAnswerByAttemptId(int attemptId) {
+        List<AttemptAnswer> attemptAnswerList = em.createNamedQuery("AttemptAnswer.findByAttemptID")
+                .setParameter("attempt_id_fk", attemptId)
+                .getResultList();
+        return attemptAnswerList;
+    }
+
 
 //    public  List<Answer> findAllAnswersForOneQuestion(int questionId) {
 //

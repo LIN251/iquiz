@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 @NamedQueries({
     @NamedQuery(name = "Taker.findAll", query = "SELECT u FROM Taker u")
-    , @NamedQuery(name = "Taker.findById", query = "SELECT u FROM Taker u WHERE u.id = :id")
+    , @NamedQuery(name = "Taker.findById", query = "SELECT u FROM Taker u WHERE u.id = :taker_id")
     , @NamedQuery(name = "Taker.findByLastName", query = "SELECT u FROM Taker u WHERE u.lastName = :last_name")
     , @NamedQuery(name = "Taker.findByFirstName", query = "SELECT u FROM Taker u WHERE u.firstName = :first_name")})
 
@@ -33,7 +33,7 @@ public class Taker implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "taker_id")
     private Integer id;
 
     public String getLastName() {

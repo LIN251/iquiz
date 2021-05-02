@@ -4,6 +4,7 @@ package edu.vt.controllers;
 import edu.vt.EntityBeans.Answer;
 import edu.vt.EntityBeans.Question;
 import edu.vt.EntityBeans.Quiz;
+import edu.vt.EntityBeans.User;
 import edu.vt.FacadeBeans.AnswerFacade;
 import edu.vt.FacadeBeans.QuestionFacade;
 import edu.vt.FacadeBeans.QuizFacade;
@@ -98,9 +99,10 @@ public class MyQuizController implements Serializable {
     public void setSelected(Quiz selected) { this.selected = selected; }
 
     public List<Quiz> getItems() {
+        User signedInUser = (User) Methods.sessionMap().get("user");
         items = null;
         if (items == null) {
-            items = getQuizFacade().findAll();
+            items = getQuizFacade().findQuizByUserId(signedInUser.getId());
         }
         return items;
     }
