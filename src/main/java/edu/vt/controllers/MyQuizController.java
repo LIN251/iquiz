@@ -205,7 +205,7 @@ public class MyQuizController implements Serializable {
                 for(int j = 0; j < answerItems.size(); j++) {
                     everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), answerItems.get(j).isInstructorResult(), getCharForNumber(j + 1),i,answerItems.get(j).getId(), false));
                 }
-                quizQuestions.add(new QuizQuestion(questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), questionItems.get(i).getId(), everyAnswer));
+                quizQuestions.add(new QuizQuestion(questionItems.get(i).getId(),questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), questionItems.get(i).getId(), everyAnswer));
 
             }
         }

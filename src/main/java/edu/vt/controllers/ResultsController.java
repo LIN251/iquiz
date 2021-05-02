@@ -55,20 +55,19 @@ public class ResultsController implements Serializable {
     @EJB
     private AnswerFacade answerFacade;
 
-    private List<BarChartModel> chartList;
-
     private BarChartModel overallChart;
+
+    private BarChartModel answerChart;
 
 
     @PostConstruct
     public void init() {
         // Display default stock chart
-        chartList = new ArrayList<>();
         overallChart = new BarChartModel();
+        answerChart = new BarChartModel();
     }
 
     public void setupStockChart() {
-        obtainCharData();
     }
 
     public AttemptFacade getAttemptFacade() { return attemptFacade; }
@@ -91,9 +90,7 @@ public class ResultsController implements Serializable {
 
     public void setAnswerFacade(AnswerFacade answerFacade) { this.answerFacade = answerFacade; }
 
-    public List<BarChartModel> getChartList() { return chartList; }
-
-    public void setChartList(List<BarChartModel> chartList) { this.chartList = chartList; }
+    public BarChartModel getAnswerChart() { return answerChart; }
 
     public BarChartModel getOverallChart() {
         return overallChart;
@@ -119,29 +116,22 @@ public class ResultsController implements Serializable {
         }
         createChartModel(quiz.getId(), ylabel, xlabel, quiz.getTitle());
     }
-    private void obtainCharData() {
-        User signedInUser = (User) Methods.sessionMap().get("user");
-        List<Quiz> quizList = getQuizFacade().findQuizByUserId(signedInUser.getId());
-        for(int i = 0; i < quizList.size(); i++) {
-            List<Question> questionList = getQuestionFacade().findQuestionByQuizId(quizList.get(i).getId());
-            for(int j = 0; j < questionList.size(); j++) {
-                List<Answer> answerList = getAnswerFacade().findAllAnswersForOneQuestion(questionList.get(j).getId());
-                Integer[] count = new Integer[answerList.size()];
-                String[] answerLabel = new String[answerList.size()];
-                for(int k = 0; k < answerList.size(); k++) {
-                    List<AttemptAnswer> attemptAnswerList = getAttemptAnswerFacade().findAttemptAnswerByAnswerId(answerList.get(k).getId());
-                    count[k] = attemptAnswerList.size();
-                    if(answerList.get(k).isInstructorResult()) {
-                        String res = answerList.get(k).getAnswer_text() + " (CORRECT) ";
-                        answerLabel[k] = res;
-                    }
-                    else {
-                        answerLabel[k] = answerList.get(k).getAnswer_text();
-                    }
-                }
-                createCharModel("Question" + (j+1), count, questionList.get(j).getQuestionText(), answerLabel);
+    public void obtainAnswerChartData(int questionId) {
+        Question question = getQuestionFacade().findQuestionByQuestionId(questionId);
+        List<Answer> answerList = getAnswerFacade().findAllAnswersForOneQuestion(question.getId());
+        String[] xlabel = new String[answerList.size()];
+        Integer[] ylabel = new Integer[answerList.size()];
+        for(int i = 0; i < answerList.size(); i++) {
+            List<AttemptAnswer> attemptAnswerList = getAttemptAnswerFacade().findAttemptAnswerByAnswerId(answerList.get(i).getId());
+            ylabel[i] = attemptAnswerList.size();
+            if(answerList.get(i).isInstructorResult()) {
+                xlabel[i] = answerList.get(i).getAnswer_text() + " (CORRECT) ";
+            }
+            else {
+                xlabel[i] = answerList.get(i).getAnswer_text();
             }
         }
+        createAnswerChartModel(xlabel, ylabel, question.getQuestionText());
     }
 
     public void createChartModel(Integer id, Integer[] ylabel, String[] xlabel, String quiztitle) {
@@ -164,22 +154,23 @@ public class ResultsController implements Serializable {
         current.executeScript("PF('ReportDialog').show();");
     }
 
-    private void createCharModel(String label, Integer[] count, String question, String[] answerLabel) {
-        BarChartModel chart = new BarChartModel();
+    private void createAnswerChartModel(String[] xlabel, Integer[] ylabel, String questionTitle) {
+        answerChart.clear();
         ChartSeries series = new ChartSeries();
-        series.setLabel(label);
-        for(int i = 0; i < count.length; i++) {
-            series.set(answerLabel[i], count[i]);
+        series.setLabel("Answer/Correct");
+        for(int i = 0; i < xlabel.length; i++) {
+            series.set(xlabel[i], ylabel[i]);
         }
-        chart.addSeries(series);
-        chart.setLegendPosition("ne");
-        Axis xAxis = chart.getAxis(AxisType.X);
-        xAxis.setLabel(question);
-        Axis yAxis = chart.getAxis(AxisType.Y);
-        yAxis.setLabel("Selected Answer Number");
+        answerChart.addSeries(series);
+        answerChart.setLegendPosition("ne");
+        Axis xAxis = answerChart.getAxis(AxisType.X);
+        xAxis.setLabel(questionTitle);
+        Axis yAxis = answerChart.getAxis(AxisType.Y);
+        yAxis.setLabel("Correct Number");
         yAxis.setMin(0);
-        chart.setExtender("barChartExtender");
-        chartList.add(chart);
+        answerChart.setExtender("barChartExtender");
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('AnswerReportDialog').show();");
     }
 
 //    private String getCharForNumber(int i) {

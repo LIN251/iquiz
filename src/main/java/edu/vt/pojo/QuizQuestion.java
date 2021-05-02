@@ -13,6 +13,7 @@ public class QuizQuestion implements Serializable {
     of the User table in the CloudDriveDB database.
     ========================================================
      */
+    private Integer questionId;
     private String questionText;
     private int questionPoint;
     private int questionNumber;
@@ -24,7 +25,8 @@ public class QuizQuestion implements Serializable {
     ===============================================================
      */
 
-    public QuizQuestion(String questionText, Integer questionPoint, Integer questionNumber, List<AnswerChoice> answers) {
+    public QuizQuestion(Integer questionId, String questionText, Integer questionPoint, Integer questionNumber, List<AnswerChoice> answers) {
+        this.questionId = questionId;
         this.questionText = questionText;
         this.questionPoint = questionPoint;
         this.questionNumber = questionNumber;
@@ -37,6 +39,9 @@ public class QuizQuestion implements Serializable {
     of the User table in the CloudDriveDB database.
     ======================================================
      */
+    public Integer getQuestionId() { return questionId; }
+
+    public void setQuestionId(Integer questionId) { this.questionId = questionId; }
 
     public String getQuestionText() {
         return questionText;

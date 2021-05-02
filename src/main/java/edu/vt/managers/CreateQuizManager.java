@@ -193,7 +193,7 @@ public class CreateQuizManager implements Serializable {
     }
 
     public void createQuestion(){
-        this.selectedQuestion = new QuizQuestion(questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
+        this.selectedQuestion = new QuizQuestion(1, questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
         this.questions.add(this.selectedQuestion);
         questionNumber++;
         clearQuestion();

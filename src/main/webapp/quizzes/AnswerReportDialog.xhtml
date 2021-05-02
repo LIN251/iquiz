@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  - Created by Zhengbo Wang on 2021.3.8
+  - Copyright © 2021 Zhengbo Wang. All rights reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition>
+    <!--
+    ==========================================================
+    |  Clicking the VIEW button in List.xhtml displays this  |
+    |  Dialog window showing the selected recipe's data.    |
+    ==========================================================
+    -->
+    <p:dialog id="AnswerReportDlg" widgetVar="AnswerReportDialog" modal="true"
+              resizable="false" appendTo="@(body)" header="Quiz Report">
+
+        <h:form id="AnswerChartForm">
+            <p:autoUpdate/>
+            <p:chart id="chart" type="bar" model="#{resultsController.answerChart}"
+                     style="height:500px;width:900px"/>
+        </h:form>
+
+    </p:dialog>
+
+    <!--
+********************************************************************************************
+PrimeFaces p:chart uses jqPlot (http://www.jqplot.com/) JavaScript library to create charts.
+
+This JavaScript function barChartExtender() is created as an Extender and set in
+StockChartController.java with
+
+stockChart.setExtender("barChartExtender");
+
+for use to style the chart using the jqPlot properties listed at
+(http://www.jqplot.com/docs/files/jqplot-core-js.html)
+********************************************************************************************
+-->
+    <script type="text/javascript">
+        function barChartExtender() {
+            // this     ==> chart widget instance
+            // this.cfg ==> options
+
+            this.cfg.gridPadding = {
+                top: 20, bottom: 50,
+            };
+            this.cfg.seriesDefaults.rendererOptions = {
+                barWidth: 25
+            };
+            this.cfg.legend = {
+                show: true,
+                placement: 'inside', // versus 'outside' of the chart
+                backgroundColor: 'white'
+            };
+            // Y Axis Styling
+            this.cfg.axes.yaxis.labelOptions = {
+                // fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: '14pt',
+                textColor: '#000000'  // Dark Green
+            };
+            this.cfg.axes.yaxis.tickOptions = {
+                // fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: '10pt',
+                textColor: '#000000'  // Black
+            };
+            // X Axis Styling
+            this.cfg.axes.xaxis.labelOptions = {
+                // fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: '14pt',
+                textColor: '#000000'  // Dark Green
+            };
+            this.cfg.axes.xaxis.tickOptions = {
+                // fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: '8pt',
+                angle: -30, // Slant the day label 30 degrees
+                textColor: '#000000'  // Black
+            };
+        }
+    </script>
+
+</ui:composition>
+</html>

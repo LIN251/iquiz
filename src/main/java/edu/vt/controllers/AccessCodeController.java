@@ -300,7 +300,7 @@ public class AccessCodeController implements Serializable {
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
                     answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId(), false));
                 }
-                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
+                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getId(),questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
                 totalPoints += initialQuestion.getQuestionPoint();
             }
@@ -338,7 +338,7 @@ public class AccessCodeController implements Serializable {
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
                     answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId(),false));
                 }
-                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
+                QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getId(),questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
                 totalPoints += initialQuestion.getQuestionPoint();
             }

@@ -2,8 +2,8 @@ edu/vt/globals/Constants.java
  edu.vt.globals.Constants
 edu/vt/controllers/ApiController.java
  edu.vt.controllers.ApiController
-edu/vt/validators/UsernameValidator.java
- edu.vt.validators.UsernameValidator
+edu/vt/FacadeBeans/AttemptFacade.java
+ edu.vt.FacadeBeans.AttemptFacade
 edu/vt/EntityBeans/Question.java
  edu.vt.EntityBeans.Question
 edu/vt/pojo/QuizQuestion.java
@@ -14,8 +14,8 @@ edu/vt/validators/PasswordValidator.java
  edu.vt.validators.PasswordValidator
 edu/vt/EntityBeans/AttemptAnswer.java
  edu.vt.EntityBeans.AttemptAnswer
-edu/vt/EntityBeans/UserPhoto.java
- edu.vt.EntityBeans.UserPhoto
+edu/vt/FacadeBeans/AttemptAnswerFacade.java
+ edu.vt.FacadeBeans.AttemptAnswerFacade
 edu/vt/managers/LoginManager.java
  edu.vt.managers.LoginManager
 edu/vt/pojo/AnswerChoice.java
@@ -36,43 +36,43 @@ edu/vt/globals/Password.java
  edu.vt.globals.Password
  edu.vt.globals.Password$CannotPerformOperationException
  edu.vt.globals.Password$InvalidHashException
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
-edu/vt/EntityBeans/Attempt.java
- edu.vt.EntityBeans.Attempt
-edu/vt/EntityBeans/Quiz.java
- edu.vt.EntityBeans.Quiz
-edu/vt/validators/ZipCodeValidator.java
- edu.vt.validators.ZipCodeValidator
-edu/vt/validators/EmailValidator.java
- edu.vt.validators.EmailValidator
-edu/vt/controllers/UserController.java
- edu.vt.controllers.UserController
-edu/vt/managers/CreateQuizManager.java
- edu.vt.managers.CreateQuizManager
-edu/vt/EntityBeans/Answer.java
- edu.vt.EntityBeans.Answer
-edu/vt/FacadeBeans/UserPhotoFacade.java
- edu.vt.FacadeBeans.UserPhotoFacade
-edu/vt/FacadeBeans/QuestionFacade.java
- edu.vt.FacadeBeans.QuestionFacade
-edu/vt/controllers/UserPhotoController.java
- edu.vt.controllers.UserPhotoController
-edu/vt/FacadeBeans/UserFacade.java
- edu.vt.FacadeBeans.UserFacade
 edu/vt/FacadeBeans/QuizFacade.java
  edu.vt.FacadeBeans.QuizFacade
 edu/vt/controllers/AccessCodeController.java
  edu.vt.controllers.AccessCodeController
-edu/vt/FacadeBeans/AttemptAnswerFacade.java
- edu.vt.FacadeBeans.AttemptAnswerFacade
-edu/vt/FacadeBeans/AttemptFacade.java
- edu.vt.FacadeBeans.AttemptFacade
+edu/vt/EntityBeans/Quiz.java
+ edu.vt.EntityBeans.Quiz
+edu/vt/validators/ZipCodeValidator.java
+ edu.vt.validators.ZipCodeValidator
 edu/vt/controllers/EditQuizController.java
  edu.vt.controllers.EditQuizController
 edu/vt/controllers/CreateQuizController.java
  edu.vt.controllers.CreateQuizController
 edu/vt/controllers/MyQuizController.java
  edu.vt.controllers.MyQuizController
+edu/vt/EntityBeans/Answer.java
+ edu.vt.EntityBeans.Answer
+edu/vt/FacadeBeans/UserPhotoFacade.java
+ edu.vt.FacadeBeans.UserPhotoFacade
+edu/vt/FacadeBeans/QuestionFacade.java
+ edu.vt.FacadeBeans.QuestionFacade
 edu/vt/controllers/ResultsController.java
  edu.vt.controllers.ResultsController
+edu/vt/controllers/UserPhotoController.java
+ edu.vt.controllers.UserPhotoController
+edu/vt/FacadeBeans/UserFacade.java
+ edu.vt.FacadeBeans.UserFacade
+edu/vt/managers/CreateQuizManager.java
+ edu.vt.managers.CreateQuizManager
+edu/vt/controllers/UserController.java
+ edu.vt.controllers.UserController
+edu/vt/validators/EmailValidator.java
+ edu.vt.validators.EmailValidator
+edu/vt/validators/UsernameValidator.java
+ edu.vt.validators.UsernameValidator
+edu/vt/EntityBeans/UserPhoto.java
+ edu.vt.EntityBeans.UserPhoto
+edu/vt/EntityBeans/Attempt.java
+ edu.vt.EntityBeans.Attempt
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade

@@ -196,7 +196,7 @@ public class EditQuizController implements Serializable{
             for(int j = 0; j < answerItems.size(); j++) {
                 everyAnswer.add(new AnswerChoice(answerItems.get(j).getAnswer_text(), answerItems.get(j).isInstructorResult(), getCharForNumber(j + 1),i, answerItems.get(j).getId(), false));
             }
-            questions.add(new QuizQuestion(questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), i+1, everyAnswer));
+            questions.add(new QuizQuestion(questionItems.get(i).getId(),questionItems.get(i).getQuestionText(), questionItems.get(i).getQuestionPoint(), i+1, everyAnswer));
         }
         quizTitle = selectedQuiz.getTitle();
         quizTime = String.valueOf(selectedQuiz.getTimeLimit());
@@ -255,7 +255,7 @@ public class EditQuizController implements Serializable{
     }
 
     public void createQuestion(){
-        this.selectedQuestion = new QuizQuestion(questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
+        this.selectedQuestion = new QuizQuestion(1, questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
         this.questions.add(this.selectedQuestion);
         questionNumber++;
         clearQuestion();

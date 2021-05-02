@@ -64,6 +64,10 @@
                     <p:column style="width: 10%">
                         <h:outputText value="#{question.questionPoint} Points"/>
                     </p:column>
+                    <p:column style="width: 10%">
+                        <p:commandButton id="answerreport" icon="pi pi-chart-line" action="#{resultsController.obtainAnswerChartData(question.questionId)}" styleClass="rounded-button ui-button-success ui-button-outlined"/>
+                        <p:tooltip for="answerreport" value="Answer Report" showEffect="clip" hideEffect="fold" />
+                    </p:column>
 
                 </p:dataTable>
 
@@ -71,6 +75,7 @@
             </h:form>
         </div>
 
+        <ui:include src="/quizzes/AnswerReportDialog.xhtml"/>
 
     </ui:define>
 

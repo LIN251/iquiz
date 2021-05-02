@@ -166,7 +166,7 @@ public class ApiController implements Serializable {
                     answers.add(new AnswerChoice(aIncorrectAnswer, false, getCharForNumber(j+2), 0, 0, false));
                 }
                 Collections.shuffle(answers);
-                questions.add(new QuizQuestion(questionText, 1, 1, answers));
+                questions.add(new QuizQuestion(1,questionText, 1, 1, answers));
             }
         } catch (Exception e) {
             Methods.showMessage("Fatal Error", "Unrecognized Search Query!",
