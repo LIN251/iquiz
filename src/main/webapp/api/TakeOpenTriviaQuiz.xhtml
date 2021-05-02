@@ -34,8 +34,8 @@
                 </p:toolbar>
                 <p:dataTable id="questionList" var="question" value="#{apiController.questions}"
                              reflow="true" style="max-width: 70%"
-                             rowKey="#{question.id}" paginator="true"
-                             rows="10"  paginatorPosition="bottom">
+                             rowKey="#{question.id}" paginator="false"
+                             rows="0"  paginatorPosition="bottom">
 
                     <p:column style="width: 90%">
                         <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
@@ -43,7 +43,7 @@
                                      reflow="true" style="max-width: 100%"
                                      paginator="false" rowKey="#{answer.index}"
                                      styleClass="noHeader"
-                                     rows="10" rowSelectMode="new" paginatorPosition="bottom" selection="#{apiController.selectedAns}">
+                                     rows="0" rowSelectMode="new" paginatorPosition="bottom" selection="#{apiController.selectedAns}">
                             <p:ajax event="rowSelect" listener="#{apiController.onRowSelect(question)}" />
                             <p:column style="width: 5%" selectionMode="single"/>
                             <p:column style="width: 60%">

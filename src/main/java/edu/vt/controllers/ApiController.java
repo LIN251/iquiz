@@ -105,7 +105,7 @@ public class ApiController implements Serializable {
     public String performSearch() {
 
         //Clear the list at the start of search
-        questions = new ArrayList<>();
+        questions.clear();
         if (Integer.parseInt(numberOfQuestions) > 50) {
             return null;
         }
@@ -213,7 +213,6 @@ public class ApiController implements Serializable {
             for (int j = 0; j < choices.size(); j++) {
                 if (choices.get(j).getCorrect() && choices.get(j).getStudentCorrect()){
                     totalCorrect++;
-                    System.out.println("Found correct");
                 }
             }
         }
