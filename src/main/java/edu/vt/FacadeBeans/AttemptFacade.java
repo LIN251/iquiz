@@ -6,10 +6,12 @@ package edu.vt.FacadeBeans;
 
 import edu.vt.EntityBeans.Answer;
 import edu.vt.EntityBeans.Attempt;
+import edu.vt.EntityBeans.AttemptAnswer;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless

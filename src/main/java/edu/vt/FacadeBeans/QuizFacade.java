@@ -9,6 +9,7 @@ import edu.vt.EntityBeans.Quiz;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless
@@ -62,6 +63,13 @@ public class QuizFacade extends AbstractFacade<Quiz> {
                 .setParameter("quiz_id", quizid)
                 .getSingleResult();
         return quiz;
+    }
+
+    public List<Quiz> findQuizByUserId(int userId) {
+        List<Quiz> result = em.createQuery("SELECT c FROM Quiz c WHERE c.userID = :user_id_fk")
+                .setParameter("user_id_fk", userId)
+                .getResultList();
+        return result;
     }
 
 }

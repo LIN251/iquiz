@@ -9,6 +9,7 @@ import edu.vt.EntityBeans.AttemptAnswer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 // @Stateless annotation implies that the conversational state with the client shall NOT be maintained.
 @Stateless
@@ -42,6 +43,14 @@ public class AttemptAnswerFacade extends AbstractFacade<AttemptAnswer> {
         // Invokes super's AbstractFacade constructor method by passing
         // Recipe.class, which is the object reference of the Recipe class.
         super(AttemptAnswer.class);
+    }
+
+    public List<AttemptAnswer> findAttemptAnswerByAnswerId(int answerId) {
+
+        List<AttemptAnswer> result = em.createQuery("SELECT c FROM AttemptAnswer c WHERE c.answerID = :answer_id_fk")
+                .setParameter("answer_id_fk", answerId)
+                .getResultList();
+        return result;
     }
 
 

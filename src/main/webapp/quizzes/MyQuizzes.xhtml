@@ -78,6 +78,9 @@
                                     <p:commandButton ajax="false" id="delete" icon="pi pi-times" action="#{myQuizController.deleteQuiz(item.id)}" update="message" styleClass="rounded-button ui-button-danger ui-button-outlined"/>
                                     <p:tooltip for="delete" value="Delete" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
+                                    <p:commandButton id="report" icon="pi pi-chart-line" action="#{resultsController.obtainOverallData(item.id)}" styleClass="rounded-button ui-button-success ui-button-outlined"/>
+                                    <p:tooltip for="report" value="Report" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
                                     <p:commandButton id="copyButton" value="Share" oncomplete="copyQuizLink('#{myQuizController.selectedQuizLink(item.accessCode)}')" styleClass="rounded-button ui-button-outlined">
                                         <f:setPropertyActionListener value="#{item.accessCode}" target="#{myQuizController.selectedAccessCode}"/>
                                     </p:commandButton>
@@ -96,6 +99,9 @@
                 </p:dialog>
             </h:form>
         </div>
+
+        <ui:include src="/quizzes/QuizReportDialog.xhtml"/>
+
     </ui:define>
 
 </ui:composition>
