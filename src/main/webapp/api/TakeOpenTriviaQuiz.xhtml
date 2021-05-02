@@ -41,16 +41,13 @@
                         <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
                         <p:dataTable id="questionListAnswer" var="answer" value="#{question.answerChoices}"
                                      reflow="true" style="max-width: 100%"
-                                     paginator="false" rowKey="#{answer.answerText}"
+                                     paginator="false" rowKey="#{answer.index}"
                                      styleClass="noHeader"
                                      rows="10" rowSelectMode="new" paginatorPosition="bottom" selection="#{apiController.selectedAns}">
                             <p:ajax event="rowSelect" listener="#{apiController.onRowSelect(question)}" />
-                            <p:column style="width: 3%" selectionMode="single"/>
+                            <p:column style="width: 5%" selectionMode="single"/>
                             <p:column style="width: 60%">
                                 <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
-                            </p:column>
-                            <p:column style="width: 60%">
-                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
@@ -65,7 +62,8 @@
                     <p:toolbarGroup align="right">
                         <p:commandButton value="Submit" styleClass="vt-theme-button-marron"
                                          update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
-                                         action="#{apiController.submitQuiz}"/>
+                                         action="#{apiController.submitQuiz}" ajax="false" process="this">
+                        </p:commandButton>
                     </p:toolbarGroup>
                 </p:toolbar>
 

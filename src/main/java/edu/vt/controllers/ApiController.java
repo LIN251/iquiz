@@ -26,7 +26,6 @@ public class ApiController implements Serializable {
     private String searchApiUrl;
     private List<QuizQuestion> questions;
     private AnswerChoice selectedAns;
-    private List<AnswerChoice> answersList;
     private int totalCorrect = 0;
 
     private String category;
@@ -95,14 +94,6 @@ public class ApiController implements Serializable {
         this.type = type;
     }
 
-    public List<AnswerChoice> getAnswersList() {
-        return answersList;
-    }
-
-    public void setAnswersList(List<AnswerChoice> answersList) {
-        this.answersList = answersList;
-    }
-
     public int getTotalCorrect() {
         return totalCorrect;
     }
@@ -114,12 +105,7 @@ public class ApiController implements Serializable {
     public String performSearch() {
 
         //Clear the list at the start of search
-        questions.clear();
-
-        answersList = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(numberOfQuestions); i++){
-            answersList.add(null);
-        }
+        questions = new ArrayList<>();
         if (Integer.parseInt(numberOfQuestions) > 50) {
             return null;
         }
@@ -172,12 +158,12 @@ public class ApiController implements Serializable {
                 questionText = StringEscapeUtils.unescapeHtml4(questionText);
                 String correctAnswer = aQuestion.optString("correct_answer", "");
                 correctAnswer = StringEscapeUtils.unescapeHtml4(correctAnswer);
-                answers.add(new AnswerChoice(correctAnswer, true, "A", 0, 0));
+                answers.add(new AnswerChoice(correctAnswer, true, "A", 0, 0, false));
                 JSONArray incorrectAnswersArray = aQuestion.getJSONArray("incorrect_answers");
                 for (int j=0; j<incorrectAnswersArray.length(); j++) {
                     String aIncorrectAnswer = incorrectAnswersArray.getString(j);
                     aIncorrectAnswer = StringEscapeUtils.unescapeHtml4(aIncorrectAnswer);
-                    answers.add(new AnswerChoice(aIncorrectAnswer, false, getCharForNumber(j+2), 0, 0));
+                    answers.add(new AnswerChoice(aIncorrectAnswer, false, getCharForNumber(j+2), 0, 0, false));
                 }
                 Collections.shuffle(answers);
                 questions.add(new QuizQuestion(questionText, 1, 1, answers));
@@ -192,8 +178,18 @@ public class ApiController implements Serializable {
         return "/api/TakeOpenTriviaQuiz?faces-redirect=true";
     }
 
+    public AnswerChoice studentCorrectAnswer(List<AnswerChoice> choices) {
+        for (int i = 0; i < choices.size(); i++) {
+            if (choices.get(i).getStudentCorrect()){
+                return choices.get(i);
+            }
+        }
+        return null;
+    }
+
     public void clear(){
         category = null;
+        selectedAns = null;
         numberOfQuestions = "10";
         difficulty = null;
         type = null;
@@ -202,9 +198,11 @@ public class ApiController implements Serializable {
 
     public void onRowSelect(QuizQuestion question) {
         int questionIndex = questions.indexOf(question);
-        System.out.println(questionIndex);
-        System.out.println(selectedAns.getAnswerText());
-        answersList.set(questionIndex, selectedAns);
+        int answerIndex = questions.get(questionIndex).getAnswerChoices().indexOf(selectedAns);
+        for(int i = 0; i < questions.get(questionIndex).getAnswerChoices().size(); i++) {
+            questions.get(questionIndex).getAnswerChoices().get(i).setStudentCorrect(false);
+        }
+        questions.get(questionIndex).getAnswerChoices().get(answerIndex).setStudentCorrect(true);
     }
 
     public String submitQuiz() {
@@ -213,14 +211,10 @@ public class ApiController implements Serializable {
             List<AnswerChoice> choices = aQuestion.getAnswerChoices();
             AnswerChoice correctAnswerChoice = null;
             for (int j = 0; j < choices.size(); j++) {
-                if (choices.get(j).getCorrect()){
-                    correctAnswerChoice = choices.get(j);
+                if (choices.get(j).getCorrect() && choices.get(j).getStudentCorrect()){
+                    totalCorrect++;
                     System.out.println("Found correct");
                 }
-            }
-            if (answersList.get(i) != null && answersList.get(i).getAnswerText().equals(correctAnswerChoice.getAnswerText())){
-                totalCorrect++;
-                System.out.println("Got it");
             }
         }
         return "/api/TriviaQuizResult?faces-redirect=true";

@@ -298,7 +298,7 @@ public class AccessCodeController implements Serializable {
                 answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
                 answerChoices = new ArrayList<AnswerChoice>();
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
-                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId()));
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId(), false));
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);
@@ -336,7 +336,7 @@ public class AccessCodeController implements Serializable {
                 answerListForOneQuestion = getAnswerFacade().findAllAnswersForOneQuestion(questionListForOneQuiz.get(i).getId());
                 answerChoices = new ArrayList<AnswerChoice>();
                 for (int x = 0; x < answerListForOneQuestion.size(); x++) {
-                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId()));
+                    answerChoices.add(new AnswerChoice(answerListForOneQuestion.get(x).getAnswer_text(), answerListForOneQuestion.get(x).isInstructorResult(), getCharForNumber(x+1),i,answerListForOneQuestion.get(x).getId(),false));
                 }
                 QuizQuestion initialQuestion = new QuizQuestion(questionListForOneQuiz.get(i).getQuestionText(), questionListForOneQuiz.get(i).getQuestionPoint(),i, answerChoices);
                 questions.add(initialQuestion);

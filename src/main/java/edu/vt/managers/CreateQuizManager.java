@@ -157,12 +157,12 @@ public class CreateQuizManager implements Serializable {
     }
 
     public void addAnswerChoice() {
-        selectedAnswerChoices.add(new AnswerChoice("", false,"A",1,1));
+        selectedAnswerChoices.add(new AnswerChoice("", false,"A",1,1, false));
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "CreateQuizForm:dt-questions");
     }
 
     public void addAnswerChoiceByQuestion() {
-        selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A",1,1));
+        selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A",1,1,false));
         PrimeFaces.current().ajax().update("QuizEditForm:manage-question-content", "CreateQuizForm:dt-questions");
     }
 

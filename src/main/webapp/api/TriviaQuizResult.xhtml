@@ -20,10 +20,14 @@
 
         <div align="center">
             <h:form id="TriviaQuizResultForm">
-                <h:outputLabel value="Quiz Score: &nbsp;#{apiController.totalCorrect}"  />
                 <p:toolbar style="width: 70%; background-color: #861F41">
                     <p:toolbarGroup>
                         <div style="color: white; font-size: 30px">Trivia Quiz Result</div>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <div style="color: white; font-size: 30px">
+                            Quiz Score: &nbsp;#{apiController.totalCorrect} / #{apiController.questions.size()}
+                        </div>
                     </p:toolbarGroup>
                 </p:toolbar>
                 <p:dataTable id="questionList" var="question" value="#{apiController.questions}"
@@ -35,20 +39,12 @@
                         <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
                         <p:dataTable id="questionListAnswer" var="answer" value="#{question.answerChoices}"
                                      reflow="true" style="max-width: 100%"
-                                     paginator="false" rowKey="#{answer.answerText}"
-                                     styleClass="noHeader"
+                                     paginator="false" rowKey="#{answer.index}" selection="#{apiController.studentCorrectAnswer(question.answerChoices)}"
                                      rows="10" rowSelectMode="new" paginatorPosition="bottom">
-                            <p:column style="width: 5%">
-                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
-                            </p:column>
-                            <p:column style="width: 5%">
-                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
-                            </p:column>
-                            <p:column style="width: 60%">
-                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
-                            </p:column>
-                            <p:column style="width: 60%">
-                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
+                            <p:column style="width: 5%" selectionMode="single"/>
+                            <p:column headerText="Correct Answer" style="width: 10%">
+                                <p:button icon="pi pi-check" styleClass="rounded-button" rendered="#{answer.correct}" disabled="true" style="opacity: 100%"/>
+
                             </p:column>
                             <p:column style="width: 60%">
                                 <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
