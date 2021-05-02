@@ -19,26 +19,23 @@
     <ui:define name="editableContent">
 
         <div align="center">
-            <!--
-            ========================================
-            *   PrimeFaces Galleria Image Slider   *
-            ========================================
-            Various effect options for transitions: blind, bounce, clip, drop, explode, fade,
-            fold, highlight, puff, pulsate, scale, shake, size, slide, and transfer.
-            -->
-<!--            <p:galleria value="#{sliderController.sliderImages}"-->
-<!--                        var="image" effect="slide" effectSpeed="1000" showFilmstrip="true"-->
-<!--                        panelWidth="710" panelHeight="430" showCaption="true">-->
-
-<!--                <p:graphicImage value="/resources/images/slider/#{image}"-->
-<!--                                alt="#{sliderController.description(image)}" title="" />-->
-
-<!--            </p:galleria>-->
+            <p:toolbar style="width: 50%; background-color: #861F41">
+                <p:toolbarGroup>
+                    <div style="color: white; font-size: 30px">#{accessCodeController.aQuiz.title}</div>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <div style="color: white; font-size: 30px">
+                        Quiz Score: &nbsp;#{accessCodeController.studentScore}
+                    </div>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:panel style="width: 50%">
             <h:outputLabel value="Quiz Name: &nbsp;#{accessCodeController.aQuiz.title}"/>
             <br/><br/>
             <h:outputLabel value="Taker Name: &nbsp;#{accessCodeController.takerName}"  />
             <br/><br/>
             <h:outputLabel value="Quiz Score: &nbsp;#{accessCodeController.studentScore}"  />
+            </p:panel>
         </div>
 
     </ui:define>
