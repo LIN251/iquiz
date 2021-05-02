@@ -19,22 +19,47 @@
     <ui:define name="editableContent">
 
         <div align="center">
-            <!--
-            ========================================
-            *   PrimeFaces Galleria Image Slider   *
-            ========================================
-            Various effect options for transitions: blind, bounce, clip, drop, explode, fade,
-            fold, highlight, puff, pulsate, scale, shake, size, slide, and transfer.
-            -->
-            <!--            <p:galleria value="#{sliderController.sliderImages}"-->
-            <!--                        var="image" effect="slide" effectSpeed="1000" showFilmstrip="true"-->
-            <!--                        panelWidth="710" panelHeight="430" showCaption="true">-->
+            <h:form id="TriviaQuizResultForm">
+                <h:outputLabel value="Quiz Score: &nbsp;#{apiController.totalCorrect}"  />
+                <p:toolbar style="width: 70%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: 30px">Trivia Quiz Result</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="questionList" var="question" value="#{apiController.questions}"
+                             reflow="true" style="max-width: 70%"
+                             rowKey="#{question.id}" paginator="true"
+                             rows="10"  paginatorPosition="bottom">
 
-            <!--                <p:graphicImage value="/resources/images/slider/#{image}"-->
-            <!--                                alt="#{sliderController.description(image)}" title="" />-->
-
-            <!--            </p:galleria>-->
-            <h:outputLabel value="Quiz Score: &nbsp;#{apiController.totalCorrect}"  />
+                    <p:column style="width: 90%">
+                        <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
+                        <p:dataTable id="questionListAnswer" var="answer" value="#{question.answerChoices}"
+                                     reflow="true" style="max-width: 100%"
+                                     paginator="false" rowKey="#{answer.answerText}"
+                                     styleClass="noHeader"
+                                     rows="10" rowSelectMode="new" paginatorPosition="bottom">
+                            <p:column style="width: 5%">
+                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
+                            </p:column>
+                            <p:column style="width: 5%">
+                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
+                            </p:column>
+                            <p:column style="width: 60%">
+                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
+                            </p:column>
+                            <p:column style="width: 60%">
+                                <h:outputText style="font-size: 16px" value="#{answer.correct}"/>
+                            </p:column>
+                            <p:column style="width: 60%">
+                                <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                    <p:column style="width: 10%">
+                        <h:outputText value="#{question.questionPoint} Points"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </div>
 
     </ui:define>

@@ -16,37 +16,30 @@ edu/vt/EntityBeans/AttemptAnswer.java
  edu.vt.EntityBeans.AttemptAnswer
 edu/vt/FacadeBeans/AttemptAnswerFacade.java
  edu.vt.FacadeBeans.AttemptAnswerFacade
-edu/vt/pojo/AnswerChoice.java
- edu.vt.pojo.AnswerChoice
 edu/vt/managers/LoginManager.java
  edu.vt.managers.LoginManager
+edu/vt/pojo/AnswerChoice.java
+ edu.vt.pojo.AnswerChoice
 edu/vt/FacadeBeans/AbstractFacade.java
  edu.vt.FacadeBeans.AbstractFacade
 edu/vt/FacadeBeans/AnswerFacade.java
  edu.vt.FacadeBeans.AnswerFacade
 edu/vt/EntityBeans/Taker.java
  edu.vt.EntityBeans.Taker
-edu/vt/controllers/SliderController.java
- edu.vt.controllers.SliderController
 edu/vt/EntityBeans/User.java
  edu.vt.EntityBeans.User
+edu/vt/controllers/SliderController.java
+ edu.vt.controllers.SliderController
 edu/vt/managers/PasswordResetManager.java
  edu.vt.managers.PasswordResetManager
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
-edu/vt/FacadeBeans/QuizFacade.java
- edu.vt.FacadeBeans.QuizFacade
 edu/vt/globals/Password.java
  edu.vt.globals.Password
  edu.vt.globals.Password$CannotPerformOperationException
  edu.vt.globals.Password$InvalidHashException
-<<<<<<< Updated upstream
 edu/vt/FacadeBeans/QuizFacade.java
  edu.vt.FacadeBeans.QuizFacade
-edu/vt/EntityBeans/Attempt.java
- edu.vt.EntityBeans.Attempt
-=======
->>>>>>> Stashed changes
+edu/vt/controllers/AccessCodeController.java
+ edu.vt.controllers.AccessCodeController
 edu/vt/EntityBeans/Quiz.java
  edu.vt.EntityBeans.Quiz
 edu/vt/validators/ZipCodeValidator.java
@@ -77,14 +70,7 @@ edu/vt/validators/UsernameValidator.java
  edu.vt.validators.UsernameValidator
 edu/vt/EntityBeans/UserPhoto.java
  edu.vt.EntityBeans.UserPhoto
-<<<<<<< Updated upstream
-edu/vt/controllers/AccessCodeController.java
- edu.vt.controllers.AccessCodeController
-edu/vt/controllers/ApiController.java
- edu.vt.controllers.ApiController
-=======
 edu/vt/EntityBeans/Attempt.java
  edu.vt.EntityBeans.Attempt
-edu/vt/controllers/AccessCodeController.java
- edu.vt.controllers.AccessCodeController
->>>>>>> Stashed changes
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade

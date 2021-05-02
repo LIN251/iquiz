@@ -3,7 +3,6 @@ package edu.vt.controllers;
 import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 
@@ -34,6 +33,7 @@ public class ApiController implements Serializable {
     private String numberOfQuestions = "10";
     private String difficulty;
     private String type;
+
 
     public ApiController() {
         questions = new ArrayList<>();

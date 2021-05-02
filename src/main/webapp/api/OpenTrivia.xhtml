@@ -23,9 +23,7 @@
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
         <div align="center" style="width:97%">
-
             <h:form id="openTriviaForm">
-
                 <p:toolbar style="max-width: 50%; background-color: #861F41">
                     <p:toolbarGroup>
                         <div style="color: white; font-size: large">Open Trivia Quiz</div>
@@ -93,7 +91,7 @@
 
                     </p:toolbarGroup>
                     <p:toolbarGroup align="right">
-                        <p:commandButton styleClass="vt-theme-button-marron" ajax="false" value="Generate Quiz" icon="fas fa-search" action="#{apiController.performSearch}"/>
+                        <p:commandButton styleClass="vt-theme-button-marron" widgetVar="subButton" ajax="false" value="Generate Quiz" icon="fas fa-search" action="#{apiController.performSearch}"/>
                     </p:toolbarGroup>
                 </p:toolbar>
             </h:form>
