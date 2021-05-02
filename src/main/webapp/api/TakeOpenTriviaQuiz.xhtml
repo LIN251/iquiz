@@ -55,14 +55,16 @@
                         <h:outputText value="#{question.questionPoint} Points"/>
                     </p:column>
                 </p:dataTable>
+                <p:toolbar style="width: 70%">
+                    <p:toolbarGroup>
 
-
-                <!--                <p:commandButton value="Submit" action="#{accessCodeController.process_submission}"-->
-                <!--                                 styleClass="vt-theme-button-marron" />-->
-
-                <p:commandButton value="Submit"
-                                 update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
-                                 action="#{apiController.performSearch}"/>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Submit" styleClass="vt-theme-button-marron"
+                                         update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                         action="#{apiController.performSearch}"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
 
             </h:form>
         </div>
