@@ -90,7 +90,7 @@
                                      reflow="true" style="max-width: 100%"
                                      paginator="false" rowKey="#{answer.index}"
                                      styleClass="noHeader"
-                                     rows="10" rowSelectMode="add" paginatorPosition="bottom" selection="#{accessCodeController.selectedAns}">
+                                     rows="10" rowSelectMode="new" paginatorPosition="bottom" selection="#{accessCodeController.selectedAns}">
                             <p:ajax event="rowSelect" listener="#{accessCodeController.onRowSelect}" />
                             <p:column style="width: 3%" selectionMode="single"/>
                             <p:column style="width: 3%">

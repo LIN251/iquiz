@@ -3,6 +3,7 @@ package edu.vt.controllers;
 import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 
@@ -26,6 +27,8 @@ public class ApiController implements Serializable {
     private String searchApiUrl;
     private List<QuizQuestion> questions;
     private AnswerChoice selectedAns;
+    private List<AnswerChoice> answersList;
+    private int totalCorrect = 0;
 
     private String category;
     private String numberOfQuestions = "10";
@@ -92,11 +95,31 @@ public class ApiController implements Serializable {
         this.type = type;
     }
 
+    public List<AnswerChoice> getAnswersList() {
+        return answersList;
+    }
+
+    public void setAnswersList(List<AnswerChoice> answersList) {
+        this.answersList = answersList;
+    }
+
+    public int getTotalCorrect() {
+        return totalCorrect;
+    }
+
+    public void setTotalCorrect(int totalCorrect) {
+        this.totalCorrect = totalCorrect;
+    }
+
     public String performSearch() {
 
         //Clear the list at the start of search
         questions.clear();
 
+        answersList = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(numberOfQuestions); i++){
+            answersList.add(null);
+        }
         if (Integer.parseInt(numberOfQuestions) > 50) {
             return null;
         }
@@ -154,7 +177,7 @@ public class ApiController implements Serializable {
                 for (int j=0; j<incorrectAnswersArray.length(); j++) {
                     String aIncorrectAnswer = incorrectAnswersArray.getString(j);
                     aIncorrectAnswer = StringEscapeUtils.unescapeHtml4(aIncorrectAnswer);
-                    answers.add(new AnswerChoice(aIncorrectAnswer, false, "A", 0, 0));
+                    answers.add(new AnswerChoice(aIncorrectAnswer, false, getCharForNumber(j+2), 0, 0));
                 }
                 Collections.shuffle(answers);
                 questions.add(new QuizQuestion(questionText, 1, 1, answers));
@@ -171,9 +194,36 @@ public class ApiController implements Serializable {
 
     public void clear(){
         category = null;
-        numberOfQuestions = null;
+        numberOfQuestions = "10";
         difficulty = null;
         type = null;
+        totalCorrect = 0;
+    }
+
+    public void onRowSelect(QuizQuestion question) {
+        int questionIndex = questions.indexOf(question);
+        System.out.println(questionIndex);
+        System.out.println(selectedAns.getAnswerText());
+        answersList.set(questionIndex, selectedAns);
+    }
+
+    public String submitQuiz() {
+        for(int i = 0; i < questions.size(); i++) {
+            QuizQuestion aQuestion = questions.get(i);
+            List<AnswerChoice> choices = aQuestion.getAnswerChoices();
+            AnswerChoice correctAnswerChoice = null;
+            for (int j = 0; j < choices.size(); j++) {
+                if (choices.get(j).getCorrect()){
+                    correctAnswerChoice = choices.get(j);
+                    System.out.println("Found correct");
+                }
+            }
+            if (answersList.get(i) != null && answersList.get(i).getAnswerText().equals(correctAnswerChoice.getAnswerText())){
+                totalCorrect++;
+                System.out.println("Got it");
+            }
+        }
+        return "/api/TriviaQuizResult?faces-redirect=true";
     }
 
     public String categoryNumberFromString(String category) {
@@ -230,5 +280,9 @@ public class ApiController implements Serializable {
                 return "32";
         }
         return "";
+    }
+
+    private String getCharForNumber(int i) {
+        return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
 }
