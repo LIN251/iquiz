@@ -93,7 +93,6 @@ public class AccessCodeController implements Serializable {
     ArrayList<Integer> answerList ;
     ArrayList<Integer> questionList ;
     int timeLimit;
-
     //------------------------------------------setter and getter ------------------------------------------
 
     public TakerFacade getTakerFacade() {
@@ -277,6 +276,9 @@ public class AccessCodeController implements Serializable {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(searchQuery);
+//        if(!aQuiz.isPublish()){
+//            return "index?faces-redirect=true";
+//        }
         timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
@@ -305,12 +307,16 @@ public class AccessCodeController implements Serializable {
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
         }
+
     }
 
     public String performSearchByAccessCode(String access_code) {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(access_code);
+//        if(!aQuiz.isPublish()){
+//            return "index?faces-redirect=true";
+//        }
         timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
@@ -407,5 +413,4 @@ public class AccessCodeController implements Serializable {
         System.out.println( a.getScore());
         return "/quizzes/AttemptResult?faces-redirect=true";
     }
-
 }

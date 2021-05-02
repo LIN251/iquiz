@@ -8,7 +8,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
@@ -20,10 +21,44 @@
         <h:outputText value="Take Quiz"/>
     </ui:define>
 
+
+
     <!-- Create the content for this page below -->
     <ui:define name="editableContent">
 
         <div align="center" style="width:95%">
+            <p:outputLabel value="Time Limit:" /> <p:outputLabel id="time" value=""/>
+
+            <script type="text/javascript">
+            function startTimer(duration, display) {
+                var timer = duration, minutes, seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+                    minutes = minutes &lt; 10 ? "0" + minutes : minutes;
+                    seconds = seconds &lt; 10 ? "0" + seconds : seconds;
+                    display.textContent = minutes + ":" + seconds;
+                    if (--timer &lt; 0) {
+                        timer = duration;
+                    }
+                    if (minutes == 0 ){
+                        if (seconds == 0 ){
+                             document.getElementById("TakeQuizForm:submitBut").click()
+                        }
+
+                    }
+
+                }, 1000);
+            }
+            function getTime(time){
+                var timeInSecond = 60 * time,
+                    display = document.querySelector('#time');
+                startTimer(timeInSecond, display);
+            };
+        </script>
+
+
+
             <h:form id="TakeQuizForm">
                 <p:growl id="messages" showDetail="true"/>
                 <br/><br/>
@@ -38,47 +73,8 @@
                     <i style="margin-left: 500px">Points: #{accessCodeController.totalPoints}</i>
                 </div>
                 <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
-
-
-
-
-                <p:idleMonitor timeout="#{accessCodeController.timeLimit}"
-                               onidle="startTimer()" />
-
-<!--                <p:confirmDialog id="confirmDialog"-->
-<!--                                 message="You have been idle, Please click ok to remain logged in"-->
-<!--                                 header="Are you there?" severity="alert" widgetVar="idleDialog">-->
-<!--                    <p:commandButton id="confirm" value="Ok" oncomplete="extendSession()" />-->
-
-<!--                </p:confirmDialog>-->
-
-<!--                <p:remoteCommand name="terminateIdleSession" actionListener="#{idleMonitorView.onIdle}" out="count" />-->
-
-                <script type="text/javascript">
-                    var extend_session = 0;
-                    function startTimer() {
-
-                        extend_session = 0;
-                        setTimeout("timeout()", 120000);
-                        PF('idleDialog').show();
-                    }
-
-                    function timeout() {
-                        if (extend_session == 0) {
-                            terminateIdleSession();
-                        }
-                    }
-
-                    function extendSession() {
-                        extend_session = 1;
-                        PF('idleDialog').hide();
-                    }
-                </script>
-
-
-
-
-
+                <p:outputLabel id="time" value="0" />
+                <p:remoteCommand oncomplete="getTime(#{accessCodeController.aQuiz.timeLimit})" autoRun="true"/>
                 <p:dataTable id="questionList" var="question" value="#{accessCodeController.questions}"
                              reflow="true" style="max-width: 70%"
                              rowKey="#{question.id}" paginator="true"
@@ -105,22 +101,18 @@
                         <h:outputText value="#{question.questionPoint} Points"/>
                     </p:column>
                 </p:dataTable>
-
                 <p:toolbar style="width: 70%">
                     <p:toolbarGroup>
-
                     </p:toolbarGroup>
                     <p:toolbarGroup align="right">
-                        <p:commandButton value="Submit" styleClass="vt-theme-button-marron"
+                        <p:commandButton value="Submit" styleClass="vt-theme-button-marron" id="submitBut"
                                          update="messages, :growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
-                                         action="#{accessCodeController.process_submission}"/>
+                                         action="#{accessCodeController.process_submission}" process="@this"/>
                     </p:toolbarGroup>
                 </p:toolbar>
 
             </h:form>
         </div>
-
-
     </ui:define>
 
 </ui:composition>
