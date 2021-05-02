@@ -405,8 +405,6 @@ public class AccessCodeController implements Serializable {
 
         Attempt a = attemptFacade.find(newAttempt.getId());
         System.out.println( a.getScore());
-
-
         return "/quizzes/AttemptResult?faces-redirect=true";
     }
 

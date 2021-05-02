@@ -24,8 +24,78 @@
     <ui:define name="editableContent">
         <div align="center" style="width:97%">
 
-            <h:form id="OpenTriviaForm">
-                <p:commandButton id="takeQuizButton" value="Take Quiz" actionListener="#{apiController.performSearch}"/>
+            <h:form id="openTriviaForm">
+
+                <p:toolbar style="max-width: 50%; background-color: #861F41">
+                    <p:toolbarGroup>
+                        <div style="color: white; font-size: large">Open Trivia Quiz</div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:panel id="pnl" style="width: 50%">
+                    <p:panelGrid columns="2" cellpadding="7" style="max-width: inherit" styleClass="ui-noborder">
+
+                        <h:outputLabel value="Number of Questions:" for="keyword" />
+                        <p:inputMask id="keyword" value="#{apiController.numberOfQuestions}" label="Number" mask="9[99]"
+                                     validateMask="false" required="true" requiredMessage="The Quiz Time field is required.">
+                            <f:validateLength minimum="1" maximum="2"/>
+                        </p:inputMask>
+
+                        <h:outputLabel value="Category:" for="quizCategory" />
+                        <p:selectOneMenu id="quizCategory"
+                                         value="#{apiController.category}">
+                            <f:selectItem itemLabel="Any Category" itemValue="Any Category"/>
+                            <f:selectItem itemLabel="General Knowledge" itemValue="General Knowledge"/>
+                            <f:selectItem itemLabel="Entertainment:Books" itemValue="Entertainment:Books"/>
+                            <f:selectItem itemLabel="Entertainment:Film" itemValue="Entertainment:Film"/>
+                            <f:selectItem itemLabel="Entertainment:Music" itemValue="Entertainment:Music"/>
+                            <f:selectItem itemLabel="Entertainment:Musical &amp; Theatres" itemValue="Entertainment:MusicalTheatres"/>
+                            <f:selectItem itemLabel="Entertainment:Television" itemValue="Entertainment:Television"/>
+                            <f:selectItem itemLabel="Entertainment:Video Games" itemValue="Entertainment:Video Games"/>
+                            <f:selectItem itemLabel="Entertainment:Board Games" itemValue="Entertainment:Board Games"/>
+                            <f:selectItem itemLabel="Science &amp; Nature" itemValue="ScienceNature"/>
+                            <f:selectItem itemLabel="Science: Computers" itemValue="Science: Computers"/>
+                            <f:selectItem itemLabel="Science: Mathematics" itemValue="Science: Mathematics"/>
+                            <f:selectItem itemLabel="Mythology" itemValue="Mythology"/>
+                            <f:selectItem itemLabel="Sports" itemValue="Sports"/>
+                            <f:selectItem itemLabel="Geography" itemValue="Geography"/>
+                            <f:selectItem itemLabel="History" itemValue="History"/>
+                            <f:selectItem itemLabel="Politics" itemValue="Politics"/>
+                            <f:selectItem itemLabel="Art" itemValue="Art"/>
+                            <f:selectItem itemLabel="Celebrities" itemValue="Celebrities"/>
+                            <f:selectItem itemLabel="Animals" itemValue="Animals"/>
+                            <f:selectItem itemLabel="Vehicles" itemValue="Vehicles"/>
+                            <f:selectItem itemLabel="Entertainment:Comics" itemValue="Entertainment:Comics"/>
+                            <f:selectItem itemLabel="Science:Gadgets" itemValue="Science:Gadgets"/>
+                            <f:selectItem itemLabel="Entertainment:Japanese Anime &amp; Manga" itemValue="Entertainment:JapaneseAnimeManga"/>
+                            <f:selectItem itemLabel="Entertainment:Cartoon &amp; Animations" itemValue="Entertainment:CartoonAnimations"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Category:" for="quizDifficulty" />
+                        <p:selectOneMenu id="quizDifficulty"
+                                         value="#{apiController.difficulty}">
+                            <f:selectItem itemLabel="Any Difficulty" itemValue=""/>
+                            <f:selectItem itemLabel="Easy" itemValue="difficulty=easy"/>
+                            <f:selectItem itemLabel="Medium" itemValue="difficulty=medium"/>
+                            <f:selectItem itemLabel="Hard" itemValue="difficulty=hard"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Type:" for="quizType" />
+                        <p:selectOneMenu id="quizType"
+                                         value="#{apiController.type}">
+                            <f:selectItem itemLabel="Any Type" itemValue=""/>
+                            <f:selectItem itemLabel="Multiple Choice" itemValue="type=multiple"/>
+                            <f:selectItem itemLabel="True/False" itemValue="type=boolean"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </p:panel>
+                <p:toolbar style="max-width: 50%">
+                    <p:toolbarGroup>
+
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton styleClass="vt-theme-button-marron" ajax="false" value="Generate Quiz" icon="fas fa-search" action="#{apiController.performSearch}"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
             </h:form>
         </div>
     </ui:define>

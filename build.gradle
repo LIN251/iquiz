@@ -30,10 +30,12 @@ dependencies {
 
     // Name of PrimeFaces JAR file located in the flat filesystem directory defined above
     compileOnly name: 'primefaces-10.0.0'
-
     // imgscalr is a simple and efficient best practice image-scaling and manipulation library implemented in pure Java
     // Name of imgscalr JAR file located in the flat filesystem directory defined above
     compileOnly name: 'imgscalr-lib-4.2'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
 
     // MySQL JDBC Connector to Java
     // implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'

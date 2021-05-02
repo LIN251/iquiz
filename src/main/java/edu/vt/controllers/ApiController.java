@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.text.StringEscapeUtils;
 
 @Named("apiController")
 /*
@@ -24,18 +25,93 @@ public class ApiController implements Serializable {
 
     private String searchApiUrl;
     private List<QuizQuestion> questions;
+    private AnswerChoice selectedAns;
+
+    private String category;
+    private String numberOfQuestions;
+    private String difficulty;
+    private String type;
 
     public ApiController() {
         questions = new ArrayList<>();
     }
 
-    public void performSearch() {
+    public String getSearchApiUrl() {
+        return searchApiUrl;
+    }
+
+    public void setSearchApiUrl(String searchApiUrl) {
+        this.searchApiUrl = searchApiUrl;
+    }
+
+    public List<QuizQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<QuizQuestion> questions) {
+        this.questions = questions;
+    }
+
+    public AnswerChoice getSelectedAns() {
+        return selectedAns;
+    }
+
+    public void setSelectedAns(AnswerChoice selectedAns) {
+        this.selectedAns = selectedAns;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(String numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String performSearch() {
 
         //Clear the list at the start of search
         questions.clear();
 
+        if (Integer.parseInt(numberOfQuestions) > 50) {
+            return null;
+        }
         //Format the apiUrl
-        searchApiUrl = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
+        searchApiUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
+//        &category=18&type=multiple"
+        if (!category.equals("Any Category")){
+            searchApiUrl += "&category="+categoryNumberFromString(category);
+        }
+        if(difficulty != null && difficulty.equals("") ){
+            searchApiUrl += "&" + difficulty;
+        }
+        if (difficulty != null && !type.equals("")){
+            searchApiUrl += "&" + type;
+        }
         /*
         Redirecting to show a JSF page involves more than one subsequent requests and
         the messages would die from one request to another if not kept in the Flash scope.
@@ -70,11 +146,14 @@ public class ApiController implements Serializable {
                 if (questionText.equals("")){
                     questionText = "Question Text Unavailable";
                 }
+                questionText = StringEscapeUtils.unescapeHtml4(questionText);
                 String correctAnswer = aQuestion.optString("correct_answer", "");
+                correctAnswer = StringEscapeUtils.unescapeHtml4(correctAnswer);
                 answers.add(new AnswerChoice(correctAnswer, true, "A", 0, 0));
                 JSONArray incorrectAnswersArray = aQuestion.getJSONArray("incorrect_answers");
                 for (int j=0; j<incorrectAnswersArray.length(); j++) {
                     String aIncorrectAnswer = incorrectAnswersArray.getString(j);
+                    aIncorrectAnswer = StringEscapeUtils.unescapeHtml4(aIncorrectAnswer);
                     answers.add(new AnswerChoice(aIncorrectAnswer, false, "A", 0, 0));
                 }
                 Collections.shuffle(answers);
@@ -83,21 +162,73 @@ public class ApiController implements Serializable {
         } catch (Exception e) {
             Methods.showMessage("Fatal Error", "Unrecognized Search Query!",
                     "The Recipes API provides no data for the search query entered!");
-//            clear();
-        }
-
-        for (int i = 0; i < questions.size(); i++){
-            System.out.println(questions.get(i).getQuestionText());
-            for (int j=0; j<questions.get(i).getAnswerChoices().size(); j++){
-                System.out.println(questions.get(i).getAnswerChoices().get(j).getAnswerText());
-                System.out.println(questions.get(i).getAnswerChoices().get(j).getCorrect());
-            }
+            clear();
         }
         // Reset search queries
-//        searchQuery = null;
-//        dietLabel = null;
-//        healthLabel = null;
-//        maxNumberOfRecipes = null;
-        return;
+        clear();
+        return "/api/TakeOpenTriviaQuiz?faces-redirect=true";
+    }
+
+    public void clear(){
+        category = null;
+        numberOfQuestions = null;
+        difficulty = null;
+        type = null;
+    }
+
+    public String categoryNumberFromString(String category) {
+        switch (category) {
+            case "Any Category":
+                return "";
+            case "General Knowledge":
+                return "9";
+            case "Entertainment:Books":
+                return "10";
+            case "Entertainment:Film":
+                return "11";
+            case "Entertainment:Music":
+                return "12";
+            case "Entertainment:MusicalTheatres":
+                return "13";
+            case "Entertainment:Television":
+                return "14";
+            case "Entertainment:Video Games":
+                return "15";
+            case "Entertainment:Board Games":
+                return "16";
+            case "ScienceNature":
+                return "17";
+            case "Science: Computers":
+                return "18";
+            case "Science: Mathematics":
+                return "19";
+            case "Mythology":
+                return "20";
+            case "Sports":
+                return "21";
+            case "Geography":
+                return "22";
+            case "History":
+                return "23";
+            case "Politics":
+                return "24";
+            case "Art":
+                return "25";
+            case "Celebrities":
+                return "26";
+            case "Animals":
+                return "27";
+            case "Vehicles":
+                return "28";
+            case "Entertainment:Comics":
+                return "29";
+            case "Science:Gadgets":
+                return "30";
+            case "Entertainment:JapaneseAnimeManga":
+                return "31";
+            case "Entertainment:CartoonAnimations":
+                return "32";
+        }
+        return "";
     }
 }
