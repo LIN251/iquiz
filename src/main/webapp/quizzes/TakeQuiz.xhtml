@@ -73,7 +73,7 @@
                     <i style="margin-left: 500px">Points: #{accessCodeController.totalPoints}</i>
                 </div>
                 <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
-                <p:outputLabel id="time" value="0" />
+
                 <p:remoteCommand oncomplete="getTime(#{accessCodeController.aQuiz.timeLimit})" autoRun="true"/>
                 <p:dataTable id="questionList" var="question" value="#{accessCodeController.questions}"
                              reflow="true" style="max-width: 70%"

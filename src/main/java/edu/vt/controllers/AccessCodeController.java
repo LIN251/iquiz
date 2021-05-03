@@ -272,13 +272,17 @@ public class AccessCodeController implements Serializable {
     }
 
 
-    public void performSearch() {
+    public String performSearch() {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(searchQuery);
-//        if(!aQuiz.isPublish()){
-//            return "index?faces-redirect=true";
-//        }
+
+        if (aQuiz == null || !aQuiz.isPublish()){
+            Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
+
+            return null;
+        }
+
         timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
@@ -306,17 +310,23 @@ public class AccessCodeController implements Serializable {
             }
             //show message
             Methods.showMessage("Information", "Success!", "Openning the quiz!");
-        }
+            return "/quizzes/TakeQuiz?faces-redirect=true";
 
+        }
+        return null;
     }
 
     public String performSearchByAccessCode(String access_code) {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(access_code);
-//        if(!aQuiz.isPublish()){
-//            return "index?faces-redirect=true";
-//        }
+
+
+        if (aQuiz == null || !aQuiz.isPublish()){
+            Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
+
+            return null;
+        }
         timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists
@@ -325,7 +335,7 @@ public class AccessCodeController implements Serializable {
         }
         else{
             //update taker
-            Taker newTaker = new Taker();
+            newTaker = new Taker();
             newTaker.setFirstName(takerName);
             newTaker.setLastName("taker");
             getTakerFacade().create(newTaker);

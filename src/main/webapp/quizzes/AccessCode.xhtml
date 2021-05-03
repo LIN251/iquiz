@@ -66,8 +66,8 @@
                     -->
                     <p:commandButton value="Search" icon="fas fa-search"
                                      update=":growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
-                                     actionListener="#{accessCodeController.performSearch()}"
-                                     action="/quizzes/TakeQuiz?faces-redirect=true"
+
+                                     action="#{accessCodeController.performSearch()}"
                                      onclick="PF('accessCodeDialog').hide()" />
                     &nbsp;
                     <!--                    <p:commandButton value="Clear" icon="fas fa-undo" ajax="false"-->
