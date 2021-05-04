@@ -72,7 +72,7 @@
                                     <p:commandButton id="view" ajax="false"  icon="pi pi-search" action="#{myQuizController.updateQuestion(item.id)}"  styleClass="rounded-button ui-button-success ui-button-outlined"/>
                                     <p:tooltip for="view" value="View" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
-                                    <p:commandButton id="edit" ajax="false" action="#{editQuizController.prepareEdit(item.id)}" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
+                                    <p:commandButton id="edit" ajax="false" disabled="#{myQuizController.disableButton(item.id)}" action="#{editQuizController.prepareEdit(item.id)}" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary ui-button-outlined"></p:commandButton>
                                     <p:tooltip for="edit" value="Edit" showEffect="clip" hideEffect="fold" />
                                     &nbsp;
                                     <p:commandButton ajax="false" id="delete" icon="pi pi-times" action="#{myQuizController.deleteQuiz(item.id)}" update="message" styleClass="rounded-button ui-button-danger ui-button-outlined"/>

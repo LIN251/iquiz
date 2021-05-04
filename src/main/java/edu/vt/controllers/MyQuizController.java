@@ -1,11 +1,9 @@
 package edu.vt.controllers;
 
 
-import edu.vt.EntityBeans.Answer;
-import edu.vt.EntityBeans.Question;
-import edu.vt.EntityBeans.Quiz;
-import edu.vt.EntityBeans.User;
+import edu.vt.EntityBeans.*;
 import edu.vt.FacadeBeans.AnswerFacade;
+import edu.vt.FacadeBeans.AttemptFacade;
 import edu.vt.FacadeBeans.QuestionFacade;
 import edu.vt.FacadeBeans.QuizFacade;
 import edu.vt.globals.Methods;
@@ -60,6 +58,8 @@ public class MyQuizController implements Serializable {
     private QuestionFacade questionFacade;
     @EJB
     private AnswerFacade answerFacade;
+    @EJB
+    private AttemptFacade attemptFacade;
 
     private List<Quiz> items;
     private List<Question> questionItems = null;
@@ -97,6 +97,10 @@ public class MyQuizController implements Serializable {
     public Quiz getSelected() { return selected; }
 
     public void setSelected(Quiz selected) { this.selected = selected; }
+
+    public AttemptFacade getAttemptFacade() { return attemptFacade; }
+
+    public void setAttemptFacade(AttemptFacade attemptFacade) { this.attemptFacade = attemptFacade; }
 
     public List<Quiz> getItems() {
         User signedInUser = (User) Methods.sessionMap().get("user");
@@ -249,6 +253,16 @@ public class MyQuizController implements Serializable {
         String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code=" + accessCode;
 //        PrimeFaces.current().ajax().update("MyQuizzesListForm:qrLinkDia");
         return link;
+    }
+
+    public Boolean disableButton(int quizId) {
+        List<Attempt> attempts = getAttemptFacade().findAllAttemptByQuizId(quizId);
+        if(attempts.size() != 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void addMessage(String summary, String detail) {

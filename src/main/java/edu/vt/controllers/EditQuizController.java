@@ -1,9 +1,6 @@
 package edu.vt.controllers;
 import edu.vt.EntityBeans.*;
-import edu.vt.FacadeBeans.AnswerFacade;
-import edu.vt.FacadeBeans.QuestionFacade;
-import edu.vt.FacadeBeans.QuizFacade;
-import edu.vt.FacadeBeans.TakerFacade;
+import edu.vt.FacadeBeans.*;
 import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
@@ -41,6 +38,7 @@ public class EditQuizController implements Serializable{
     private List<AnswerChoice> selectedAnswerChoices;
     private int questionPoint = 1;
     private String accessCode;
+    private List<Attempt> attempts;
 
     @EJB
     private QuizFacade quizFacade;
