@@ -26,17 +26,17 @@
 
                 <h:form>
                     
-                    <h1>Please Answer Your Security Question</h1>
+                    <h1>Please Enter your password</h1>
 
                     <!-- fieldset is an HTML tag that draws a box around the content enclosed within it -->
                     <fieldset>
-                        <div style="margin-bottom:20px">
-                            <h:outputLabel for="answer" value="#{passwordResetManager.getSelectedSecurityQuestionForUsername()}" />
-                        </div>
+<!--                        <div style="margin-bottom:20px">-->
+<!--                            <h:outputLabel for="answer" value="#{passwordResetManager.getSelectedSecurityQuestionForUsername()}" />-->
+<!--                        </div>-->
 
                         <div style="margin-bottom:10px">
                             <p:inputText id="answer" value="#{passwordResetManager.answerToSecurityQuestion}" required="true"
-                                         requiredMessage="Please enter your answer to the security question!" 
+                                         requiredMessage="Please enter your password!"
                                          class="inputTextField" />
                         </div>
 

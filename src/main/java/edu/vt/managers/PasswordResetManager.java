@@ -130,7 +130,7 @@ public class PasswordResetManager implements Serializable {
     Process the Submitted Answer to the Security Question
     *****************************************************
      */
-    public String securityAnswerSubmit() {
+    public String securityAnswerSubmit() throws Password.InvalidHashException, Password.CannotPerformOperationException {
 
         // Since we will redirect to show the ResetPassword page, invoke preserveMessages()
         Methods.preserveMessages();
@@ -138,17 +138,18 @@ public class PasswordResetManager implements Serializable {
         // Obtain the object reference of the User object with username
         User user = getUserFacade().findByUsername(username);
 
-        String actualSecurityAnswer = user.getSecurityAnswer();
+        String actualSecurityAnswer = user.getPassword();
         String enteredSecurityAnswer = getAnswerToSecurityQuestion();
-
-        if (actualSecurityAnswer.equals(enteredSecurityAnswer)) {
+        System.out.println("a!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(actualSecurityAnswer);
+        if (Password.verifyPassword(enteredSecurityAnswer, actualSecurityAnswer) ) {
             /*
             Answer to the security question is correct. Redirect to show the ResetPassword page.
             */
             return "/userPasswordChange/ResetPassword?faces-redirect=true";
 
         } else {
-            Methods.showMessage("Error", "Answer to the Security Question is Incorrect!", "");
+            Methods.showMessage("Error", "Password Incorrect!", "");
             return "";
         }
     }

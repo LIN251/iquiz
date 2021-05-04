@@ -32,8 +32,8 @@ edu/vt/controllers/SliderController.java
  edu.vt.controllers.SliderController
 edu/vt/EntityBeans/User.java
  edu.vt.EntityBeans.User
-edu/vt/managers/PasswordResetManager.java
- edu.vt.managers.PasswordResetManager
+edu/vt/controllers/ResultsController.java
+ edu.vt.controllers.ResultsController
 edu/vt/FacadeBeans/TakerFacade.java
  edu.vt.FacadeBeans.TakerFacade
 edu/vt/FacadeBeans/QuizFacade.java
@@ -78,5 +78,5 @@ edu/vt/controllers/MyQuizController.java
  edu.vt.controllers.MyQuizController
 edu/vt/EntityBeans/Answer.java
  edu.vt.EntityBeans.Answer
-edu/vt/controllers/ResultsController.java
- edu.vt.controllers.ResultsController
+edu/vt/managers/PasswordResetManager.java
+ edu.vt.managers.PasswordResetManager
