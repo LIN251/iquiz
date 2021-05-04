@@ -77,8 +77,8 @@
                 <p:remoteCommand oncomplete="getTime(#{accessCodeController.aQuiz.timeLimit})" autoRun="true"/>
                 <p:dataTable id="questionList" var="question" value="#{accessCodeController.questions}"
                              reflow="true" style="max-width: 70%"
-                             rowKey="#{question.id}" paginator="true"
-                             rows="10"  paginatorPosition="bottom">
+                             rowKey="#{question.id}" paginator="false"
+                             rows="0"  paginatorPosition="bottom">
 
                     <p:column style="width: 90%">
                         <h:outputText style="font-size: 20px" value="#{question.questionText}"/>
@@ -88,6 +88,7 @@
                                      styleClass="noHeader"
                                      rows="10" rowSelectMode="new" paginatorPosition="bottom" selection="#{accessCodeController.selectedAns}">
                             <p:ajax event="rowSelect" listener="#{accessCodeController.onRowSelect}" />
+                            <p:ajax event="rowSelectRadio" listener="#{accessCodeController.onRowSelect}" />
                             <p:column style="width: 3%" selectionMode="single"/>
                             <p:column style="width: 3%">
                                 <h:outputText style="font-size: 16px" value="#{answer.index}"/>

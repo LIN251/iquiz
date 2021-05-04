@@ -35,10 +35,10 @@ public final class Constants {
     Unix (macOS) or Linux:
      */
     // To run locally
-    public static final String PHOTOS_ABSOLUTE_PATH = "/Users/calvin/DocRoot/Team3-FileStorage/";
+//    public static final String PHOTOS_ABSOLUTE_PATH = "/Users/calvin/DocRoot/Team3-FileStorage/";
 
     // To run on your AWS EC2 instance
-//    public static final String PHOTOS_ABSOLUTE_PATH = "/opt/wildfly/DocRoot/Team3-FileStorage/";
+    public static final String PHOTOS_ABSOLUTE_PATH = "/opt/wildfly/DocRoot/Team3-FileStorage/";
 
     /*
      ---------------------------------
@@ -67,10 +67,10 @@ public final class Constants {
      http://localhost:8080/photos/p displays file p from /Users/Balci/DocRoot/CloudStorage/PhotoStorage/
      */
     // To run locally
-    public static final String PHOTOS_URI = "http://localhost:8080/Team3-FileStorage/";
+//    public static final String PHOTOS_URI = "http://localhost:8080/Team3-FileStorage/";
 
     // To run on your AWS EC2 instance with your IP address
-//    public static final String PHOTOS_URI = "http://3.238.153.98:8080/Team3-FileStorage/";
+    public static final String PHOTOS_URI = "http://3.238.153.98:8080/iquizphotos/";
 
     /* 
     ==================================================

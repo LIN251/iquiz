@@ -45,6 +45,7 @@
                                      styleClass="noHeader"
                                      rows="0" rowSelectMode="new" paginatorPosition="bottom" selection="#{apiController.selectedAns}">
                             <p:ajax event="rowSelect" listener="#{apiController.onRowSelect(question)}" />
+                            <p:ajax event="rowSelectRadio" listener="#{apiController.onRowSelect(question)}" />
                             <p:column style="width: 5%" selectionMode="single"/>
                             <p:column style="width: 60%">
                                 <h:outputText style="font-size: 16px" value="#{answer.answerText}"/>
