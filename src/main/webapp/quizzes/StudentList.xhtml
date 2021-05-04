@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   - Created by Calvin Huang on 2021.4.14
-  - Copyright © 2021 Calvin Huang. All rights reserved.
+  - Copyright  2021 Calvin Huang. All rights reserved.
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -40,13 +40,21 @@
                 <hr width="70%" style="height: 1px; margin-left: auto; margin-right: auto; background-color: #666; border: 0 none"></hr>
                 <p:dataTable id="stuList" var="student" value="#{studentController.students}"
                              reflow="true" style="max-width: 70%"
+                             filteredValue="#{studentController.filteredStudents}"
+                             widgetVar="stuTable"
                              rowKey="#{student.id}" paginator="true"
                              rows="10" rowSelectMode="add" paginatorPosition="bottom">
 
-                    <p:column style="width: 20%">
+                    <f:facet name="header">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        &nbsp;
+                        <p:inputText id="globalFilter"  onkeyup="PF('stuTable').filter()" style="width:10rem" placeholder="Enter keyword" />
+                    </f:facet>
+
+                    <p:column style="width: 20%" filterBy="#{student.name}" filterStyle="display: none">
                         <h:outputText style="font-size: 20px" value="#{student.name}"/>
                     </p:column>
-                    <p:column style="width: 20%">
+                    <p:column style="width: 20%" filterBy="#{student.score}" filterStyle="display: none">
                         <h:outputText value="#{student.score} Points"/>
                     </p:column>
                     <p:column style="width: 10%">

@@ -77,6 +77,8 @@ public class StudentController implements Serializable {
 
     private String innername = null;
 
+    private List<Student> filteredStudents;
+
 
 
     public StudentController() {
@@ -123,6 +125,10 @@ public class StudentController implements Serializable {
     public ArrayList<QuizQuestion> getQuizQuestions() { return quizQuestions; }
 
     public String getInnername() { return innername; }
+
+    public List<Student> getFilteredStudents() { return filteredStudents; }
+
+    public void setFilteredStudents(List<Student> filteredStudents) { this.filteredStudents = filteredStudents; }
 
 
 
