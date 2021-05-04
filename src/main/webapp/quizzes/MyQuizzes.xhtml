@@ -44,7 +44,7 @@
                         <div style="color: white; font-size: large">My Quizzes</div>
                     </p:toolbarGroup>
                 </p:toolbar>
-                            <p:dataTable style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
+                            <p:dataTable id="dt-quizzes" style="text-align: center; width: 80%" var="item" value="#{myQuizController.items}" rowIndexVar="rowIndex">
 <!--                                <p:column id="id" style="text-align: left; width: 5%" headerText="ID">-->
 <!--                                    <h:outputText value="#{item.id}" />-->
 <!--                                </p:column>-->
@@ -89,6 +89,9 @@
                                         <p:tooltip for="copyButton" value="Share" showEffect="clip" hideEffect="fold" />
                                     </p:commandButton>
                                     <p:tooltip for="copyButton" value="Copy Link to Clipboard" showEffect="clip" hideEffect="fold" />
+                                    &nbsp;
+                                    <p:commandButton id="cloneQuiz" icon="fas fa-clone" action="#{myQuizController.cloneQuiz(item.id)}" styleClass="rounded-button ui-button-warning ui-button-outlined"/>
+                                    <p:tooltip for="cloneQuiz" value="Clone Quiz" showEffect="clip" hideEffect="fold" />
                                 </p:column>
                             </p:dataTable>
 

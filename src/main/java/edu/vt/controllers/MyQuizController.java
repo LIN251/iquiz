@@ -223,6 +223,34 @@ public class MyQuizController implements Serializable {
         return "/quizzes/MyQuizzesView?faces-redirect=true";
     }
 
+    public void cloneQuiz(int quizID) {
+        Quiz quiz = getQuizFacade().findQuizByID(quizID);
+        String accessCode = randomAccessCode();
+        quiz.setAccessCode(accessCode);
+        quiz.setPublish(false);
+        quiz.setId(null);
+        quiz.setTitle(quiz.getTitle() + "-copy");
+        quiz.setPublishAt(new Date());
+        quizFacade.create(quiz);
+        List<Question> questions = questionFacade.findAllquestions(quizID);
+        for (int i = 0; i < questions.size(); i++) {
+            Question q = questions.get(i);
+            List<Answer> answers = answerFacade.findAllAnswersForOneQuestion(q.getId());
+            q.setId(null);
+            q.setQuizID(quiz.getId());
+            questionFacade.create(q);
+            for (int j = 0; j < answers.size(); j++) {
+                Answer a = answers.get(j);
+                a.setId(null);
+                a.setQuestionId(q.getId());
+                answerFacade.create(a);
+            }
+        }
+        String mess = "You have cloned your quiz!";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mess));
+        PrimeFaces.current().ajax().update("MyQuizzesListForm:msg", "MyQuizzesListForm:dt-quizzes");
+    }
+
     public boolean updateQuiz(int quizID, boolean judge) {
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         quiz.setPublish(!judge);
@@ -272,5 +300,19 @@ public class MyQuizController implements Serializable {
 
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
+    }
+
+    public String randomAccessCode() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 12;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 }
