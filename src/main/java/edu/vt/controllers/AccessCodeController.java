@@ -277,8 +277,14 @@ public class AccessCodeController implements Serializable {
         questionListForOneQuiz = new ArrayList<Question>();
         aQuiz = getQuizFacade().findOneQuiz(searchQuery);
 
-        if (aQuiz == null || !aQuiz.isPublish()){
+        if (aQuiz == null ){
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
+
+            return null;
+        }
+
+        if (!aQuiz.isPublish()){
+            Methods.showMessage("Fatal Error", "Quiz does not published!", "");
 
             return null;
         }
@@ -322,11 +328,19 @@ public class AccessCodeController implements Serializable {
         aQuiz = getQuizFacade().findOneQuiz(access_code);
 
 
-        if (aQuiz == null || !aQuiz.isPublish()){
+
+        if (aQuiz == null ){
             Methods.showMessage("Fatal Error", "Quiz Does Not Exists!", "Please Try a Different One!");
 
             return null;
         }
+
+        if (!aQuiz.isPublish()){
+            Methods.showMessage("Fatal Error", "Quiz does not published!", "");
+
+            return null;
+        }
+
         timeLimit = aQuiz.getTimeLimit();
         if (aQuiz == null) {
             // Quiz Does Not Exists

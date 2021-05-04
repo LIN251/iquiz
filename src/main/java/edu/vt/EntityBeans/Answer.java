@@ -46,7 +46,7 @@ public class Answer implements Serializable {
     private Integer id;
 
     @Basic(optional = false)
-    @Size(min = 1, max = 1024)
+    @Size(min = 0, max = 1024)
     @Column(name = "answer_text")
     private String answer_text;
 
