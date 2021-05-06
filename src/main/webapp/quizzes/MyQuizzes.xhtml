@@ -96,11 +96,12 @@
                             </p:dataTable>
 
                 <p:dialog id="qrLinkDia" header="QR Code/Quiz Link" widgetVar="qrDia" minHeight="40" width="60%" showEffect="fade">
-                    <!--                    <div>#{myQuizController.selectedAccessCode}</div>-->
                     <p:autoUpdate/>
                     <p class="p-m-0">
+<!--                        Link for quiz-->
                         <h:outputText value="#{myQuizController.selectedQuizLink(myQuizController.selectedAccessCode)}"/>
                         <br/>
+<!--                        QR Code to access the quiz-->
                         <p:barcode type="qr" value="#{myQuizController.selectedQuizLink(myQuizController.selectedAccessCode)}"/>
                     </p>
                 </p:dialog>

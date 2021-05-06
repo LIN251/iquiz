@@ -50,8 +50,8 @@ edu/vt/controllers/EditQuizController.java
  edu.vt.controllers.EditQuizController
 edu/vt/controllers/CreateQuizController.java
  edu.vt.controllers.CreateQuizController
-edu/vt/FacadeBeans/TakerFacade.java
- edu.vt.FacadeBeans.TakerFacade
+edu/vt/controllers/MyQuizController.java
+ edu.vt.controllers.MyQuizController
 edu/vt/EntityBeans/Answer.java
  edu.vt.EntityBeans.Answer
 edu/vt/FacadeBeans/UserPhotoFacade.java
@@ -78,5 +78,5 @@ edu/vt/EntityBeans/UserPhoto.java
  edu.vt.EntityBeans.UserPhoto
 edu/vt/EntityBeans/Attempt.java
  edu.vt.EntityBeans.Attempt
-edu/vt/controllers/MyQuizController.java
- edu.vt.controllers.MyQuizController
+edu/vt/FacadeBeans/TakerFacade.java
+ edu.vt.FacadeBeans.TakerFacade

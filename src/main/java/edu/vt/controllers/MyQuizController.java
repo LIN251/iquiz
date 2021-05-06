@@ -286,11 +286,19 @@ public class MyQuizController implements Serializable {
         return sdf.format(date);
     }
 
+    /**
+     * Generate the link string for a particular quiz
+     * @param accessCode the access code of the quiz
+     * @return the link as string
+     */
     public String selectedQuizLink(String accessCode) {
+        //Get the server name
         String serverName = FacesContext.getCurrentInstance().getExternalContext().getRequestServerName();
+        //Get the port number
         int port  = FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort();
-        String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code=" + accessCode;
-//        PrimeFaces.current().ajax().update("MyQuizzesListForm:qrLinkDia");
+        //Combine to the get final ink
+        String link = "http://" + serverName + ":" + String.valueOf(port) + "/iquiz/quizzes/AccessQuiz.xhtml?access_code="
+                + accessCode;
         return link;
     }
 
