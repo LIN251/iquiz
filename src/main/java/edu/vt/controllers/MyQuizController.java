@@ -2,10 +2,7 @@ package edu.vt.controllers;
 
 
 import edu.vt.EntityBeans.*;
-import edu.vt.FacadeBeans.AnswerFacade;
-import edu.vt.FacadeBeans.AttemptFacade;
-import edu.vt.FacadeBeans.QuestionFacade;
-import edu.vt.FacadeBeans.QuizFacade;
+import edu.vt.FacadeBeans.*;
 import edu.vt.globals.Methods;
 import edu.vt.pojo.AnswerChoice;
 import edu.vt.pojo.QuizQuestion;
@@ -60,6 +57,8 @@ public class MyQuizController implements Serializable {
     private AnswerFacade answerFacade;
     @EJB
     private AttemptFacade attemptFacade;
+    @EJB
+    private AttemptAnswerFacade attemptAnswerFacade;
 
     private List<Quiz> items;
     private List<Question> questionItems = null;
@@ -101,6 +100,10 @@ public class MyQuizController implements Serializable {
     public AttemptFacade getAttemptFacade() { return attemptFacade; }
 
     public void setAttemptFacade(AttemptFacade attemptFacade) { this.attemptFacade = attemptFacade; }
+
+    public AttemptAnswerFacade getAttemptAnswerFacade() { return attemptAnswerFacade; }
+
+    public void setAttemptAnswerFacade(AttemptAnswerFacade attemptAnswerFacade) { this.attemptAnswerFacade = attemptAnswerFacade; }
 
     public List<Quiz> getItems() {
         User signedInUser = (User) Methods.sessionMap().get("user");
@@ -161,9 +164,17 @@ public class MyQuizController implements Serializable {
         for(int i = 0; i < questions.size(); i++) {
             List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
             for(int j = 0; j < answers.size(); j++) {
+                List<AttemptAnswer> attemptAnswerList = getAttemptAnswerFacade().findAttemptAnswerByAnswerId(answers.get(j).getId());
+                for(int k = 0; k < attemptAnswerList.size(); k++) {
+                    getAttemptAnswerFacade().remove(attemptAnswerList.get(k));
+                }
                 getAnswerFacade().remove(answers.get(j));
             }
             getQuestionFacade().remove(questions.get(i));
+        }
+        List<Attempt> attempts = getAttemptFacade().findAllAttemptByQuizId(quizID);
+        for(int j = 0; j < attempts.size(); j++) {
+            getAttemptFacade().remove(attempts.get(j));
         }
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         System.out.println(quiz.getTitle());
