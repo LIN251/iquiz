@@ -1,3 +1,8 @@
+
+/*
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
+ */
 package edu.vt.controllers;
 
 import edu.vt.globals.Methods;
@@ -14,26 +19,56 @@ import java.util.Collections;
 import java.util.List;
 import org.apache.commons.text.StringEscapeUtils;
 
+/*
+---------------------------------------------------------------------------
+The @Named (javax.inject.Named) annotation indicates that the objects
+instantiated from this class will be managed by the Contexts and Dependency
+Injection (CDI) container. The name "apiController" is used within
+Expression Language (EL) expressions in JSF (XHTML) facelets pages to
+access the properties and invoke methods of this class.
+---------------------------------------------------------------------------
+ */
 @Named("apiController")
 /*
-The @SessionScoped annotation preserves the values of the RecipeController
+The @SessionScoped annotation preserves the values of the ApiController
 object's instance variables across multiple HTTP request-response cycles
 as long as the user's established HTTP session is alive.
  */
 @SessionScoped
-public class ApiController implements Serializable {
 
+/*
+--------------------------------------------------------------------------
+Marking the ApiController class as "implements Serializable" implies that
+instances of the class can be automatically serialized and deserialized.
+
+Serialization is the process of converting a class instance (object)
+from memory into a suitable format for storage in a file or memory buffer,
+or for transmission across a network connection link.
+
+Deserialization is the process of recreating a class instance (object)
+in memory from the format under which it was stored.
+--------------------------------------------------------------------------
+ */
+public class ApiController implements Serializable {
+    /*
+   ===============================
+   Instance Variables (Properties)
+   ===============================
+   */
     private String searchApiUrl;
     private List<QuizQuestion> questions;
     private AnswerChoice selectedAns;
     private int totalCorrect = 0;
-
     private String category;
     private String numberOfQuestions = "10";
     private String difficulty;
     private String type;
 
-
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public ApiController() {
         questions = new ArrayList<>();
     }
@@ -102,6 +137,10 @@ public class ApiController implements Serializable {
         this.totalCorrect = totalCorrect;
     }
 
+    /**
+     * Grab the api and get the information
+     * @return the address of take trivia quiz
+     */
     public String performSearch() {
 
         //Clear the list at the start of search
@@ -178,6 +217,10 @@ public class ApiController implements Serializable {
         return "/api/TakeOpenTriviaQuiz?faces-redirect=true";
     }
 
+    /**
+     * see if the student's answer is correct
+     * @return the answer choice
+     */
     public AnswerChoice studentCorrectAnswer(List<AnswerChoice> choices) {
         for (int i = 0; i < choices.size(); i++) {
             if (choices.get(i).getStudentCorrect()){
@@ -187,6 +230,9 @@ public class ApiController implements Serializable {
         return null;
     }
 
+    /**
+     * reset all
+     */
     public void clear(){
         category = null;
         selectedAns = null;
@@ -196,6 +242,9 @@ public class ApiController implements Serializable {
         totalCorrect = 0;
     }
 
+    /**
+     * Select the row when students taking the trivia quiz
+     */
     public void onRowSelect(QuizQuestion question) {
         int questionIndex = questions.indexOf(question);
         int answerIndex = questions.get(questionIndex).getAnswerChoices().indexOf(selectedAns);
@@ -205,6 +254,10 @@ public class ApiController implements Serializable {
         questions.get(questionIndex).getAnswerChoices().get(answerIndex).setStudentCorrect(true);
     }
 
+    /**
+     * Submit the quiz when student click submit button
+     * @return the results page of trivia quiz
+     */
     public String submitQuiz() {
         for(int i = 0; i < questions.size(); i++) {
             QuizQuestion aQuestion = questions.get(i);
@@ -219,6 +272,11 @@ public class ApiController implements Serializable {
         return "/api/TriviaQuizResult?faces-redirect=true";
     }
 
+    /**
+     * return the number from category string
+     * @param category the category string
+     * @return the string returned
+     */
     public String categoryNumberFromString(String category) {
         switch (category) {
             case "Any Category":
@@ -275,6 +333,11 @@ public class ApiController implements Serializable {
         return "";
     }
 
+    /**
+     * Convert the number to a b c d format
+     * @param i the number waiting for convert
+     * @return the a b c d format
+     */
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }

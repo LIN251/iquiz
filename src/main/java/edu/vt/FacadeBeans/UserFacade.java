@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.FacadeBeans;
 
@@ -14,8 +14,8 @@ import javax.persistence.PersistenceContext;
 public class UserFacade extends AbstractFacade<User> {
     /*
     ------------------------------------------------------------------------------------------------------
-    Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "CloudDrive-BalciPU")' 
-    implies that the EntityManager instance pointed to by 'em' is associated with the 'CloudDrive-BalciPU'
+    Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "IQuiz-PU")'
+    implies that the EntityManager instance pointed to by 'em' is associated with the 'IQuiz-PU'
     persistence context. The persistence context is a set of entity (User) instances in which for
     any persistent entity (User) identity, there is a unique entity (User) instance.
     Within the persistence context, the entity (User) instances and their life cycle are managed.

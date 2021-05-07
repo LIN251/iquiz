@@ -1,3 +1,7 @@
+/*
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
+ */
 package edu.vt.controllers;
 
 /*
@@ -32,60 +36,115 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+---------------------------------------------------------------------------
+The @Named (javax.inject.Named) annotation indicates that the objects
+instantiated from this class will be managed by the Contexts and Dependency
+Injection (CDI) container. The name "studentController" is used within
+Expression Language (EL) expressions in JSF (XHTML) facelets pages to
+access the properties and invoke methods of this class.
+---------------------------------------------------------------------------
+ */
 @Named("studentController")
 
 /*
-The @SessionScoped annotation preserves the values of the CountryController
+The @SessionScoped annotation preserves the values of the StudentController
 object's instance variables across multiple HTTP request-response cycles
 as long as the user's established HTTP session is alive.
  */
 @SessionScoped
 
-public class StudentController implements Serializable {
+/*
+--------------------------------------------------------------------------
+Marking the StudentController class as "implements Serializable" implies that
+instances of the class can be automatically serialized and deserialized.
 
+Serialization is the process of converting a class instance (object)
+from memory into a suitable format for storage in a file or memory buffer,
+or for transmission across a network connection link.
+
+Deserialization is the process of recreating a class instance (object)
+in memory from the format under which it was stored.
+--------------------------------------------------------------------------
+ */
+public class StudentController implements Serializable {
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptFacade class object into the instance
+    variable AttemptFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptFacade attemptFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptAnswerFacade class object into the instance
+    variable AttemptAnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptAnswerFacade attemptAnswerFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuizFacade class object into the instance
+    variable QuizFacade below after it is instantiated at runtime.
+    */
     @EJB
     private QuizFacade quizFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuestionFacade class object into the instance
+    variable QuestionFacade below after it is instantiated at runtime.
+    */
     @EJB
     private QuestionFacade questionFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AnswerFacade class object into the instance
+    variable AnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AnswerFacade answerFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA TakerFacade class object into the instance
+    variable TakerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private TakerFacade takerFacade;
 
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+     */
     private List<Student> students;
-
     private Quiz quiz = null;
-
     private Integer score = 0;
-
     private Quiz innerquiz = null;
-
     private Integer innerscore = 0;
-
     private List<Question> innerquestion = null;
-
     private ArrayList<QuizQuestion> quizQuestions;
-
     private String innername = null;
-
     private List<Student> filteredStudents;
 
-
-
+    /*
+    ==================
+    Constructor Method
+    ==================
+     */
     public StudentController() {
         students = new ArrayList<>();
         quizQuestions = new ArrayList<QuizQuestion>();
     }
 
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public AttemptFacade getAttemptFacade() { return attemptFacade; }
 
     public void setAttemptFacade(AttemptFacade attemptFacade) { this.attemptFacade = attemptFacade; }
@@ -130,8 +189,11 @@ public class StudentController implements Serializable {
 
     public void setFilteredStudents(List<Student> filteredStudents) { this.filteredStudents = filteredStudents; }
 
-
-
+    /**
+     * lists all taker
+     * @param quizId lists all taker in this quiz id
+     * @return the student list page address
+     */
     public String listStudents(int quizId) {
         quiz = null;
         score = 0;
@@ -154,6 +216,12 @@ public class StudentController implements Serializable {
         return "/quizzes/StudentList?faces-redirect=true";
     }
 
+    /**
+     * see the specific taker answer choice
+     * @param quizId the quiz id
+     * @param takerID the taker are ready to see
+     * @return
+     */
     public String studentSubmission(int quizId, int takerID) {
         innerquiz = null;
         innerquestion = null;
@@ -195,6 +263,11 @@ public class StudentController implements Serializable {
         return "/quizzes/StudentSubmission?faces-redirect=true";
     }
 
+    /**
+     * Convert the number to a b c d format
+     * @param i the number waiting for convert
+     * @return the a b c d format
+     */
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }

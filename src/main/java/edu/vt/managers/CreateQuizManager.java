@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.managers;
 
@@ -44,22 +44,12 @@ public class CreateQuizManager implements Serializable {
     private AnswerChoice selectedAnswerChoice;
     private List<AnswerChoice> selectedAnswerChoices;
     private int questionPoint = 1;
-    /*
-    The instance variable 'userFacade' is annotated with the @EJB annotation.
-    The @EJB annotation directs the EJB Container (of the WildFly AS) to inject (store) the object reference
-    of the UserFacade object, after it is instantiated at runtime, into the instance variable 'userFacade'.
-     */
+
     /*
     ==================
     Constructor Method
     ==================
      */
-//    @PostConstruct
-//    public void init() {
-//        questions = new ArrayList<Question>();
-//        Question initialQuestion = new Question("hello", 1, 1);
-//        questions.add(initialQuestion);
-//    }
     public CreateQuizManager(){
         questions = new ArrayList<QuizQuestion>();
         selectedAnswerChoices = new ArrayList<>();
@@ -156,16 +146,25 @@ public class CreateQuizManager implements Serializable {
         return null;
     }
 
+    /*
+    add answer choice
+     */
     public void addAnswerChoice() {
         selectedAnswerChoices.add(new AnswerChoice("", false,"A",1,1, false));
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "CreateQuizForm:dt-questions");
     }
 
+    /*
+    add answer choice by question
+     */
     public void addAnswerChoiceByQuestion() {
         selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A",1,1,false));
         PrimeFaces.current().ajax().update("QuizEditForm:manage-question-content", "CreateQuizForm:dt-questions");
     }
 
+    /*
+    edit selected question
+     */
     public void editSelectedQuestion(){
         clearQuestion();
         PrimeFaces.current().ajax().update("CreateQuizForm:messages", "CreateQuizForm:dt-questions");
@@ -174,6 +173,9 @@ public class CreateQuizManager implements Serializable {
         PrimeFaces.current().ajax().update("CreateQuizForm:messages");
     }
 
+    /*
+    delete selected question
+     */
     public void deleteSelectedQuestion() {
         this.questions.remove(this.selectedQuestion);
         this.selectedQuestion = null;
@@ -182,16 +184,25 @@ public class CreateQuizManager implements Serializable {
         PrimeFaces.current().ajax().update("CreateQuizForm:messages", "CreateQuizForm:dt-questions");
     }
 
+    /*
+    delete selected answer choice
+     */
     public void deleteSelectedAnswerChoice(AnswerChoice choice) {
         this.selectedAnswerChoices.remove(choice);
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "QuizAddForm:manage-question-content");
     }
 
+    /*
+    delete selected answer choice by question
+     */
     public void deleteSelectedAnswerChoiceByQuestion(AnswerChoice choice) {
         this.selectedQuestion.getAnswerChoices().remove(choice);
         PrimeFaces.current().ajax().update("QuizEditForm:manage-question-content");
     }
 
+    /*
+    create question
+     */
     public void createQuestion(){
         this.selectedQuestion = new QuizQuestion(1, questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
         this.questions.add(this.selectedQuestion);
@@ -203,12 +214,18 @@ public class CreateQuizManager implements Serializable {
         PrimeFaces.current().ajax().update("CreateQuizForm:messages");
     }
 
+    /*
+    reset question
+     */
     public void clearQuestion(){
         questionTitle = null;
         questionPoint = 1;
         selectedAnswerChoices = new ArrayList<AnswerChoice>();
     }
 
+    /*
+    reset all question
+     */
     public void clearAllQuestions() {
         this.questions = new ArrayList<QuizQuestion>();
         this.selectedAnswerChoices = new ArrayList<AnswerChoice>();

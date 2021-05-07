@@ -1,3 +1,7 @@
+/*
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
+ */
 package edu.vt.controllers;
 import edu.vt.EntityBeans.*;
 import edu.vt.FacadeBeans.*;
@@ -12,48 +16,99 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
+/*
+---------------------------------------------------------------------------
+The @Named (javax.inject.Named) annotation indicates that the objects
+instantiated from this class will be managed by the Contexts and Dependency
+Injection (CDI) container. The name "editQuizController" is used within
+Expression Language (EL) expressions in JSF (XHTML) facelets pages to
+access the properties and invoke methods of this class.
+---------------------------------------------------------------------------
+ */
 @Named("editQuizController")
 
 /*
-The @SessionScoped annotation preserves the values of the UserController
+The @SessionScoped annotation preserves the values of the EditQuizController
 object's instance variables across multiple HTTP request-response cycles
 as long as the user's established HTTP session is alive.
  */
 @SessionScoped
+
+/*
+--------------------------------------------------------------------------
+Marking the EditQuizController class as "implements Serializable" implies that
+instances of the class can be automatically serialized and deserialized.
+
+Serialization is the process of converting a class instance (object)
+from memory into a suitable format for storage in a file or memory buffer,
+or for transmission across a network connection link.
+
+Deserialization is the process of recreating a class instance (object)
+in memory from the format under which it was stored.
+--------------------------------------------------------------------------
+ */
 public class EditQuizController implements Serializable{
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuizFacade class object into the instance
+    variable QuizFacade below after it is instantiated at runtime.
+    */
+    @EJB
+    private QuizFacade quizFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuestionFacade class object into the instance
+    variable QuestionFacade below after it is instantiated at runtime.
+    */
+    @EJB
+    private QuestionFacade questionFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AnswerFacade class object into the instance
+    variable AnswerFacade below after it is instantiated at runtime.
+    */
+    @EJB
+    private AnswerFacade answerFacade;
+
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+     */
     private String quizTitle;
     private String quizTime;
     private List<QuizQuestion> questions;
     private int questionNumber = 1;
-
     private String questionTitle;
     private QuizQuestion selectedQuestion;
     private AnswerChoice selectedAnswerChoice;
     private List<AnswerChoice> selectedAnswerChoices;
     private int questionPoint = 1;
     private String accessCode;
-    private List<Attempt> attempts;
 
-    @EJB
-    private QuizFacade quizFacade;
-
-    @EJB
-    private QuestionFacade questionFacade;
-
-    @EJB
-    private AnswerFacade answerFacade;
-
+    /*
+    ==================
+    Constructor Method
+    ==================
+     */
     public EditQuizController() {
         questions = new ArrayList<>();
         selectedAnswerChoices = new ArrayList<>();
     }
 
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public String getQuizTitle() {
         return quizTitle;
     }
@@ -106,17 +161,13 @@ public class EditQuizController implements Serializable{
         return selectedAnswerChoice;
     }
 
-    public void setSelectedAnswerChoice(AnswerChoice selectedAnswerChoice) {
-        this.selectedAnswerChoice = selectedAnswerChoice;
-    }
+    public void setSelectedAnswerChoice(AnswerChoice selectedAnswerChoice) { this.selectedAnswerChoice = selectedAnswerChoice; }
 
     public List<AnswerChoice> getSelectedAnswerChoices() {
         return selectedAnswerChoices;
     }
 
-    public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) {
-        this.selectedAnswerChoices = selectedAnswerChoices;
-    }
+    public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) { this.selectedAnswerChoices = selectedAnswerChoices; }
 
     public int getQuestionPoint() {
         return questionPoint;
@@ -158,6 +209,13 @@ public class EditQuizController implements Serializable{
         this.answerFacade = answerFacade;
     }
 
+    /**
+     * unused function
+     * @param quizTitle unused parameter
+     * @param quizTime unused parameter
+     * @param questions unused parameter
+     * @return unused return
+     */
     public String saveQuiz(String quizTitle, String quizTime, List<QuizQuestion> questions){
 //        (String title, boolean publish, Date publishAt, int timeLimit, int userID, String accessCode)
         User signedInUser = (User) Methods.sessionMap().get("user");
@@ -183,6 +241,11 @@ public class EditQuizController implements Serializable{
         return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
+    /**
+     * show the quiz information are ready to update
+     * @param id the quiz id
+     * @return the edit quiz page address
+     */
     public String prepareEdit(int id) {
         clear();
         List<Question> questionItems = getQuestionFacade().findQuestionByQuizId(id);
@@ -206,26 +269,44 @@ public class EditQuizController implements Serializable{
         }
         return "/quizzes/EditQuiz?faces-redirect=true";
     }
+
+    /**
+     * Convert the number to a b c d format
+     * @param i the number waiting for convert
+     * @return the a b c d format
+     */
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
 
+    /**
+     * clear all questions
+     */
     public void clearAllQuestions() {
         this.questions = new ArrayList<QuizQuestion>();
         this.selectedAnswerChoices = new ArrayList<AnswerChoice>();
         questionNumber = 1;
     }
 
+    /**
+     * add an answer choice
+     */
     public void addAnswerChoice() {
         selectedAnswerChoices.add(new AnswerChoice("", false,"A",1,1, false));
         PrimeFaces.current().ajax().update("QuizEditQuestionForm:manage-question-content", "EditQuizForm:dt-questions");
     }
 
+    /**
+     * add an answer choice by question
+     */
     public void addAnswerChoiceByQuestion() {
         selectedQuestion.getAnswerChoices().add(new AnswerChoice("", false,"A",1,1, false));
         PrimeFaces.current().ajax().update("QuizEditQuestionForm:manage-question-content", "EditQuizForm:dt-questions");
     }
 
+    /**
+     * edit the selected question
+     */
     public void editSelectedQuestion(){
         clearQuestion();
         PrimeFaces.current().ajax().update("EditQuizForm:messages", "EditQuizForm:dt-questions");
@@ -234,6 +315,9 @@ public class EditQuizController implements Serializable{
         PrimeFaces.current().ajax().update("EditQuizForm:messages");
     }
 
+    /**
+     * delete the selected question
+     */
     public void deleteSelectedQuestion() {
         this.questions.remove(this.selectedQuestion);
         this.selectedQuestion = null;
@@ -242,16 +326,27 @@ public class EditQuizController implements Serializable{
         PrimeFaces.current().ajax().update("EditQuizForm:messages", "EditQuizForm:dt-questions");
     }
 
+    /**
+     * delete the selected answer choice
+     * @param choice the answer choice are ready to delete
+     */
     public void deleteSelectedAnswerChoice(AnswerChoice choice) {
         this.selectedAnswerChoices.remove(choice);
         PrimeFaces.current().ajax().update("QuizAddForm:manage-question-content", "QuizAddForm:manage-question-content");
     }
 
+    /**
+     * delete the selected answer choice by question
+     * @param choice the answer choice are ready to delete
+     */
     public void deleteSelectedAnswerChoiceByQuestion(AnswerChoice choice) {
         this.selectedQuestion.getAnswerChoices().remove(choice);
         PrimeFaces.current().ajax().update("QuizEditQuestionForm:manage-question-content");
     }
 
+    /**
+     * create a question
+     */
     public void createQuestion(){
         this.selectedQuestion = new QuizQuestion(1, questionTitle, questionPoint, questionNumber, this.selectedAnswerChoices);
         this.questions.add(this.selectedQuestion);
@@ -263,12 +358,18 @@ public class EditQuizController implements Serializable{
         PrimeFaces.current().ajax().update("EditQuizForm:messages");
     }
 
+    /**
+     * clear the question
+     */
     public void clearQuestion(){
         questionTitle = null;
         questionPoint = 1;
         selectedAnswerChoices = new ArrayList<AnswerChoice>();
     }
 
+    /**
+     * reset all
+     */
     public void clear() {
         quizTime = null;
         quizTitle = null;

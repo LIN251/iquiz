@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.controllers;
 
@@ -21,13 +21,12 @@ import java.util.ArrayList;
 import java.util.List;import edu.vt.EntityBeans.*;
 
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 /*
 ---------------------------------------------------------------------------
 The @Named (javax.inject.Named) annotation indicates that the objects
 instantiated from this class will be managed by the Contexts and Dependency
-Injection (CDI) container. The name "userController" is used within
+Injection (CDI) container. The name "accessCodeController" is used within
 Expression Language (EL) expressions in JSF (XHTML) facelets pages to
 access the properties and invoke methods of this class.
 ---------------------------------------------------------------------------
@@ -35,7 +34,7 @@ access the properties and invoke methods of this class.
 @Named("accessCodeController")
 
 /*
-The @SessionScoped annotation preserves the values of the UserController
+The @SessionScoped annotation preserves the values of the AccessCodeController
 object's instance variables across multiple HTTP request-response cycles
 as long as the user's established HTTP session is alive.
  */
@@ -43,7 +42,7 @@ as long as the user's established HTTP session is alive.
 
 /*
 --------------------------------------------------------------------------
-Marking the UserController class as "implements Serializable" implies that
+Marking the AccessCodeController class as "implements Serializable" implies that
 instances of the class can be automatically serialized and deserialized. 
 
 Serialization is the process of converting a class instance (object)
@@ -56,25 +55,58 @@ in memory from the format under which it was stored.
  */
 public class AccessCodeController implements Serializable {
 
+    /*
+   ===============================
+   Instance Variables (Properties)
+   ===============================
+
+   The @EJB annotation directs the storage (injection) of the object
+   reference of the JPA QuizFacade class object into the instance
+   variable QuizFacade below after it is instantiated at runtime.
+   */
     @EJB
     private QuizFacade quizFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA TakerFacade class object into the instance
+    variable TakerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private TakerFacade takerFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuestionFacade class object into the instance
+    variable QuestionFacade below after it is instantiated at runtime.
+    */
     @EJB
     private QuestionFacade questionFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AnswerFacade class object into the instance
+    variable AnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AnswerFacade answerFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptFacade class object into the instance
+    variable AttemptFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptFacade attemptFacade;
-
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptAnswerFacade class object into the instance
+    variable AttemptAnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptAnswerFacade attemptAnswerFacade;
 
-
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+     */
     private String searchQuery;
     private String takerName;
     private QuizQuestion selectedQuestion ;
@@ -86,15 +118,18 @@ public class AccessCodeController implements Serializable {
     private List<AnswerChoice> selectedAnswerChoices = new ArrayList<AnswerChoice>();
     Quiz aQuiz = new Quiz();
     private Integer totalPoints;
-
     private Taker newTaker;
     private int studentScore;
     private AnswerChoice selectedAns;
     ArrayList<Integer> answerList ;
     ArrayList<Integer> questionList ;
     int timeLimit;
-    //------------------------------------------setter and getter ------------------------------------------
 
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public TakerFacade getTakerFacade() {
         return takerFacade;
     }
@@ -123,9 +158,7 @@ public class AccessCodeController implements Serializable {
         return answerListForOneQuestion;
     }
 
-    public void setAnswerListForOneQuestion(List<Answer> answerListForOneQuestion) {
-        this.answerListForOneQuestion = answerListForOneQuestion;
-    }
+    public void setAnswerListForOneQuestion(List<Answer> answerListForOneQuestion) { this.answerListForOneQuestion = answerListForOneQuestion; }
 
     public void setaQuiz(Quiz aQuiz) {
         this.aQuiz = aQuiz;
@@ -139,9 +172,7 @@ public class AccessCodeController implements Serializable {
         return questionListForOneQuiz;
     }
 
-    public void setQuestionListForOneQuiz(List<Question> questionListForOneQuiz) {
-        this.questionListForOneQuiz = questionListForOneQuiz;
-    }
+    public void setQuestionListForOneQuiz(List<Question> questionListForOneQuiz) { this.questionListForOneQuiz = questionListForOneQuiz; }
 
     public QuestionFacade getQuestionFacade() {
         return questionFacade;
@@ -179,9 +210,7 @@ public class AccessCodeController implements Serializable {
         return selectedAnswerChoice;
     }
 
-    public void setSelectedAnswerChoice(AnswerChoice selectedAnswerChoice) {
-        this.selectedAnswerChoice = selectedAnswerChoice;
-    }
+    public void setSelectedAnswerChoice(AnswerChoice selectedAnswerChoice) { this.selectedAnswerChoice = selectedAnswerChoice; }
 
     public List<QuizQuestion> getQuestions() {
         return questions;
@@ -203,9 +232,7 @@ public class AccessCodeController implements Serializable {
         return selectedAnswerChoices;
     }
 
-    public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) {
-        this.selectedAnswerChoices = selectedAnswerChoices;
-    }
+    public void setSelectedAnswerChoices(List<AnswerChoice> selectedAnswerChoices) { this.selectedAnswerChoices = selectedAnswerChoices; }
 
     public Integer getTotalPoints() {
         return totalPoints;
@@ -215,7 +242,6 @@ public class AccessCodeController implements Serializable {
         this.totalPoints = totalPoints;
     }
 
-
     public int getStudentScore() {
         return studentScore;
     }
@@ -223,7 +249,6 @@ public class AccessCodeController implements Serializable {
     public void setStudentScore(int studentScore) {
         this.studentScore = studentScore;
     }
-
 
     public AnswerChoice getSelectedAns() {
         return selectedAns;
@@ -253,9 +278,7 @@ public class AccessCodeController implements Serializable {
         return attemptAnswerFacade;
     }
 
-    public void setAttemptAnswerFacade(AttemptAnswerFacade attemptAnswerFacade) {
-        this.attemptAnswerFacade = attemptAnswerFacade;
-    }
+    public void setAttemptAnswerFacade(AttemptAnswerFacade attemptAnswerFacade) { this.attemptAnswerFacade = attemptAnswerFacade; }
 
     public int getTimeLimit() {
         return timeLimit;
@@ -265,13 +288,20 @@ public class AccessCodeController implements Serializable {
         this.timeLimit = timeLimit;
     }
 
-    //------------------------------------------------- END -------------------------------------------------
-
+    /*
+    ==================
+    Constructor Method
+    ==================
+     */
     public AccessCodeController() {
         totalPoints = 0;
     }
 
 
+    /**
+     * Show the dialog when taking the quiz
+     * @return the take quiz address
+     */
     public String performSearch() {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
@@ -322,6 +352,11 @@ public class AccessCodeController implements Serializable {
         return null;
     }
 
+    /**
+     * Go to take quiz address by access code
+     * @param access_code the access code
+     * @return the take quiz address
+     */
     public String performSearchByAccessCode(String access_code) {
         reset();
         questionListForOneQuiz = new ArrayList<Question>();
@@ -372,6 +407,9 @@ public class AccessCodeController implements Serializable {
         }
     }
 
+    /**
+     * Reset all variables
+     */
     private void reset() {
         selectedAns = null;
         timeLimit=0;
@@ -387,12 +425,19 @@ public class AccessCodeController implements Serializable {
         questionList = new ArrayList<Integer>();
     }
 
-
+    /**
+     * Convert the number to a b c d format
+     * @param i the number waiting for convert
+     * @return the a b c d format
+     */
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
 
-
+    /**
+     * Select the row when taking the quiz
+     * @param event the answer choice selected
+     */
     public void onRowSelect(SelectEvent<AnswerChoice> event) {
         if (answerList.contains(selectedAns.getBelongsTo())){
             questionList.set(answerList.indexOf(selectedAns.getBelongsTo()), selectedAns.getAnswerChoiceID());

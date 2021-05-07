@@ -1,6 +1,6 @@
 /*
- * Created by Zhengbo Wang on 2021.3.8
- * Copyright © 2021 Zhengbo Wang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.FacadeBeans;
 
@@ -16,13 +16,13 @@ import java.util.List;
 public class QuizFacade extends AbstractFacade<Quiz> {
 
     /*
-    Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "Recipes-WangZhengboPU")'
+    Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "IQuiz-PU")'
     implies that the EntityManager instance pointed to by 'em' is associated with the
-    'Recipes-WangZhengboPU' persistence context. The persistence context is a set of entity (Recipes)
-    instances in which for any persistent entity (Recipes) identity, there is a unique entity (Recipes)
-    instance. Within the persistence context, the entity (Recipes) instances and their life cycle are
-    managed. The EntityManager API is used to create and remove persistent entity (Recipes) instances,
-    to find entities by their primary key, and to query over entities (Recipes).
+    'IQuiz-PU' persistence context. The persistence context is a set of entity (Quiz)
+    instances in which for any persistent entity (Quiz) identity, there is a unique entity (Quiz)
+    instance. Within the persistence context, the entity (Quiz) instances and their life cycle are
+    managed. The EntityManager API is used to create and remove persistent entity (Quiz) instances,
+    to find entities by their primary key, and to query over entities (Quiz).
      */
     @PersistenceContext(unitName = "IQuiz-PU")
     private EntityManager em;
@@ -37,15 +37,17 @@ public class QuizFacade extends AbstractFacade<Quiz> {
     /*
     This constructor method invokes the parent abstract class AbstractFacade.java's
     constructor method, which in turn initializes its entityClass instance variable
-    with the Recipe class object reference returned by the Recipe.class.
+    with the Quiz class object reference returned by the Quiz.class.
      */
     public QuizFacade() {
         // Invokes super's AbstractFacade constructor method by passing
-        // Recipe.class, which is the object reference of the Recipe class.
+        // Quiz.class, which is the object reference of the Quiz class.
         super(Quiz.class);
     }
 
-
+    /*
+    find a quiz by a string
+     */
     public Quiz findOneQuiz(String searchQuery) {
         if (em.createQuery("SELECT c FROM Quiz c WHERE c.accessCode = :access_code")
                 .setParameter("access_code", searchQuery)
@@ -58,6 +60,9 @@ public class QuizFacade extends AbstractFacade<Quiz> {
         }
     }
 
+    /*
+    find a quiz by a quiz id
+     */
     public Quiz findQuizByID(int quizid) {
         Quiz quiz = (Quiz) em.createNamedQuery("Quiz.findById")
                 .setParameter("quiz_id", quizid)
@@ -65,6 +70,9 @@ public class QuizFacade extends AbstractFacade<Quiz> {
         return quiz;
     }
 
+    /*
+    find a quiz by user id
+     */
     public List<Quiz> findQuizByUserId(int userId) {
         List<Quiz> result = em.createQuery("SELECT c FROM Quiz c WHERE c.userID = :user_id_fk")
                 .setParameter("user_id_fk", userId)

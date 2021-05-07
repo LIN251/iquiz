@@ -1,3 +1,8 @@
+
+/*
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
+ */
 package edu.vt.controllers;
 
 
@@ -24,7 +29,7 @@ import java.util.Random;
 ---------------------------------------------------------------------------
 The @Named (javax.inject.Named) annotation indicates that the objects
 instantiated from this class will be managed by the Contexts and Dependency
-Injection (CDI) container. The name "recipeController" is used within
+Injection (CDI) container. The name "myQuizController" is used within
 Expression Language (EL) expressions in JSF (XHTML) facelets pages to
 access the properties and invoke methods of this class.
 ---------------------------------------------------------------------------
@@ -32,12 +37,25 @@ access the properties and invoke methods of this class.
 @Named("myQuizController")
 
 /*
-The @SessionScoped annotation preserves the values of the CountryController
+The @SessionScoped annotation preserves the values of the MyQuizController
 object's instance variables across multiple HTTP request-response cycles
 as long as the user's established HTTP session is alive.
  */
 @SessionScoped
 
+/*
+--------------------------------------------------------------------------
+Marking the MyQuizController class as "implements Serializable" implies that
+instances of the class can be automatically serialized and deserialized.
+
+Serialization is the process of converting a class instance (object)
+from memory into a suitable format for storage in a file or memory buffer,
+or for transmission across a network connection link.
+
+Deserialization is the process of recreating a class instance (object)
+in memory from the format under which it was stored.
+--------------------------------------------------------------------------
+ */
 public class MyQuizController implements Serializable {
 
     /*
@@ -46,20 +64,45 @@ public class MyQuizController implements Serializable {
     ===============================
 
     The @EJB annotation directs the storage (injection) of the object
-    reference of the JPA RecipeFacade class object into the instance
-    variable recipeFacade below after it is instantiated at runtime.
+    reference of the JPA QuizFacade class object into the instance
+    variable QuizFacade below after it is instantiated at runtime.
     */
     @EJB
     private QuizFacade quizFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA QuestionFacade class object into the instance
+    variable QuestionFacade below after it is instantiated at runtime.
+    */
     @EJB
     private QuestionFacade questionFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AnswerFacade class object into the instance
+    variable AnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AnswerFacade answerFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptFacade class object into the instance
+    variable AttemptFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptFacade attemptFacade;
+    /*
+    The @EJB annotation directs the storage (injection) of the object
+    reference of the JPA AttemptAnswerFacade class object into the instance
+    variable AttemptAnswerFacade below after it is instantiated at runtime.
+    */
     @EJB
     private AttemptAnswerFacade attemptAnswerFacade;
 
+    /*
+    ===============================
+    Instance Variables (Properties)
+    ===============================
+     */
     private List<Quiz> items;
     private List<Question> questionItems = null;
     private List<Answer> answerItems = null;
@@ -67,10 +110,10 @@ public class MyQuizController implements Serializable {
     private Integer totalPoints;
     private Quiz selected;
     private Quiz selectedQuiz = null;
-
     private int selectedID;
     private String selectedAccessCode;
     private List<Integer> did;
+
     /*
     ==================
     Constructor Method
@@ -81,6 +124,11 @@ public class MyQuizController implements Serializable {
         totalPoints = 0;
     }
 
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public QuizFacade getQuizFacade() { return quizFacade; }
 
     public void setQuizFacade(QuizFacade quizFacade) { this.quizFacade = quizFacade; }
@@ -114,50 +162,49 @@ public class MyQuizController implements Serializable {
         return items;
     }
 
+    /*
+    Unused function
+     */
+    public String getRandomString() {
+        Random rand = new Random();
+        int upperbound = 300;
+        int int_random = rand.nextInt(upperbound);
+        return "haha" + int_random;
+    }
 
-  public String getRandomString() {
-      Random rand = new Random();
-      int upperbound = 300;
-      int int_random = rand.nextInt(upperbound);
-      return "haha" + int_random;
-  }
-//    public List<Question> getQuestionItems(int id) {
-//        if(questionItems == null) {
-//            questionItems = getQuestionFacade().findQuestionByQuizId(id);
-//        }
-//        return questionItems;
-//    }
-
+    /*
+    Unused function
+     */
     public List<Question> getQuestionItems() {
         return questionItems;
     }
 
+    /*
+    =========================
+    Getter and Setter Methods
+    =========================
+     */
     public Quiz getSelectedQuiz() { return selectedQuiz; }
 
     public List<QuizQuestion> getQuizQuestions() { return quizQuestions; }
 
     public Integer getTotalPoints() { return totalPoints; }
 
-    public void setItems(List<Quiz> items) {
-        this.items = items;
-    }
+    public void setItems(List<Quiz> items) { this.items = items; }
 
-    public int getSelectedID() {
-        return selectedID;
-    }
+    public int getSelectedID() { return selectedID; }
 
-    public void setSelectedID(int selectedID) {
-        this.selectedID = selectedID;
-    }
+    public void setSelectedID(int selectedID) { this.selectedID = selectedID; }
 
-    public String getSelectedAccessCode() {
-        return selectedAccessCode;
-    }
+    public String getSelectedAccessCode() { return selectedAccessCode; }
 
-    public void setSelectedAccessCode(String selectedAccessCode) {
-        this.selectedAccessCode = selectedAccessCode;
-    }
+    public void setSelectedAccessCode(String selectedAccessCode) { this.selectedAccessCode = selectedAccessCode; }
 
+    /**
+     * Delete the quiz
+     * @param quizID the quiz id
+     * @return go to address of MyQuizzes page
+     */
     public String deleteQuiz(int quizID) {
         System.out.println(quizID);
         List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
@@ -184,24 +231,20 @@ public class MyQuizController implements Serializable {
         return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
+    /**
+     * Delete the quiz without quiz id
+     * @return go to address of MyQuizzes page
+     */
     public String deleteQuiz() {
         System.out.println(selectedID);
-//        List<Question> questions = getQuestionFacade().findQuestionByQuizId(quizID);
-//        for(int i = 0; i < questions.size(); i++) {
-//            List<Answer> answers = getAnswerFacade().findAllAnswersForOneQuestion(questions.get(i).getId());
-//            for(int j = 0; j < answers.size(); j++) {
-//                getAnswerFacade().remove(answers.get(j));
-//            }
-//            getQuestionFacade().remove(questions.get(i));
-//        }
-//        Quiz quiz = getQuizFacade().findQuizByID(quizID);
-//        System.out.println(quiz.getTitle());
-//        getQuizFacade().remove(quiz);
-//        System.out.println("remove quiz");
-//        addMessage("Confirmed", "This quiz has been deleted");
         return "/quizzes/MyQuizzes?faces-redirect=true";
     }
 
+    /**
+     * Load the questions and quizzes from database
+     * @param id the quiz id
+     * @return go to address of MyQuizzes page
+     */
     public String updateQuestion(int id) {
         questionItems = null;
         selectedQuiz = null;
@@ -234,6 +277,10 @@ public class MyQuizController implements Serializable {
         return "/quizzes/MyQuizzesView?faces-redirect=true";
     }
 
+    /**
+     * CLone the quiz
+     * @param quizID the quiz id
+     */
     public void cloneQuiz(int quizID) {
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         String accessCode = randomAccessCode();
@@ -262,6 +309,12 @@ public class MyQuizController implements Serializable {
         PrimeFaces.current().ajax().update("MyQuizzesListForm:msg", "MyQuizzesListForm:dt-quizzes");
     }
 
+    /**
+     * Publish or Unpublish the quiz
+     * @param quizID the quiz id
+     * @param judge judge if the quiz is published
+     * @return true
+     */
     public boolean updateQuiz(int quizID, boolean judge) {
         Quiz quiz = getQuizFacade().findQuizByID(quizID);
         quiz.setPublish(!judge);
@@ -278,7 +331,11 @@ public class MyQuizController implements Serializable {
         return true;
     }
 
-
+    /**
+     * change the date format
+     * @param date the date
+     * @return the new format
+     */
     public String changeDateFormat(Date date) {
         String format = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat();
@@ -302,6 +359,11 @@ public class MyQuizController implements Serializable {
         return link;
     }
 
+    /**
+     * Disable the button if the taker attempt the quiz
+     * @param quizId the quiz id
+     * @return true or false
+     */
     public Boolean disableButton(int quizId) {
         List<Attempt> attempts = getAttemptFacade().findAllAttemptByQuizId(quizId);
         if(attempts.size() != 0) {
@@ -312,15 +374,29 @@ public class MyQuizController implements Serializable {
         }
     }
 
+    /**
+     * Show messages on the screen
+     * @param summary the summary want to show
+     * @param detail the detail want to show
+     */
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * Convert the number to a b c d format
+     * @param i the number waiting for convert
+     * @return the a b c d format
+     */
     private String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
     }
 
+    /**
+     * Generate the random access code
+     * @return the random access code
+     */
     public String randomAccessCode() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'

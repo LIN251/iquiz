@@ -1,6 +1,6 @@
 /*
- * Created by Osman Balci on 2021.2.10
- * Copyright © 2021 Osman Balci. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.EntityBeans;
 
@@ -8,10 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 
-// The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
+// The @Entity annotation designates this class as a JPA Entity class representing the User table in the iquizDB database.
 @Entity
 
 //CREATE TABLE Answer(
@@ -35,7 +33,7 @@ public class Answer implements Serializable {
     /*
     ========================================================
     Instance variables representing the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Answer table in the iquizDB database.
     ========================================================
      */
     private static final long serialVersionUID = 1L;
@@ -61,8 +59,8 @@ public class Answer implements Serializable {
     private Integer questionId;
     /*
     ===============================================================
-    Class constructors for instantiating a User entity object to
-    represent a row in the User table in the CloudDriveDB database.
+    Class constructors for instantiating a Answer entity object to
+    represent a row in the ANswer table in the iquizDB database.
     ===============================================================
      */
     public Answer() {
@@ -76,10 +74,6 @@ public class Answer implements Serializable {
         this.instructorResult = instructorResult;
         this.questionId = questionID;
     }
-
-//    public Answer(boolean instructorResult) {
-//        this.instructorResult = instructorResult;
-//    }
 
     /*
     ======================================================

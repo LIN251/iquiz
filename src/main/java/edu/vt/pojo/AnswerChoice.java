@@ -1,16 +1,17 @@
+/*
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
+ */
 package edu.vt.pojo;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 import java.io.Serializable;
-import java.util.List;
+
 
 public class AnswerChoice implements Serializable {
     /*
     ========================================================
-    Instance variables representing the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    Instance variables representing the attributes
     ========================================================
      */
     private String answerText;
@@ -21,13 +22,9 @@ public class AnswerChoice implements Serializable {
     private Boolean studentCorrect;
     /*
     ===============================================================
-    Class constructors for instantiating a User entity object to
-    represent a row in the User table in the CloudDriveDB database.
+    Class constructors
     ===============================================================
      */
-
-
-
     public AnswerChoice(String text, Boolean correct, String index, int belongsTo,int AnswerChoiceID, Boolean studentCorrect) {
         this.answerText = text;
         this.correct = correct;
@@ -39,8 +36,7 @@ public class AnswerChoice implements Serializable {
 
     /*
     ======================================================
-    Getter and Setter methods for the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    Getter and Setter methods
     ======================================================
      */
 

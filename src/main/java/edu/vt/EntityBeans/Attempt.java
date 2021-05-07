@@ -1,6 +1,6 @@
 /*
- * Created by Osman Balci on 2021.2.10
- * Copyright © 2021 Osman Balci. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.EntityBeans;
 
@@ -8,16 +8,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-// The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
+// The @Entity annotation designates this class as a JPA Entity class representing the Attempt table in the iquizDB database.
 @Entity
 
-//CREATE TABLE Answer(
-//        answer_id INT PRIMARY KEY AUTO_INCREMENT,
-//        question_id_fk INT,
-//        answer_text VARCHAR(1024),
-//        instructor_result boolean NOT NULL,
-//        FOREIGN KEY (question_id_fk) REFERENCES Question (question_id)
-//        );
+
 // Name of the database table represented
 @Table(name = "Attempt")
 
@@ -32,7 +26,7 @@ public class Attempt implements Serializable {
     /*
     ========================================================
     Instance variables representing the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Attempt table in the iquizDB database.
     ========================================================
      */
     private static final long serialVersionUID = 1L;
@@ -60,8 +54,8 @@ public class Attempt implements Serializable {
     private Integer score;
     /*
     ===============================================================
-    Class constructors for instantiating a User entity object to
-    represent a row in the User table in the CloudDriveDB database.
+    Class constructors for instantiating a Attempt entity object to
+    represent a row in the Attempt table in the iquizDB database.
     ===============================================================
      */
     public Attempt() {
@@ -113,7 +107,7 @@ public class Attempt implements Serializable {
     /*
     ======================================================
     Getter and Setter methods for the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Attempt table in the iquizDB database.
     ======================================================
 
 

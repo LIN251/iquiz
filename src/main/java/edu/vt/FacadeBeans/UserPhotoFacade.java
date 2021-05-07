@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.FacadeBeans;
 
@@ -14,6 +14,17 @@ import java.util.List;
 @Stateless
 public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
 
+    /*
+    ------------------------------------------------------------------------------------------------------
+    Annotating 'private EntityManager em;' with '@PersistenceContext(unitName = "IQuiz-PU")'
+    implies that the EntityManager instance pointed to by 'em' is associated with the 'IQuiz-PU'
+    persistence context. The persistence context is a set of entity (UserPhoto) instances in which for
+    any persistent entity (UserPhoto) identity, there is a unique entity (UserPhoto) instance.
+    Within the persistence context, the entity (UserPhoto) instances and their life cycle are managed.
+    The EntityManager API is used to create and remove persistent entity (UserPhoto) instances,
+    to find entities by their primary key, and to query over entities (UserPhotos).
+    ------------------------------------------------------------------------------------------------------
+     */
     @PersistenceContext(unitName = "IQuiz-PU")
     private EntityManager em;
 

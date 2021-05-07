@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.controllers;
 
@@ -67,18 +67,13 @@ public class UserController implements Serializable {
     private String username;
     private String password;
     private String confirmPassword;
-
     private String firstName;
     private String middleName;
     private String lastName;
-
     private int securityQuestionNumber;
     private String answerToSecurityQuestion;
-
     private String email;
-
     private Map<String, Object> security_questions;
-
     private User selected;
 
     /*
@@ -167,17 +162,13 @@ public class UserController implements Serializable {
         return securityQuestionNumber;
     }
 
-    public void setSecurityQuestionNumber(int securityQuestionNumber) {
-        this.securityQuestionNumber = securityQuestionNumber;
-    }
+    public void setSecurityQuestionNumber(int securityQuestionNumber) { this.securityQuestionNumber = securityQuestionNumber; }
 
     public String getAnswerToSecurityQuestion() {
         return answerToSecurityQuestion;
     }
 
-    public void setAnswerToSecurityQuestion(String answerToSecurityQuestion) {
-        this.answerToSecurityQuestion = answerToSecurityQuestion;
-    }
+    public void setAnswerToSecurityQuestion(String answerToSecurityQuestion) { this.answerToSecurityQuestion = answerToSecurityQuestion; }
 
     public String getEmail() {
         return email;

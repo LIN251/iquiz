@@ -1,6 +1,6 @@
 /*
- * Created by Osman Balci on 2021.2.6
- * Copyright © 2021 Osman Balci. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.validators;
 

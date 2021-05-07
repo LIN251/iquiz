@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.controllers;
 
@@ -25,9 +25,36 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/*
+---------------------------------------------------------------------------
+The @Named (javax.inject.Named) annotation indicates that the objects
+instantiated from this class will be managed by the Contexts and Dependency
+Injection (CDI) container. The name "userPhotoController" is used within
+Expression Language (EL) expressions in JSF (XHTML) facelets pages to
+access the properties and invoke methods of this class.
+---------------------------------------------------------------------------
+ */
 @Named("userPhotoController")
+/*
+The @SessionScoped annotation preserves the values of the UserPhotoController
+object's instance variables across multiple HTTP request-response cycles
+as long as the user's established HTTP session is alive.
+ */
 @SessionScoped
 
+/*
+--------------------------------------------------------------------------
+Marking the UserPhotoController class as "implements Serializable" implies that
+instances of the class can be automatically serialized and deserialized.
+
+Serialization is the process of converting a class instance (object)
+from memory into a suitable format for storage in a file or memory buffer,
+or for transmission across a network connection link.
+
+Deserialization is the process of recreating a class instance (object)
+in memory from the format under which it was stored.
+--------------------------------------------------------------------------
+ */
 public class UserPhotoController implements Serializable {
 
     /*

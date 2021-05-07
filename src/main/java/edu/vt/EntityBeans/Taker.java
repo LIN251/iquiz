@@ -1,6 +1,6 @@
 /*
- * Created by Calvin Huang on 2021.3.24
- * Copyright © 2021 Calvin Huang. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.EntityBeans;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-// The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
+// The @Entity annotation designates this class as a JPA Entity class representing the Taker table in the iquizDB database.
 @Entity
 
 // Name of the database table represented
@@ -26,7 +26,7 @@ public class Taker implements Serializable {
     /*
     ========================================================
     Instance variables representing the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Taker table in the iquizDB database.
     ========================================================
      */
     private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class Taker implements Serializable {
     /*
     ===============================================================
     Class constructors for instantiating a User entity object to
-    represent a row in the User table in the CloudDriveDB database.
+    represent a row in the Taker table in the iquizDB database.
     ===============================================================
      */
     public Taker() {

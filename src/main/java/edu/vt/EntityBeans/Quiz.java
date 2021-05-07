@@ -1,6 +1,6 @@
 /*
- * Created by Osman Balci on 2021.2.10
- * Copyright © 2021 Osman Balci. All rights reserved.
+ * Created by Calvin Huang, Zhengbo Wang, Lin Zhang on 2021.5.06
+ * Copyright © 2021 Calvin Huang, Zhengbo Wang, Lin Zhang. All rights reserved.
  */
 package edu.vt.EntityBeans;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-// The @Entity annotation designates this class as a JPA Entity class representing the User table in the CloudDriveDB database.
+// The @Entity annotation designates this class as a JPA Entity class representing the Quiz table in the iquizDB database.
 @Entity
 
 // Name of the database table represented
@@ -26,7 +26,7 @@ public class Quiz implements Serializable {
     /*
     ========================================================
     Instance variables representing the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Quiz table in the iquizDB database.
     ========================================================
      */
     private static final long serialVersionUID = 1L;
@@ -75,7 +75,7 @@ public class Quiz implements Serializable {
     /*
     ===============================================================
     Class constructors for instantiating a User entity object to
-    represent a row in the User table in the CloudDriveDB database.
+    represent a row in the Quiz table in the iquizDB database.
     ===============================================================
      */
     public Quiz() {
@@ -96,7 +96,7 @@ public class Quiz implements Serializable {
     /*
     ======================================================
     Getter and Setter methods for the attributes (columns)
-    of the User table in the CloudDriveDB database.
+    of the Quiz table in the iquizDB database.
     ======================================================
      */
 
@@ -160,9 +160,7 @@ public class Quiz implements Serializable {
         return quizQuestionCollection;
     }
 
-    public void setQuizQuestionCollection(Collection<Question> quizQuestionCollection) {
-        this.quizQuestionCollection = quizQuestionCollection;
-    }
+    public void setQuizQuestionCollection(Collection<Question> quizQuestionCollection) { this.quizQuestionCollection = quizQuestionCollection; }
 
     /*
     ================
